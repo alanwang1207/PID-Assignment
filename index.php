@@ -41,7 +41,7 @@ if (isset($_POST["member"])) {
         <?php endif; ?>
 
         <a href="secret.php" id="member" type="submit" class="btn btn-outline-info">會員管理</a></td>
-       
+        <a href="product.php" id="member" type="submit" class="btn btn-outline-info">商品管理</a></td>
         </span>
 
     <tr>

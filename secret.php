@@ -58,7 +58,7 @@ $result = mysqli_query($link, $commandText);
           <tr>
             <td><?= $row["id"] ?></td>
             <td><?= $row["username"] ?></td>
-            <td><?= base64_decode($row["password"]) ?></td>
+            <td><?= $row["password"] ?></td>
           </tr>
 
         </tbody>

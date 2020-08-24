@@ -14,7 +14,7 @@ if (!is_numeric($id))
 require("config.php");
 if (isset($_POST["okButton"])) {
     $username = $_POST["username"];
-    $password = base64_encode($_POST["password"]);
+    $password = $_POST["password"];
     $sql = <<<multi
     update user set
        username = '$username',

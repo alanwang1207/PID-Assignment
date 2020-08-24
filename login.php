@@ -38,7 +38,7 @@ if (isset($_POST["btnHome"])) {
 
 if (isset($_POST["btnOK"])) {
   $sUserName = $_POST["txtUserName"];
-  $passWord = base64_encode($_POST['txtPassword']);
+  $passWord = $_POST['txtPassword'];
   if (trim($sUserName) != "") {
     echo "Hi {$sUserName} :";
 
@@ -56,7 +56,7 @@ if (isset($_POST["btnOK"])) {
     $_SESSION["userName"] = $sUserName;
     if ($row_count != 0) {
       echo "welcome!{$sUserName}";
-      header("Location: secret.php");
+      header("Location: index.php");
       exit();
     } else {
       echo "輸入資料有誤";

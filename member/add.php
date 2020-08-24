@@ -3,7 +3,7 @@
 if (isset($_POST["okButton"])) {
     $userName = $_POST["userName"];
     echo $firstName;
-    $passWord = base64_encode($_POST["passWord"]);
+    $passWord = $_POST["passWord"];
     
     if (trim(($userName && $passWord) != "")) {
         $sql = <<<sqlstate
