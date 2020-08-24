@@ -20,7 +20,7 @@ if (isset($_POST["member"])) {
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>首頁</title>
+  <title>PID - 購物網</title>
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -32,7 +32,7 @@ if (isset($_POST["member"])) {
 <body>
 
 <div class="container">
-      <h2>會員系統 - 首頁</h2>
+      <h2>購物系統 - 首頁</h2>
       <span>
       <?php if ($sUserName == "Guest") : ?>
         <a href="login.php" class="btn btn-outline-success btn-md">登入</a>
@@ -40,14 +40,14 @@ if (isset($_POST["member"])) {
         <a href="login.php?logout=1" class="btn btn-outline-warning btn-md">登出</a>
         <?php endif; ?>
 
-        <a href="secret.php" id="member" type="submit" class="btn btn-outline-info">會員專用頁</a></td>
+        <a href="secret.php" id="member" type="submit" class="btn btn-outline-info">會員管理</a></td>
        
         </span>
 
     <tr>
       <td align="center" bgcolor="#CCCCCC"><?php echo "Hello~ " . $sUserName ?> </td>
     </tr>
-    <img src="hello.jpg" class="rounded-circle img-thumbnail mx-auto d-block" alt="Cinque Terre" style="width:50%">
+    <!-- <img src="hello.jpg" class="rounded-circle img-thumbnail mx-auto d-block" alt="Cinque Terre" style="width:50%"> -->
   </table>
 
 

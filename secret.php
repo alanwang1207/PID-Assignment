@@ -33,18 +33,18 @@ $result = mysqli_query($link, $commandText);
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lag - Member Page</title>
+  <title>PID - 購物網</title>
 </head>
 
 <body>
   <?php while ($row = mysqli_fetch_assoc($result)) { ?>
     <div class="container">
-      <h2>會員系統 － 會員專用</h2>
+      <h2>購物系統 - 會員管理</h2>
       <p>This page for member only.</p>
       <span>
         <a href="index.php" class="btn btn-outline-primary">回首頁</a>
-        <a href="./edit.php?id=<?= $row["id"] ?>" class="btn btn-outline-success">修改會員資料</a>
-        <a href="./delete.php?id=<?= $row["id"] ?>" class="btn btn-outline-danger">刪除會員</a>
+        <a href="./product.php?id=<?= $row["id"] ?>" class="btn btn-outline-success">訂單管理</a>
+        <a href="./member.php?id=<?= $row["id"] ?>" class="btn btn-outline-danger">會員列表</a>
       </span>
       <table class="table table-striped">
         <thead>
