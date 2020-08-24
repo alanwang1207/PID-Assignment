@@ -21,6 +21,6 @@ INSERT INTO `user` (`id`,`username`,`password`) VALUES
 (1,'aaa','111'),
 (2,'bbb','222');
 
-INSERT INTO `prod` (`id`,`prodname`,`prodcount`,`cash`) VALUES
+INSERT INTO `prod` (`pid`,`prodname`,`prodcount`,`cash`) VALUES
 (1,'apple',2,20),
 (2,'orange',4,30);
