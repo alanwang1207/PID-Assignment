@@ -21,7 +21,7 @@ CREATE TABLE `customer` (
   `password` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS black_list (
+CREATE TABLE IF NOT EXISTS `black_list` (
   `bid` int NOT NULL primary key,
   `dis` boolean DEFAULT 0,
   FOREIGN KEY (`bid`) REFERENCES customer(`cid`)
@@ -39,6 +39,10 @@ INSERT INTO `prod` (`pid`,`prodname`,`prodcount`,`cash`) VALUES
 INSERT INTO `customer` (`cid`,`username`,`password`) VALUES
 (1,'cusaaa','111'),
 (2,'cusbbb','222');
+
+INSERT INTO `black_list` (`bid`,`dis`) VALUES
+(1,0),
+(2,0);
 
 
 購物清單 detail

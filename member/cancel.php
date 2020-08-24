@@ -1,15 +1,15 @@
 <?php
 
-if (!isset($_GET["id"])) {
+if (!isset($_GET["cid"])) {
   die("id not found");
 }
-$id = $_GET["id"];
-if (!is_numeric($id))
-  die("id not a number.");
+$bid = $_GET["cid"];
+if (!is_numeric($bid))
+  die("cid not a number.");
   $sql = <<<multi
-  update user set
+  update black_list set
   dis = '0'
-  where id = $id
+  where bid = $bid
 multi;
 require("../config.php");
 mysqli_query($link, $sql);

@@ -1,13 +1,13 @@
 <?php
 
-if (!isset($_GET["id"])) {
-  die("id not found");
+if (!isset($_GET["cid"])) {
+  die("cid not found");
 }
-$id = $_GET["id"];
-if (!is_numeric($id))
-  die("id not a number.");
+$id = $_GET["cid"];
+if (!is_numeric($cid))
+  die("cid not a number.");
 $sql = <<<multi
-  delete from user where id = $id
+  delete from user where cid = $cid
 multi;
 require("config.php");
 mysqli_query($link, $sql);

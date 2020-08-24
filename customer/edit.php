@@ -3,12 +3,12 @@ if (isset($_POST["cancelButton"])) {
     header("location: secret.php");
     exit();
 }
-if (!isset($_GET["id"])) {
-    die("id not found.");
+if (!isset($_GET["cid"])) {
+    die("cid not found.");
 }
-$id = $_GET["id"];
-if (!is_numeric($id))
-    die("id not a number.");
+$cid = $_GET["id"];
+if (!is_numeric($cid))
+    die("cid not a number.");
 
 //echo $sql;
 require("config.php");
@@ -19,7 +19,7 @@ if (isset($_POST["okButton"])) {
     update user set
        username = '$username',
        password='$password'
-    where id = $id
+    where cid = $cid
   multi;
     $result = mysqli_query($link, $sql);
     echo "<script> alert('修改完成，請重新登入');location.replace('login.php');</script>";
@@ -28,7 +28,7 @@ if (isset($_POST["okButton"])) {
     exit();
 } else {
     $sql = <<<multi
-    select * from user where id = $id
+    select * from customer where cid = $cid
   multi;
     $result = mysqli_query($link, $sql);
     $row = mysqli_fetch_assoc($result);

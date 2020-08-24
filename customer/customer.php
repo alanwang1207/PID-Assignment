@@ -1,7 +1,7 @@
 <?php
 require_once("config.php");
 $commandText = <<<SqlQuery
-    select id,username,dis from user ;
+    select cid,username,dis from customer c join block_list b on c.cid = b.bid ;
     SqlQuery;
 $result = mysqli_query($link, $commandText);
 
@@ -30,8 +30,8 @@ $result = mysqli_query($link, $commandText);
         </span>
         <?php while ($row = mysqli_fetch_assoc($result)) { ?>
             <span>
-                <a href="./block.php?id=<?= $row["id"] ?>" class="btn btn-outline-danger">加入黑名單</a>
-                <a href="./cancel.php?id=<?= $row["id"] ?>" class="btn btn-outline-success">移除黑名單</a>
+                <a href="./block.php?cid=<?= $row["cid"] ?>" class="btn btn-outline-danger">加入黑名單</a>
+                <a href="./cancel.php?cid=<?= $row["cid"] ?>" class="btn btn-outline-success">移除黑名單</a>
             </span>
             <table class="table table-striped">
                 <thead>
@@ -43,7 +43,7 @@ $result = mysqli_query($link, $commandText);
                 </thead>
                 <tbody>
                     <tr>
-                        <td><?= $row["id"] ?></td>
+                        <td><?= $row["cid"] ?></td>
                         <td><?= $row["username"] ?></td>
                         <td>
                             <input class="btn btn-outline-danger" disabled="disabled" type="checkbox" name="dis" id="dis" value="0" <?= ($row["dis"] == 1) ? "checked" : "" ?>>
