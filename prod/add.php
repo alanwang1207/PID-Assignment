@@ -1,22 +1,23 @@
 <?php
 
 if (isset($_POST["okButton"])) {
-    $userName = $_POST["userName"];
-    echo $firstName;
-    $passWord = $_POST["passWord"];
+    $prodname = $_POST["prodname"];
+    //echo $firstName;
+    $prodcount = $_POST["prodcount"];
+    $cash = $_POST["cash"];
     
-    if (trim(($userName && $passWord) != "")) {
+    if (trim(($prodname && $prodcount && $cash) != "")) {
         $sql = <<<sqlstate
-    insert into user (username,password)
-    values('$userName','$passWord')
+    insert into prod (prodname,prodcount,cash)
+    values('$prodname','$prodcount','$cash')
   sqlstate;
-        require_once("config.php");
+        require_once("../config.php");
         mysqli_query($link, $sql);   
-        echo "<script> alert('加入成功，請重新登入');location.replace('login.php');</script>";    
+        echo "<script> alert('添加成功，將跳回商品管理頁');location.replace('./product.php');</script>";    
     } else {
         // 使用js語法
         echo '<script language="javascript">';
-        echo 'alert("帳號或密碼請輸入完整")';
+        echo 'alert("欄位請輸入完整")';
         echo '</script>';
     }
 }
@@ -30,7 +31,7 @@ if (isset($_POST["okButton"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>添加商品資料</title>
 </head>
 
 <body>
@@ -38,23 +39,22 @@ if (isset($_POST["okButton"])) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <form  method="post">
-        <div class="form-group row">
-            <label for="userName" class="col-4 col-form-label">帳號</label>
+    <div class="form-group row">
+            <label for="prodname" class="col-4 col-form-label">商品名</label>
             <div class="col-8">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <i class="fa fa-address-card"></i>
-                        </div>
-                    </div>
-                    <input id="userName" name="userName" type="text" class="form-control">
-                </div>
+                <input id="prodname" name="prodname" type="text" class="form-control">
             </div>
         </div>
         <div class="form-group row">
-            <label for="passWord" class="col-4 col-form-label">密碼</label>
+            <label for="prodcount" class="col-4 col-form-label">數量</label>
             <div class="col-8">
-                <input id="passWord" name="passWord" type="text" class="form-control">
+                <input id="prodcount" name="prodcount" type="text" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="cash" class="col-4 col-form-label">金額</label>
+            <div class="col-8 ">
+                <input id="cash" name="cash" type="text" class="form-control">
             </div>
         </div>
         <div class="form-group row">

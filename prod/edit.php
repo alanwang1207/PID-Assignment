@@ -1,34 +1,36 @@
 <?php
 if (isset($_POST["cancelButton"])) {
-    header("location: secret.php");
+    header("location: ../secret.php");
     exit();
 }
-if (!isset($_GET["id"])) {
+if (!isset($_GET["pid"])) {
     die("id not found.");
 }
-$id = $_GET["id"];
-if (!is_numeric($id))
-    die("id not a number.");
+$pid = $_GET["pid"];
+if (!is_numeric($pid))
+    die("pid not a number.");
 
 //echo $sql;
-require("config.php");
+require_once("config.php");
 if (isset($_POST["okButton"])) {
-    $username = $_POST["username"];
-    $password = $_POST["password"];
+    $prodname = $_POST["prodname"];
+    $prodcount = $_POST["prodcount"];
+    $cash = $_POST["cash"];
     $sql = <<<multi
-    update user set
-       username = '$username',
-       password='$password'
-    where id = $id
+    update prod set
+    prodname = '$prodname',
+    prodcount='$prodcount',
+    cash = '$cash'
+    where pid = $pid
   multi;
     $result = mysqli_query($link, $sql);
-    echo "<script> alert('修改完成，請重新登入');location.replace('login.php');</script>";
+    echo "<script> alert('修改完成，將跳回商品管理頁');location.replace('./product.php');</script>";    
     //header("location: login.php");
-    
+
     exit();
 } else {
     $sql = <<<multi
-    select * from user where id = $id
+    select * from prod where pid = $pid
   multi;
     $result = mysqli_query($link, $sql);
     $row = mysqli_fetch_assoc($result);
@@ -43,7 +45,7 @@ if (isset($_POST["okButton"])) {
 <html lang="en">
 
 <head>
-    <title>修改會員資料</title>
+    <title>修改商品資料</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -58,15 +60,21 @@ if (isset($_POST["okButton"])) {
 
         <form method="post">
             <div class="form-group row">
-                <label for="username" class="col-4 col-form-label">帳號:</label>
+                <label for="prodname" class="col-4 col-form-label">商品名:</label>
                 <div class="col-8">
-                    <input id="username" name="username" value="<?= $row["username"] ?>" type="text" class="form-control">
+                    <input id="prodname" name="prodname" value="<?= $row["prodname"] ?>" type="text" class="form-control">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="password" class="col-4 col-form-label">密碼:</label>
+                <label for="prodcount" class="col-4 col-form-label">數量:</label>
                 <div class="col-8">
-                    <input id="password" name="password" value="<?= base64_decode($row["password"]) ?>" type="text" class="form-control">
+                    <input id="prodcount" name="prodcount" value="<?= $row["prodcount"] ?>" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="cash" class="col-4 col-form-label">金額:</label>
+                <div class="col-8">
+                    <input id="cash" name="cash" value="<?= $row["cash"] ?>" type="text" class="form-control">
                 </div>
             </div>
             <div class="form-group row">

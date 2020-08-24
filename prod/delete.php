@@ -1,15 +1,15 @@
 <?php
 
-if (!isset($_GET["id"])) {
+if (!isset($_GET["pid"])) {
   die("id not found");
 }
-$id = $_GET["id"];
-if (!is_numeric($id))
-  die("id not a number.");
+$pid = $_GET["pid"];
+if (!is_numeric($pid))
+  die("pid not a number.");
 $sql = <<<multi
-  delete from user where id = $id
+  delete from prod where pid = $pid
 multi;
-require("config.php");
+require("../config.php");
 mysqli_query($link, $sql);
-echo "<script> alert('刪除成功，將跳回登入頁');location.replace('login.php');</script>";
+echo "<script> alert('刪除成功，將跳回商品管理頁');location.replace('./product.php');</script>";    
 // header("location: login.php");

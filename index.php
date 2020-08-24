@@ -37,11 +37,11 @@ if (isset($_POST["member"])) {
       <?php if ($sUserName == "Guest") : ?>
         <a href="login.php" class="btn btn-outline-success btn-md">登入</a>
         <?php else : ?>
-        <a href="login.php?logout=1" class="btn btn-outline-warning btn-md">登出</a>
+        <a href="login.php?logout=1" class="btn btn-outline-secondary btn-md">登出</a>
         <?php endif; ?>
 
         <a href="secret.php" id="member" type="submit" class="btn btn-outline-info">會員管理</a></td>
-        <a href="product.php" id="member" type="submit" class="btn btn-outline-info">商品管理</a></td>
+        <a href="./prod/product.php" id="member" type="submit" class="btn btn-outline-info">商品管理</a></td>
         </span>
 
     <tr>
