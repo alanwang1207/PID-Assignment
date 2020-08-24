@@ -17,6 +17,7 @@ CREATE TABLE `prod` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+
 INSERT INTO `user` (`id`,`username`,`password`) VALUES
 (1,'aaa','111'),
 (2,'bbb','222');

@@ -1,27 +1,3 @@
-<?php
-$secret = "";
-//$sUserName = "";
-session_start();
-if (isset($_SESSION["userName"])) {
-  $sUserName = $_SESSION["userName"];
-}
-if (!isset($_SESSION["userName"])) {
-  $sUserName = $_SESSION["userName"];
-  $secret = "secret.php";
-  $_SESSION["lastPage"] = $secret;
-  header("Location: login.php");
-  exit();
-}
-require_once("config.php");
-$commandText = <<<SqlQuery
-select id,username,password from user where username='$sUserName';
-SqlQuery;
-
-$result = mysqli_query($link, $commandText);
-// var_dump($result);
-
-?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -37,51 +13,13 @@ $result = mysqli_query($link, $commandText);
 </head>
 
 <body>
-  <?php while ($row = mysqli_fetch_assoc($result)) { ?>
-    <div class="container">
-      <h2>購物系統 - 會員管理</h2>
-      <p>This page for member only.</p>
-      <span>
-        <a href="index.php" class="btn btn-outline-primary">回首頁</a>
-        <a href="./product.php?id=<?= $row["id"] ?>" class="btn btn-outline-success">訂單管理</a>
-        <a href="./member.php?id=<?= $row["id"] ?>" class="btn btn-outline-danger">會員列表</a>
-      </span>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>會員編號</th>
-            <th>帳號</th>
-            <th>密碼</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><?= $row["id"] ?></td>
-            <td><?= $row["username"] ?></td>
-            <td><?= $row["password"] ?></td>
-          </tr>
-
-        </tbody>
-      </table>
-    </div>
-  <?php } ?>
+  <div class="container">
+    <h2>購物系統 - 會員管理</h2>
+    <p>This page for member only.</p>
+    <span>
+      <a href="index.php" class="btn btn-outline-primary">回首頁</a>
+      <a href="./prod/product.php" class="btn btn-outline-success">訂單管理</a>
+      <a href="./member/member.php" class="btn btn-outline-danger">會員列表</a>
+    </span>
+  </div>
 </body>
-
-</html>
-<!-- 
-    <table width="300" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
-      <tr>
-        <td align="center" bgcolor="#CCCCCC">
-          <font color="#FFFFFF">會員系統 － 會員專用</font>
-        </td>
-      </tr>
-      <tr>
-        <td align="center" valign="baseline">This page for member only.</td>
-      </tr>
-      
-    </table>
-
-  </form>
-</body>
-
-</html> -->
