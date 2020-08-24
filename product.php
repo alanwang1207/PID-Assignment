@@ -1,20 +1,7 @@
 <?php
-$secret = "";
-//$sUserName = "";
-session_start();
-if (isset($_SESSION["userName"])) {
-  $sUserName = $_SESSION["userName"];
-}
-if (!isset($_SESSION["userName"])) {
-  $sUserName = $_SESSION["userName"];
-  $secret = "secret.php";
-  $_SESSION["lastPage"] = $secret;
-  header("Location: login.php");
-  exit();
-}
 require_once("config.php");
 $commandText = <<<SqlQuery
-select id,username,password from user where username='$sUserName';
+select * from prod ;
 SqlQuery;
 
 $result = mysqli_query($link, $commandText);
@@ -26,63 +13,52 @@ $result = mysqli_query($link, $commandText);
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PID - 購物網</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PID - 購物網</title>
 </head>
 
 <body>
-  <?php while ($row = mysqli_fetch_assoc($result)) { ?>
-    <div class="container">
-      <h2>購物系統 - 商品管理</h2>
-      <p>This page for member only.</p>
-      <span>
-        <a href="index.php" class="btn btn-outline-primary">回首頁</a>
-        <a href="./prod/add.php?id=<?= $row["id"] ?>" class="btn btn-outline-success">新增</a>
-        <a href="./prod/edit.php?id=<?= $row["id"] ?>" class="btn btn-outline-info">修改</a>
-        <a href="./prod/delete.php?id=<?= $row["id"] ?>" class="btn btn-outline-danger">刪除</a>
-      </span>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>會員編號</th>
-            <th>帳號</th>
-            <th>密碼</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><?= $row["id"] ?></td>
-            <td><?= $row["username"] ?></td>
-            <td><?= $row["password"] ?></td>
-          </tr>
 
-        </tbody>
-      </table>
+    <div class="container">
+        <h2>購物系統 - 商品管理</h2>
+        <span>
+            <a href="index.php" class="btn btn-outline-primary">回首頁</a>
+        </span>
+        <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+            <span>
+
+                <a href="./prod/add.php?pid=<?= $row["pid"] ?>" class="btn btn-outline-success">新增</a>
+                <a href="./prod/edit.php?pid=<?= $row["pid"] ?>" class="btn btn-outline-info">修改</a>
+                <a href="./prod/delete.php?pid=<?= $row["pid"] ?>" class="btn btn-outline-danger">刪除</a>
+            </span>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>商品編號</th>
+                        <th>商品名</th>
+                        <th>數量</th>
+                        <th>金額</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><?= $row["pid"] ?></td>
+                        <td><?= $row["prodname"] ?></td>
+                        <td><?= $row["prodcount"] ?></td>
+                        <td><?= $row["cash"] ?></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        <?php } ?>
     </div>
-  <?php } ?>
+
 </body>
 
 </html>
-<!-- 
-    <table width="300" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
-      <tr>
-        <td align="center" bgcolor="#CCCCCC">
-          <font color="#FFFFFF">會員系統 － 會員專用</font>
-        </td>
-      </tr>
-      <tr>
-        <td align="center" valign="baseline">This page for member only.</td>
-      </tr>
-      
-    </table>
-
-  </form>
-</body>
-
-</html> -->
