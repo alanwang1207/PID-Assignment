@@ -1,7 +1,7 @@
 <?php
 require_once("config.php");
 $commandText = <<<SqlQuery
-    select uid,username,pid from customer c  join    ;
+    select cid,username,dis from customer c JOIN black_list b on c.cid = b.bid;
     SqlQuery;
 $result = mysqli_query($link, $commandText);
 
