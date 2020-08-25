@@ -15,7 +15,7 @@ if (isset($_POST["btnOK"])) {
   $sUserName = $_POST["txtUserName"];
   $passWord = $_POST['txtPassword'];
   if (trim($sUserName) != "") {
-    echo "Hi {$sUserName} :";
+    // echo "Hi {$sUserName} :";
 
     require_once("config.php");
 
@@ -34,25 +34,30 @@ if (isset($_POST["btnOK"])) {
       header("Location: index.php");
       exit();
     } else {
-        echo '<script language="javascript">';
-        echo'alert("輸入資料有誤")';
-        echo '</script>';
+      echo "<script> alert('輸入資料有誤，請再試一次');location.replace('login.php');</script>";
       exit();
     }
   } else {
     //echo "請輸入帳號";
     echo '<script language="javascript">';
-    echo'alert("請輸入帳號")';
+    echo 'alert("請輸入帳號")';
     echo '</script>';
   }
 }
+require_once("config.php");
+
+
+$sql = "select `username`,`password` from `customer` WHERE `username` = '$sUserName' and `password` = '$passWord'";
+
+$result = mysqli_query($link, $sql);
+$row_count = mysqli_num_rows($result);
 ?>
 
 
 <html>
 
 <head>
-  <title>Lab - Login</title>
+  <title>PID - 購物網</title>
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -66,7 +71,7 @@ if (isset($_POST["btnOK"])) {
     <table width="300" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
       <tr>
         <td colspan="2" align="center" bgcolor="#CCCCCC">
-          <font color="#FFFFFF">會員系統 - 登入</font>
+          <font color="#FFFFFF">購物網 - 登入</font>
         </td>
       </tr>
       <tr>
