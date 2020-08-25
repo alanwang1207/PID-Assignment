@@ -7,10 +7,10 @@ if (isset($_POST["okButton"])) {
     
     if (trim(($userName && $passWord) != "")) {
         $sql = <<<sqlstate
-    insert into user (username,password)
+    insert into customer (username,password)
     values('$userName','$passWord')
   sqlstate;
-        require_once("config.php");
+        require_once("../config.php");
         mysqli_query($link, $sql);   
         echo "<script> alert('加入成功，請重新登入');location.replace('login.php');</script>";    
     } else {
@@ -30,7 +30,7 @@ if (isset($_POST["okButton"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>新增會員</title>
 </head>
 
 <body>

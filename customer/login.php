@@ -21,7 +21,7 @@ if (isset($_POST["btnOK"])) {
 
     $link = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname, $port);
     mysqli_query($link, "set names utf-8");
-    $sql = "select `username`,`password` from `user` WHERE `username` = '$sUserName' and `password` = '$passWord'";
+    $sql = "select `username`,`password` from `customer` WHERE `username` = '$sUserName' and `password` = '$passWord'";
 
     $result = mysqli_query($link, $sql);
     $row_count = mysqli_num_rows($result);
@@ -34,8 +34,9 @@ if (isset($_POST["btnOK"])) {
       header("Location: index.php");
       exit();
     } else {
-      echo "輸入資料有誤";
-      //header("Location: index.php");
+        echo '<script language="javascript">';
+        echo'alert("輸入資料有誤")';
+        echo '</script>';
       exit();
     }
   } else {
