@@ -40,14 +40,12 @@ CREATE TABLE `cart` (
 CREATE TABLE `detail` (
   `did` int NOT NULL auto_increment primary key,
   `cid` int NOT NULL,
+  `pid` int not null,
   `prodname` varchar(20) NOT NULL,
   `prodcount` int NOT NULL,
   `cash` int,
   `total` int DEFAULT 0,
-  FOREIGN KEY (`cid`) REFERENCES customer(`cid`),
-  FOREIGN KEY (`prodname`) REFERENCES prod(`prodname`),
-  FOREIGN KEY (`prodcount`) REFERENCES prod(`prodcount`),
-  FOREIGN KEY (`cash`) REFERENCES prod(`cash`)
+  FOREIGN KEY (`cid`) REFERENCES customer(`cid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
