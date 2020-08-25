@@ -1,20 +1,6 @@
 <?php
 session_start();
-$sUserName = "";
-
-if (isset($_SESSION["userName"])) {
-  $sUserName = $_SESSION["userName"];
-  // $cid =$_SESSION["id"];
-  // var_dump($cid);
-} else {
-  $sUserName = "Guest";
-}
-if (isset($_POST["member"])) {
-  header("Location: ./index.php");
-  exit();
-}
 require_once("config.php");
-
 
 $sql =
   "select `prodname`,`prodcount`,`cash` from `prod`; ";
