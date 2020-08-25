@@ -67,7 +67,9 @@ login那邊直接判斷是否為管理員
 管理員 進來就先到 admin
 admin有四個超連結
 修改會員資料 商品清單 新增商品 修改帳戶資料 登出帳號
-
+shop_account要抓id adminindex add_item edit要抓id
 一般會員則是到 index
 index有三個超連結
 購物車 登出帳號 修改帳號
+輸入數量 會跳轉到echo畫面 顯示更新成功 將數量以及單筆項目放入購物車
+在購物車可以直接修改數量並不用跳轉
