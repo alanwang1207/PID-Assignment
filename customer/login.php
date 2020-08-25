@@ -44,13 +44,7 @@ if (isset($_POST["btnOK"])) {
     echo '</script>';
   }
 }
-require_once("config.php");
 
-
-$sql = "select `username`,`password` from `customer` WHERE `username` = '$sUserName' and `password` = '$passWord'";
-
-$result = mysqli_query($link, $sql);
-$row_count = mysqli_num_rows($result);
 ?>
 
 

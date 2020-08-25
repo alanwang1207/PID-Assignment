@@ -1,18 +1,23 @@
-<?php 
+<?php
 session_start();
-$sUserName = "" ;
+$sUserName = "";
 
-if(isset($_SESSION["userName"])){
+if (isset($_SESSION["userName"])) {
   $sUserName = $_SESSION["userName"];
-}
-else{
+} else {
   $sUserName = "Guest";
 }
 if (isset($_POST["member"])) {
   header("Location: ./index.php");
   exit();
 }
+require_once("config.php");
 
+
+$sql =
+  "select `prodname`,`prodcount`,`cash` from `prod`; ";
+$result = mysqli_query($link, $sql);
+$row_count = mysqli_num_rows($result);
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -31,23 +36,46 @@ if (isset($_POST["member"])) {
 
 <body>
 
-<div class="container">
-      <h2>購物網 - 首頁</h2>
-      <span>
+  <div class="container">
+    <h2>購物網 - 首頁</h2>
+    <span>
       <?php if ($sUserName == "Guest") : ?>
         <a href="login.php" class="btn btn-outline-success btn-md">登入</a>
-        <?php else : ?>
+      <?php else : ?>
         <a href="login.php?logout=1" class="btn btn-outline-secondary btn-md">登出</a>
-        <?php endif; ?>
-        </span>
+      <?php endif; ?>
+    </span>
 
     <tr>
       <td align="center" bgcolor="#CCCCCC"><?php echo "Hello~ " . $sUserName ?> </td>
     </tr>
     <!-- <img src="hello.jpg" class="rounded-circle img-thumbnail mx-auto d-block" alt="Cinque Terre" style="width:50%"> -->
-  </table>
 
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>商品名</th>
+          <th>數量</th>
+          <th>金額</th>
+          <th>購買量</th>
+        </tr>
+      </thead>
+      <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+        <tbody>
+          <tr>
+            <td><?= $row["prodname"] ?></td>
+            <td><?= $row["prodcount"] ?></td>
+            <td><?= $row["cash"] ?></td>
+            <td>
+              <button class="btn btn-outline-info">+</button>
+              <input type="text" value="1">
+              <button class="btn btn-outline-info">-</button>
+            </td>
+          </tr>
 
+        </tbody>
+      <?php } ?>
+    </table>
 </body>
 
 </html>

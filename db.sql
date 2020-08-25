@@ -63,3 +63,4 @@ INSERT INTO `black_list` (`bid`,`dis`) VALUES
 
 select customer, prodname,prodcount,total
 from  
+
