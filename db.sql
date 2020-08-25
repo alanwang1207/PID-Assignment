@@ -27,6 +27,19 @@ CREATE TABLE IF NOT EXISTS `black_list` (
   FOREIGN KEY (`bid`) REFERENCES customer(`cid`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+  CREATE TABLE `cart` (
+  `did` int NOT NULL auto_increment primary key,
+  `cid` int NOT NULL,
+  `prodname` varchar(20) NOT NULL,
+  `prodcount` int NOT NULL,
+  `cash` int,
+  `total` int DEFAULT 0,
+  FOREIGN KEY (`cid`) REFERENCES customer(`cid`),
+  FOREIGN KEY (`prodname`) REFERENCES prod(`prodname`),
+  FOREIGN KEY (`prodcount`) REFERENCES prod(`prodcount`),
+  FOREIGN KEY (`cash`) REFERENCES prod(`cash`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE `detail` (
   `did` int NOT NULL auto_increment primary key,
   `cid` int NOT NULL,
@@ -63,4 +76,12 @@ INSERT INTO `black_list` (`bid`,`dis`) VALUES
 
 select customer, prodname,prodcount,total
 from  
+
+可建立購物車表
+把值都記得
+接著丟到購物車介面 然後要計算總金額
+
+確認購買跳到訂單詳情頁
+
+
 
