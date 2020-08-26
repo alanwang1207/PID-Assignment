@@ -4,27 +4,30 @@ require_once("config.php");
 // $sUserName = "";
 $uid = $_SESSION["uid"];
 var_dump($_SESSION["uid"]);
-if (isset($_POST["btnAdd"])) {
-  // $uid = $_SESSION["uid"];
-  $did = $_SESSION["did"];
 
+if (isset($_POST["btnAdd"]) && $_POST["count"] != "0") {
+  $pid = $_POST["btnsend"];
+  var_dump($pid);
   $count = $_POST["count"];
-  var_dump($did);
-  $sql =
-    "update detail set count = '$count' where uid = $uid";
-  // var_dump($count);
-}
-$result = mysqli_query($link, $sql);
-$sql = <<<multi
-select u.uid,prodname,cash,count,did,cash*count as total
-
-from user u join detail d on d.uid =u.uid
-                 join prod p on p.pid =d.pid
-where u.uid=$uid
-ORDER BY did ASC
+  var_dump($count);
+  $sql = <<<multi
+INSERT INTO detail (pid,count,uid) VALUES
+('$pid', '$count','$uid')
 multi;
-$result = mysqli_query($link, $sql);
 
+  $result = mysqli_query($link, $sql);
+  echo "<script> alert('加入成功');location.replace('index.php');</script>";
+  exit();
+} else {
+
+  $sql = <<<multi
+select * from prod
+multi;
+  $result = mysqli_query($link, $sql);
+
+  echo $_SESSION['uid'];
+}
+//登入驗證
 if (isset($_SESSION["userName"])) {
   $sUserName = $_SESSION["userName"];
 } else {
@@ -80,12 +83,13 @@ if (isset($_POST["member"])) {
         </tr>
       </thead>
       <?php while ($row = mysqli_fetch_assoc($result)) { ?>
-        <form method="post">
-          <tbody>
-            <tr>
-              <td><?= $row["prodname"] ?></td>
-              <td><?= $row["prodcount"] ?></td>
-              <td><?= $row["cash"] ?></td>
+
+        <tbody>
+          <tr>
+            <td><?= $row["prodname"] ?></td>
+            <td><?= $row["prodcount"] ?></td>
+            <td><?= $row["cash"] ?></td>
+            <form method="post">
               <td>
                 <div class="form-group row">
                   <div class="col-3">
@@ -95,19 +99,15 @@ if (isset($_POST["member"])) {
               </td>
               <td><input type="submit" class="btn btn-outline-primary btn-md" name="btnAdd" id="btnAdd" value="添加" /></td>
               <td><?= $row["total"] ?></td>
-            </tr>
-            <?php
-            $rowt = (int)$row["total"];
-            $total += $rowt;
-            ?>
-          </tbody>
-        <?php } ?>
+          </tr>
+          <input type="hidden" name="btnsend" id="btnsend" value="<?= $row["pid"] ?>" />
+          </form>
+        </tbody>
+      <?php } ?>
     </table>
-
-    <td>Total:<?= $total ?></td>
     <a href="cart.php" class="btn btn-outline-success btn-md">前往購物車</a>
     <input type="reset" class="btn btn-outline-secondary btn-md" name="btnReset" id="btnReset" value="重設" />
-    </form>
+
 </body>
 
 </html>

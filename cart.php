@@ -1,12 +1,39 @@
 <?php
 session_start();
 require_once("config.php");
+// $sUserName = "";
 $uid = $_SESSION["uid"];
-var_dump ($_SESSION["uid"]);
-$sql =
-  "select * from `cart`; ";
+var_dump($_SESSION["uid"]);
+if (isset($_POST["btnAdd"])) {
+  // $uid = $_SESSION["uid"];
+  var_dump($did);
+  $count = $_POST["count"];
+
+  $sql =
+    "update detail set count = '$count' where uid = $uid ";
+  var_dump($count);
+}
 $result = mysqli_query($link, $sql);
-$row_count = mysqli_num_rows($result);
+$sql = <<<multi
+select u.uid,prodname,cash,count,did,cash*count as total
+
+from user u join detail d on d.uid =u.uid
+                 join prod p on p.pid =d.pid
+where u.uid=$uid
+ORDER BY did ASC
+multi;
+$result = mysqli_query($link, $sql);
+
+if (isset($_SESSION["userName"])) {
+  $sUserName = $_SESSION["userName"];
+} else {
+  $sUserName = "Guest";
+}
+if (isset($_POST["member"])) {
+  header("Location: ./index.php");
+  exit();
+}
+
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -24,7 +51,7 @@ $row_count = mysqli_num_rows($result);
 </head>
 
 <body>
-<form method="post">
+
   <div class="container">
     <h2>購物網 - 購物車</h2>
     <span>
@@ -33,6 +60,7 @@ $row_count = mysqli_num_rows($result);
       <?php else : ?>
         <a href="login.php?logout=1" class="btn btn-outline-secondary btn-md">登出</a>
       <?php endif; ?>
+      <a href="edit.php?uid=<?= $uid ?>" class="btn btn-outline-primary btn-md">修改會員資料</a>
     </span>
 
     <tr>
@@ -44,30 +72,44 @@ $row_count = mysqli_num_rows($result);
       <thead>
         <tr>
           <th>商品名</th>
-          <th>購買數量</th>
+          <th>數量</th>
           <th>金額</th>
+          <th>購買量</th>
+          <th></th>
         </tr>
       </thead>
       <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+
         <tbody>
           <tr>
             <td><?= $row["prodname"] ?></td>
             <td><?= $row["prodcount"] ?></td>
             <td><?= $row["cash"] ?></td>
-            <?php
-              $rowt = (int)$row["cash"];
-              $total +=$rowt;
-            ?>
-          </tr>
+            <form method="post">
+              <td>
+                <div class="form-group row">
+                  <div class="col-3">
+                    <input id="count" name="count" type="text" class="form-control" value="<?= $row["count"]; ?>">
+                  </div>
+                </div>
+              </td>
 
+              <td><input type="submit" class="btn btn-outline-primary btn-md" name="btnAdd" id="btnAdd" value="添加" /></td>
+              <td><?= $row["total"] ?></td>
+          </tr>
+          </form>
+          <?php
+          $rowt = (int)$row["total"];
+          $total += $rowt;
+          ?>
         </tbody>
       <?php } ?>
     </table>
+
     <td>Total:<?= $total ?></td>
     <a href="index.php" class="btn btn-outline-success btn-md">回首頁</a>
-    <a href="cart.php" class="btn btn-outline-success btn-md">結帳</a>
     <input type="reset" class="btn btn-outline-secondary btn-md" name="btnReset" id="btnReset" value="重設" />
-    </form>
+
 </body>
 
 </html>
