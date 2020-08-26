@@ -1,7 +1,7 @@
 <?php
 require_once("config.php");
 $commandText = <<<SqlQuery
-    select uid,username from user ;
+    select uid,username,dis from user ;
     SqlQuery;
 $result = mysqli_query($link, $commandText);
 
@@ -26,12 +26,12 @@ $result = mysqli_query($link, $commandText);
     <div class="container">
         <h2>購物系統 - 會員列表</h2>
         <span>
-            <a href="../index.php" class="btn btn-outline-primary">回首頁</a>
+            <a href="./admin.php" class="btn btn-outline-primary">回首頁</a>
         </span>
         <?php while ($row = mysqli_fetch_assoc($result)) { ?>
             <span>
-                <a href="./block.php?cid=<?= $row["cid"] ?>" class="btn btn-outline-danger">加入黑名單</a>
-                <a href="./cancel.php?cid=<?= $row["cid"] ?>" class="btn btn-outline-success">移除黑名單</a>
+                <a href="./black/block.php?uid=<?= $row["uid"] ?>" class="btn btn-outline-danger">加入黑名單</a>
+                <a href="./black/cancel.php?uid=<?= $row["uid"] ?>" class="btn btn-outline-success">移除黑名單</a>
             </span>
             <table class="table table-striped">
                 <thead>

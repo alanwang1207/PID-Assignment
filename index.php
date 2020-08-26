@@ -2,7 +2,7 @@
 session_start();
 require_once("config.php");
 // $sUserName = "";
-$uid = (int)$_SESSION["uid"];
+$uid = $_SESSION["uid"];
  var_dump($_SESSION["uid"]);
 if (isset($_SESSION["userName"])) {
   $sUserName = $_SESSION["userName"];

@@ -1,17 +1,17 @@
 <?php
 
-if (!isset($_GET["cid"])) {
-  die("id not found");
+if (!isset($_GET["uid"])) {
+  die("uid not found");
 }
-$bid = $_GET["cid"];
-if (!is_numeric($bid))
-  die("cid not a number.");
+$uid = $_GET["uid"];
+if (!is_numeric($uid))
+  die("uid not a number.");
   $sql = <<<multi
-  update black_list set
+  update user set
   dis = '1'
-  where bid = $bid
+  where uid = $uid
 multi;
 require("../config.php");
 mysqli_query($link, $sql);
-echo "<script> alert('修改完成，將跳回會員列表');location.replace('./member.php');</script>";  
+echo "<script> alert('修改完成，將跳回會員列表');location.replace('../member.php');</script>";  
 // header("location: login.php");
