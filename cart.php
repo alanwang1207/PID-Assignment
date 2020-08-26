@@ -93,8 +93,10 @@ if (isset($_POST["member"])) {
                   </div>
                 </div>
               </td>
-
-              <td><input type="submit" class="btn btn-outline-primary btn-md" name="btnAdd" id="btnAdd" value="添加" /></td>
+              <td>
+                <a href="./edit_cart.php?did=<?= $row["did"] ?>" class="btn btn-outline-info">修改</a>
+                <a href="./del_cart.php?did=<?= $row["did"] ?>" class="btn btn-outline-danger">刪除</a>
+              </td>
               <td><?= $row["total"] ?></td>
           </tr>
           </form>
