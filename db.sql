@@ -5,7 +5,8 @@ use test1;
 CREATE TABLE `user` (
   `uid` int NOT NULL auto_increment primary key,
   `username` varchar(20) NOT NULL,
-  `password` varchar(30) NOT NULL
+  `password` varchar(30) NOT NULL,
+  `dis` boolean DEFAULT 0,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `prod` (
@@ -15,21 +16,10 @@ CREATE TABLE `prod` (
   `cash` int DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `customer` (
-  `cid` int NOT NULL auto_increment primary key,
-  `username` varchar(20) NOT NULL,
-  `password` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS `black_list` (
-  `bid` int NOT NULL primary key,
-  `dis` boolean DEFAULT 0,
-  FOREIGN KEY (`bid`) REFERENCES customer(`cid`)
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `cart` (
   `did` int NOT NULL auto_increment primary key,
-  `cid` int NOT NULL,
+  `uid` int NOT NULL,
   `prodname` varchar(20) NOT NULL,
   `prodcount` int NOT NULL,
   `cash` int,
@@ -39,7 +29,7 @@ CREATE TABLE `cart` (
 
 CREATE TABLE `detail` (
   `did` int NOT NULL auto_increment primary key,
-  `cid` int NOT NULL,
+  `uid` int NOT NULL,
   `pid` int not null,
   `prodname` varchar(20) NOT NULL,
   `prodcount` int NOT NULL,
