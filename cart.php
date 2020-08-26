@@ -4,6 +4,7 @@ require_once("config.php");
 // $sUserName = "";
 $uid = $_SESSION["uid"];
 var_dump($_SESSION["uid"]);
+//修改數量
 if (isset($_POST["btnEdit"])) {
   $did = $_POST["btnSend"];
   var_dump($did);
@@ -24,6 +25,13 @@ ORDER BY did ASC
 multi;
 $result = mysqli_query($link, $sql);
 
+if(isset($_POST["btnDetail"])){
+  var_dump($uid);
+  $sql =
+    "insert into detail2  (did,uid,pid,total,date) values('$did','$uid','$pid','$total',current_timestmp()) ";
+    $result = mysqli_query($link, $sql);
+
+}
 if (isset($_SESSION["userName"])) {
   $sUserName = $_SESSION["userName"];
 } else {
@@ -58,7 +66,7 @@ if (isset($_POST["member"])) {
       <?php if ($sUserName == "Guest") : ?>
         <a href="login.php" class="btn btn-outline-success btn-md">登入</a>
       <?php else : ?>
-        <a href="login.php?logout=1" class="btn btn-outline-secondary btn-md">登出</a>
+        <a href="login.php?logout=1" class="btn btn-outline-warning btn-md">登出</a>
       <?php endif; ?>
       <a href="edit.php?uid=<?= $uid ?>" class="btn btn-outline-primary btn-md">修改會員資料</a>
     </span>
@@ -110,7 +118,7 @@ if (isset($_POST["member"])) {
 
     <td>Total:<?= $total ?></td>
     <a href="index.php" class="btn btn-outline-success btn-md">回首頁</a>
-    <input type="reset" class="btn btn-outline-secondary btn-md" name="btnReset" id="btnReset" value="重設" />
+    <input type="submit" class="btn btn-outline-primary btn-md" name="btnDetail" id="btnDetail" value="送出訂單" />
     
 
 </body>
