@@ -1,9 +1,15 @@
 <?php
+session_start();
 require_once("config.php");
 $commandText = <<<SqlQuery
-select * from prod ;
-SqlQuery;
-
+    select * from detail ;
+    SqlQuery;
+// $sql = <<<multi
+//     "select u.uid,prodname,cash,count,did,cash*count as total
+//     from user u join detail d on d.uid =u.uid
+//                  join prod p on p.pid =d.pid 
+//                  ORDER BY did ASC";
+// multi;
 $result = mysqli_query($link, $commandText);
 // var_dump($result);
 
@@ -26,9 +32,8 @@ $result = mysqli_query($link, $commandText);
 <body>
 
     <div class="container">
-        <h2>購物系統 - 商品管理</h2>
+        <h2>購物系統 - 訂單管理</h2>
         <a href="./admin.php" class="btn btn-outline-primary">回首頁</a>
-        <a href="./add.php?pid=<?= $row["pid"] ?>" class="btn btn-outline-success">新增</a>
         <?php while ($row = mysqli_fetch_assoc($result)) { ?>
             <span>
                 <a href="./edit.php?pid=<?= $row["pid"] ?>" class="btn btn-outline-info">修改</a>
@@ -37,18 +42,18 @@ $result = mysqli_query($link, $commandText);
             <table class="table table-striped">
                 <thead>
                     <tr>
+                        <th>訂單編號</th>
                         <th>商品編號</th>
-                        <th>商品名</th>
-                        <th>數量</th>
-                        <th>金額</th>
+                        <th>購買編號</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
+                        <td><?= $row["did"] ?></td>
                         <td><?= $row["pid"] ?></td>
-                        <td><?= $row["prodname"] ?></td>
-                        <td><?= $row["prodcount"] ?></td>
-                        <td><?= $row["cash"] ?></td>
+                        <td><?= $row["uid"] ?></td>
+
                     </tr>
 
                 </tbody>
