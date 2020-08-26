@@ -1,4 +1,9 @@
 <?php
+session_start();
+require_once("config.php");
+$uid = $_SESSION["uid"];
+
+var_dump($uid);
 if (isset($_POST["cancelButton"])) {
     header("location: index.php");
     exit();
@@ -6,7 +11,7 @@ if (isset($_POST["cancelButton"])) {
 if (!isset($_GET["uid"])) {
     die("uid not found.");
 }
-$uid = $_GET["id"];
+$uid = $_GET["uid"];
 if (!is_numeric($uid))
     die("uid not a number.");
 
@@ -16,7 +21,7 @@ if (isset($_POST["okButton"])) {
     $username = $_POST["username"];
     $password = $_POST["password"];
     $sql = <<<multi
-    update customer set
+    update user set
        username = '$username',
        password='$password'
     where uid = $uid
@@ -28,7 +33,7 @@ if (isset($_POST["okButton"])) {
     exit();
 } else {
     $sql = <<<multi
-    select * from customer where uid = $uid
+    select * from user where uid = $uid
   multi;
     $result = mysqli_query($link, $sql);
     $row = mysqli_fetch_assoc($result);

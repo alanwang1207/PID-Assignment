@@ -20,11 +20,9 @@ CREATE TABLE `prod` (
 CREATE TABLE `cart` (
   `did` int NOT NULL auto_increment primary key,
   `uid` int NOT NULL,
-  `prodname` varchar(20) NOT NULL,
-  `prodcount` int NOT NULL,
-  `cash` int,
+  `count` int NOT NULL,
   `total` int DEFAULT 0,
-  FOREIGN KEY (`cid`) REFERENCES customer(`cid`)
+  FOREIGN KEY (`uid`) REFERENCES user(`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 CREATE TABLE `detail` (

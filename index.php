@@ -18,6 +18,8 @@ $sql =
   "select `prodname`,`prodcount`,`cash` from `prod`; ";
 $result = mysqli_query($link, $sql);
 if (isset($_POST["btnAdd"])) {
+  $sql =
+  "select `prodname`,`prodcount`,`cash` from `prod`; ";
   $count = $_POST["count"];
   var_dump($count);
 }
@@ -38,7 +40,7 @@ if (isset($_POST["btnAdd"])) {
 </head>
 
 <body>
-  <form method="post">
+ 
     <div class="container">
       <h2>購物網 - 首頁</h2>
       <span>
@@ -47,7 +49,7 @@ if (isset($_POST["btnAdd"])) {
         <?php else : ?>
           <a href="login.php?logout=1" class="btn btn-outline-secondary btn-md">登出</a>
         <?php endif; ?>
-        <a href="edit.php?uid=" class="btn btn-outline-primary btn-md">修改會員資料</a>
+        <a href="edit.php?uid=<?=$uid?>" class="btn btn-outline-primary btn-md">修改會員資料</a>
       </span>
 
       <tr>
@@ -66,6 +68,7 @@ if (isset($_POST["btnAdd"])) {
           </tr>
         </thead>
         <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+          <form method="post">
           <tbody>
             <tr>
               <td><?= $row["prodname"] ?></td>
@@ -74,7 +77,7 @@ if (isset($_POST["btnAdd"])) {
               <td>
                 <div class="form-group row">
                   <div class="col-3">
-                    <input id="count" name="count" type="text" class="form-control" value="<?= $row["count"] ?>">
+                    <input id="count" name="count" type="text" class="form-control" value="0">
                   </div>
                 </div>
               </td>

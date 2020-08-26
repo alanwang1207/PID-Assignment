@@ -1,8 +1,8 @@
 <?php
 session_start();
 require_once("config.php");
-$cid = $_SESSION["cid"];
-var_dump ($_SESSION["cid"]);
+$uid = $_SESSION["uid"];
+var_dump ($_SESSION["uid"]);
 $sql =
   "select * from `cart`; ";
 $result = mysqli_query($link, $sql);
