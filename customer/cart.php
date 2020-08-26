@@ -1,9 +1,10 @@
 <?php
 session_start();
 require_once("config.php");
-
+$cid = $_SESSION["cid"];
+var_dump ($_SESSION["cid"]);
 $sql =
-  "select `prodname`,`prodcount`,`cash` from `prod`; ";
+  "select * from `cart`; ";
 $result = mysqli_query($link, $sql);
 $row_count = mysqli_num_rows($result);
 ?>
@@ -43,9 +44,8 @@ $row_count = mysqli_num_rows($result);
       <thead>
         <tr>
           <th>商品名</th>
-          <th>數量</th>
+          <th>購買數量</th>
           <th>金額</th>
-          <th>購買量</th>
         </tr>
       </thead>
       <?php while ($row = mysqli_fetch_assoc($result)) { ?>
@@ -54,19 +54,18 @@ $row_count = mysqli_num_rows($result);
             <td><?= $row["prodname"] ?></td>
             <td><?= $row["prodcount"] ?></td>
             <td><?= $row["cash"] ?></td>
-            <td>
-              <div class="form-group row">
-                <div class="col-2">
-                  <input id="count" name="count" type="text" class="form-control" value = "0">
-                </div>
-              </div>
-            </td>
+            <?php
+              $rowt = (int)$row["cash"];
+              $total +=$rowt;
+            ?>
           </tr>
 
         </tbody>
       <?php } ?>
     </table>
-    <a href="cart.php" class="btn btn-outline-success btn-md">加入購物車</a>
+    <td>Total:<?= $total ?></td>
+    <a href="index.php" class="btn btn-outline-success btn-md">回首頁</a>
+    <a href="cart.php" class="btn btn-outline-success btn-md">結帳</a>
     <input type="reset" class="btn btn-outline-secondary btn-md" name="btnReset" id="btnReset" value="重設" />
     </form>
 </body>

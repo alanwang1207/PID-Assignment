@@ -14,7 +14,7 @@ if (isset($_POST["btnHome"])) {
 if (isset($_POST["btnOK"])) {
   $sUserName = $_POST["txtUserName"];
   $passWord = $_POST['txtPassword'];
-  $cid = "";
+  // $cid = "";
   if (trim($sUserName) != "") {
     // echo "Hi {$sUserName} :";
 
@@ -22,16 +22,19 @@ if (isset($_POST["btnOK"])) {
 
     $link = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname, $port);
     mysqli_query($link, "set names utf-8");
-    $sql = "select `username`,`password` from `customer` WHERE `username` = '$sUserName' and `password` = '$passWord'";
+    $sql = "select `cid`,`username`,`password` from `customer` WHERE  `username` = '$sUserName' and `password` = '$passWord'";
     $result = mysqli_query($link, $sql);
     $row = mysqli_fetch_assoc($result);
     $cid = $row["cid"];
+
+    
     $row_count = mysqli_num_rows($result);
     //var_dump($row_count);
 
     $_SESSION["userName"] = $sUserName;
     $_SESSION["cid"] = $cid;
-    var_dump($cid);
+    // echo ($_SESSION["cid"]);
+
     if ($row_count != 0) {
       echo "welcome!{$sUserName}";
       header("Location: index.php");
@@ -41,7 +44,6 @@ if (isset($_POST["btnOK"])) {
       exit();
     }
   } else {
-    //echo "請輸入帳號";
     echo '<script language="javascript">';
     echo 'alert("請輸入帳號")';
     echo '</script>';

@@ -1,11 +1,11 @@
 <?php
 session_start();
-$sUserName = "";
-
+require_once("config.php");
+// $sUserName = "";
+$cid = $_SESSION["cid"];
+var_dump($_SESSION["cid"]);
 if (isset($_SESSION["userName"])) {
   $sUserName = $_SESSION["userName"];
-  $cid = $_SESSION["id"];
-  var_dump($cid);
 } else {
   $sUserName = "Guest";
 }
@@ -13,25 +13,28 @@ if (isset($_POST["member"])) {
   header("Location: ./index.php");
   exit();
 }
-require_once("config.php");
+
 
 
 $sql =
   "select `prodname`,`prodcount`,`cash` from `prod`; ";
 $result = mysqli_query($link, $sql);
-$row_count = mysqli_num_rows($result);
-
+// $row = mysqli_fetch_assoc($result);
+// $row_count = mysqli_num_rows($result);
+// $prodname = $row["prodname"];
+// var_dump($prodname);
 if (isset($_POST["btnAdd"])) {
-  $prodname = $_POST["prodname"];
-  $prodcount = $_POST["prodcount"];
-  $cash = $_POST["cash"];
-  $sql = <<<multi
-  insert into cart (cid,prodname,prodcount,total)
-    values
-    ($cid,$prodname,$prodcount,$cash)
-  multi;
-  $result = mysqli_query($link, $sql);
-  echo "<script> alert('添加成功，');location.replace('./index.php');</script>";
+  $count = $_POST["count"];
+  var_dump($count);
+  // $prodname = $_SESSION["prodname"];
+  // $cash = $_SESSION["cash"];
+  // $sql = <<<multi
+  // insert into cart (cid,prodname,prodcount,total)
+  //   values
+  //   ($cid,'$prodname',$prodcount,$cash*$prodcount)
+  // multi;
+  // $result = mysqli_query($link, $sql);
+  // echo "<script> alert('添加成功，');location.replace('./index.php');</script>";
   //header("location: login.php");
 }
 ?>
@@ -85,16 +88,17 @@ if (isset($_POST["btnAdd"])) {
               <td>
                 <div class="form-group row">
                   <div class="col-2">
-                    <input id="count" name="count" type="text" class="form-control" value="0">
+                    <input id="count" name="count" type="text" class="form-control" value="<?= $row["count"] ?>">
                   </div>
                 </div>
               </td>
+              <td><input type="submit" class="btn btn-outline-primary btn-md" name="btnAdd" id="btnAdd" value="添加" /></td>
             </tr>
 
           </tbody>
         <?php } ?>
       </table>
-      <input type="submit" class="btn btn-outline-primary btn-md" name="btnAdd" id="btnAdd" value="添加" />
+
       <a href="cart.php" class="btn btn-outline-success btn-md">前往購物車</a>
       <input type="reset" class="btn btn-outline-secondary btn-md" name="btnReset" id="btnReset" value="重設" />
   </form>
