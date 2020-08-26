@@ -1,11 +1,12 @@
 <?php
 session_start();
+//按下登出
 if (isset($_GET["logout"])) {
   session_destroy();
   header("Location: index.php");
   exit();
 }
-
+//按下回首頁
 if (isset($_POST["btnHome"])) {
   header("Location: index.php");
   exit();
@@ -21,17 +22,23 @@ if (isset($_POST["btnOK"])) {
 
     $link = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname, $port);
     mysqli_query($link, "set names utf-8");
-    $sql = "select `username`,`password` from `user` WHERE `username` = '$sUserName' and `password` = '$passWord'";
+    $sql = "select * from `user` WHERE `username` = '$sUserName' and `password` = '$passWord'";
 
     $result = mysqli_query($link, $sql);
+
     $row_count = mysqli_num_rows($result);
-    //var_dump($row_count);
 
-
-    $_SESSION["userName"] = $sUserName;
+    $row = mysqli_fetch_assoc($result);
+    $_SESSION['uid'] =  $row["uid"];
+    $_SESSION["userName"] = $row["username"];
+    
     if ($row_count != 0) {
       echo "welcome!{$sUserName}";
-      header("Location: index.php");
+      if ($_SESSION["uid"] == 1) {
+        header("Location: admin.php");
+      } else {
+        header("Location: index.php");
+      }
       exit();
     } else {
       echo "輸入資料有誤";
@@ -41,7 +48,7 @@ if (isset($_POST["btnOK"])) {
   } else {
     //echo "請輸入帳號";
     echo '<script language="javascript">';
-    echo'alert("請輸入帳號")';
+    echo 'alert("請輸入帳號")';
     echo '</script>';
   }
 }
