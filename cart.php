@@ -4,14 +4,14 @@ require_once("config.php");
 // $sUserName = "";
 $uid = $_SESSION["uid"];
 var_dump($_SESSION["uid"]);
-if (isset($_POST["btnAdd"])) {
-  // $uid = $_SESSION["uid"];
+if (isset($_POST["btnEdit"])) {
+  $did = $_POST["btnSend"];
   var_dump($did);
-  $count = $_POST["count"];
 
+  $count = $_POST["count"];
   $sql =
-    "update detail set count = '$count' where uid = $uid ";
-  var_dump($count);
+    "update detail set count = '$count' where did = '$did' ";
+    // echo "<script> alert('修改成功');location.replace('./cart.php');</script>";  
 }
 $result = mysqli_query($link, $sql);
 $sql = <<<multi
@@ -72,10 +72,10 @@ if (isset($_POST["member"])) {
       <thead>
         <tr>
           <th>商品名</th>
-          <th>數量</th>
           <th>金額</th>
           <th>購買量</th>
-          <th></th>
+          <th>動作</th>
+          <th>單項總價</th>
         </tr>
       </thead>
       <?php while ($row = mysqli_fetch_assoc($result)) { ?>
@@ -83,7 +83,6 @@ if (isset($_POST["member"])) {
         <tbody>
           <tr>
             <td><?= $row["prodname"] ?></td>
-            <td><?= $row["prodcount"] ?></td>
             <td><?= $row["cash"] ?></td>
             <form method="post">
               <td>
@@ -94,8 +93,9 @@ if (isset($_POST["member"])) {
                 </div>
               </td>
               <td>
-                <a href="./edit_cart.php?did=<?= $row["did"] ?>" class="btn btn-outline-info">修改</a>
+                <input type="submit" class="btn btn-outline-secondary btn-md" name="btnEdit" id="btnEdit" value="修改" />
                 <a href="./del_cart.php?did=<?= $row["did"] ?>" class="btn btn-outline-danger">刪除</a>
+                <input type="hidden"  name="btnSend" id="btnSend" value="<?= $row["did"] ?>" />
               </td>
               <td><?= $row["total"] ?></td>
           </tr>
@@ -111,6 +111,7 @@ if (isset($_POST["member"])) {
     <td>Total:<?= $total ?></td>
     <a href="index.php" class="btn btn-outline-success btn-md">回首頁</a>
     <input type="reset" class="btn btn-outline-secondary btn-md" name="btnReset" id="btnReset" value="重設" />
+    
 
 </body>
 
