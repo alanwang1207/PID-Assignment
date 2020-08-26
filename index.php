@@ -1,18 +1,26 @@
-<?php 
+<?php
 session_start();
-$sUserName = "" ;
-
-if(isset($_SESSION["userName"])){
+require_once("config.php");
+// $sUserName = "";
+$uid = (int)$_SESSION["uid"];
+ var_dump($_SESSION["uid"]);
+if (isset($_SESSION["userName"])) {
   $sUserName = $_SESSION["userName"];
-}
-else{
+} else {
   $sUserName = "Guest";
 }
 if (isset($_POST["member"])) {
-  header("Location: index.php");
+  header("Location: ./index.php");
   exit();
 }
 
+$sql =
+  "select `prodname`,`prodcount`,`cash` from `prod`; ";
+$result = mysqli_query($link, $sql);
+if (isset($_POST["btnAdd"])) {
+  $count = $_POST["count"];
+  var_dump($count);
+}
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -30,27 +38,56 @@ if (isset($_POST["member"])) {
 </head>
 
 <body>
-
-<div class="container">
-      <h2>購物系統 - 首頁</h2>
+  <form method="post">
+    <div class="container">
+      <h2>購物網 - 首頁</h2>
       <span>
-      <?php if ($sUserName == "Guest") : ?>
-        <a href="login.php" class="btn btn-outline-success btn-md">登入</a>
+        <?php if ($sUserName == "Guest") : ?>
+          <a href="login.php" class="btn btn-outline-success btn-md">登入</a>
         <?php else : ?>
-        <a href="login.php?logout=1" class="btn btn-outline-secondary btn-md">登出</a>
+          <a href="login.php?logout=1" class="btn btn-outline-secondary btn-md">登出</a>
         <?php endif; ?>
+        <a href="edit.php?uid=" class="btn btn-outline-primary btn-md">修改會員資料</a>
+      </span>
 
-        <a href="secret.php" id="member" type="submit" class="btn btn-outline-info">會員管理</a></td>
-        <a href="./prod/product.php" id="member" type="submit" class="btn btn-outline-info">商品管理</a></td>
-        </span>
+      <tr>
+        <td align="center" bgcolor="#CCCCCC"><?php echo "Hello~ " . $sUserName ?> </td>
+      </tr>
+      <!-- <img src="hello.jpg" class="rounded-circle img-thumbnail mx-auto d-block" alt="Cinque Terre" style="width:50%"> -->
 
-    <tr>
-      <td align="center" bgcolor="#CCCCCC"><?php echo "Hello~ " . $sUserName ?> </td>
-    </tr>
-    <!-- <img src="hello.jpg" class="rounded-circle img-thumbnail mx-auto d-block" alt="Cinque Terre" style="width:50%"> -->
-  </table>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>商品名</th>
+            <th>數量</th>
+            <th>金額</th>
+            <th>購買量</th>
+            <th></th>
+          </tr>
+        </thead>
+        <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+          <tbody>
+            <tr>
+              <td><?= $row["prodname"] ?></td>
+              <td><?= $row["prodcount"] ?></td>
+              <td><?= $row["cash"] ?></td>
+              <td>
+                <div class="form-group row">
+                  <div class="col-3">
+                    <input id="count" name="count" type="text" class="form-control" value="<?= $row["count"] ?>">
+                  </div>
+                </div>
+              </td>
+              <td><input type="submit" class="btn btn-outline-primary btn-md" name="btnAdd" id="btnAdd" value="添加" /></td>
+            </tr>
 
+          </tbody>
+        <?php } ?>
+      </table>
 
+      <a href="cart.php" class="btn btn-outline-success btn-md">前往購物車</a>
+      <input type="reset" class="btn btn-outline-secondary btn-md" name="btnReset" id="btnReset" value="重設" />
+  </form>
 </body>
 
 </html>

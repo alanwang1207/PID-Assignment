@@ -1,11 +1,9 @@
 <?php
 require_once("config.php");
 $commandText = <<<SqlQuery
-select * from prod ;
-SqlQuery;
-
+    select uid,username from user ;
+    SqlQuery;
 $result = mysqli_query($link, $commandText);
-// var_dump($result);
 
 ?>
 
@@ -26,32 +24,33 @@ $result = mysqli_query($link, $commandText);
 <body>
 
     <div class="container">
-        <h2>購物網 - 訂單詳情頁</h2>
-        <a href="../index.php" class="btn btn-outline-primary">回首頁</a>
-        <a href="./cart.php?pid=<?= $row["pid"] ?>" class="btn btn-outline-success">取消購買</a>
+        <h2>購物系統 - 會員列表</h2>
+        <span>
+            <a href="../index.php" class="btn btn-outline-primary">回首頁</a>
+        </span>
         <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+            <span>
+                <a href="./block.php?cid=<?= $row["cid"] ?>" class="btn btn-outline-danger">加入黑名單</a>
+                <a href="./cancel.php?cid=<?= $row["cid"] ?>" class="btn btn-outline-success">移除黑名單</a>
+            </span>
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>商品編號</th>
-                        <th>商品名</th>
-                        <th>數量</th>
-                        <th>金額</th>
+                        <th>會員編號</th>
+                        <th>帳號</th>
+                        <th>停用</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><?= $row["pid"] ?></td>
-                        <td><?= $row["prodname"] ?></td>
-                        <td><?= $row["prodcount"] ?></td>
-                        <td><?= $row["cash"] ?></td>
+                        <td><?= $row["uid"] ?></td>
+                        <td><?= $row["username"] ?></td>
+                        <td>
+                            <input class="btn btn-outline-danger" disabled="disabled" type="checkbox" name="dis" id="dis" value="0" <?= ($row["dis"] == 1) ? "checked" : "" ?>>
+                        </td>
                     </tr>
-
                 </tbody>
             </table>
         <?php } ?>
     </div>
-
 </body>
-
-</html>

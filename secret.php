@@ -17,9 +17,9 @@
     <h2>購物系統 - 會員管理</h2>
     <p>This page for member only.</p>
     <span>
-      <a href="index.php" class="btn btn-outline-primary">回首頁</a>
+      <a href="./admin.php" class="btn btn-outline-primary">回首頁</a>
       <a href="./detail.php" class="btn btn-outline-success">訂單管理</a>
-      <a href="./member/member.php" class="btn btn-outline-danger">會員列表</a>
+      <a href="./member.php" class="btn btn-outline-danger">會員列表</a>
     </span>
   </div>
 </body>
