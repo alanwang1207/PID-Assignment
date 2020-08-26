@@ -31,15 +31,20 @@ if (isset($_POST["btnOK"])) {
     $row = mysqli_fetch_assoc($result);
     $_SESSION['uid'] =  $row["uid"];
     $_SESSION["userName"] = $row["username"];
+    $_SESSION["dis"] = $row["dis"];
     
-    if ($row_count != 0) {
-      echo "welcome!{$sUserName}";
-      if ($_SESSION["uid"] == 1) {
-        header("Location: admin.php");
-      } else {
-        header("Location: index.php");
+    if ($row_count != 0 ) {
+      if($_SESSION["dis"]!=1){
+        echo "welcome!{$sUserName}";
+        if ($_SESSION["uid"] == 1) {
+          header("Location: admin.php");
+        } else {
+          header("Location: index.php");
+        }
+        exit();
+      }else{
+        echo "您已被加入黑名單";
       }
-      exit();
     } else {
       echo "輸入資料有誤";
       //header("Location: index.php");
