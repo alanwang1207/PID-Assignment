@@ -4,7 +4,8 @@ $commandText = <<<SqlQuery
     select uid,username,dis from user ;
     SqlQuery;
 $result = mysqli_query($link, $commandText);
-
+//不顯示管理員帳號在黑名單
+$row = mysqli_fetch_assoc($result)
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
