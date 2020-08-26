@@ -25,6 +25,15 @@ CREATE TABLE `detail` (
   FOREIGN KEY (`pid`) REFERENCES prod(`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `detail2` (
+  `did` int NOT NULL auto_increment primary key,
+  `uid` int NOT NULL,
+  `pid` int not null,
+  `total` int NOT NULL,
+  `date` varchar(20),
+  FOREIGN KEY (`uid`) REFERENCES user(`uid`),
+  FOREIGN KEY (`pid`) REFERENCES prod(`pid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `user` (`uid`,`username`,`password`) VALUES
 (1,'aaa','111'),
