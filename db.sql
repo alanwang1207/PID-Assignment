@@ -16,24 +16,13 @@ CREATE TABLE `prod` (
   `cash` int DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-CREATE TABLE `cart` (
-  `did` int NOT NULL auto_increment primary key,
-  `uid` int NOT NULL,
-  `count` int NOT NULL,
-  `total` int DEFAULT 0,
-  FOREIGN KEY (`uid`) REFERENCES user(`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
-
 CREATE TABLE `detail` (
   `did` int NOT NULL auto_increment primary key,
   `uid` int NOT NULL,
   `pid` int not null,
-  `prodname` varchar(20) NOT NULL,
-  `prodcount` int NOT NULL,
-  `cash` int,
-  `total` int DEFAULT 0,
-  FOREIGN KEY (`cid`) REFERENCES customer(`cid`)
+  `count` int NOT NULL,
+  FOREIGN KEY (`uid`) REFERENCES user(`uid`),
+  FOREIGN KEY (`pid`) REFERENCES prod(`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

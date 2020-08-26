@@ -18,9 +18,13 @@ $sql =
   "select `prodname`,`prodcount`,`cash` from `prod`; ";
 $result = mysqli_query($link, $sql);
 if (isset($_POST["btnAdd"])) {
-  $sql =
-  "select `prodname`,`prodcount`,`cash` from `prod`; ";
+  $uid = $_SESSION["uid"];
+  $did = $_SESSION["did"];
   $count = $_POST["count"];
+  $sql =
+  "insert into cart(uid,count)"
+  "update detail set `did`,`uid`,`count` ; ";
+  
   var_dump($count);
 }
 ?>
