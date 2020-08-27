@@ -13,6 +13,7 @@ CREATE TABLE `prod` (
   `pid` int NOT NULL auto_increment primary key,
   `prodname` varchar(20) NOT NULL,
   `prodcount` int NOT NULL,
+  `counttemp` int NOT NULL,
   `cash` int DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

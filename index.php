@@ -22,6 +22,12 @@ if (isset($_POST["btnAdd"]) && $_POST["count"] != "0") {
     ('$pid', '$count','$uid')
     multi;
     $result = mysqli_query($link, $sql);
+
+    //判斷數量
+    $sql = <<<multi
+    update prod set prodcount = prodcount-'$count' where pid = '$pid';
+    multi;
+    $result = mysqli_query($link, $sql);
     echo "<script> alert('加入成功');location.replace('index.php');</script>";
     exit();
   } else {
