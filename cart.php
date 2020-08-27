@@ -146,36 +146,42 @@ if (isset($_POST["btnDel"])) {
 if (isset($_POST["btnDetail"])) {
   // 
   $did = $_POST["btnSend"];
+  var_dump($did);
+  $sql = "select * from `detail` ORDER BY `detail`.`did` DESC";
+  $result = mysqli_query($link, $sql);
+  $row = mysqli_fetch_assoc($result);
+  $newdid=$row['didD']+1;
+
   $sql = <<<multi
   select u.uid,d.pid,prodname,cash,count,did,cash*count as total
   
   from user u join detail d on d.uid =u.uid
                    join prod p on p.pid =d.pid
   where u.uid=$uid
-  order by did asc
   multi;
   $result = mysqli_query($link, $sql);
-  $row = mysqli_fetch_assoc($result);
-  $did = $row["did"];
-  $uid = $row["uid"];
-  $pid = $row["pid"];
-  $prodname = $row["prodname"];
-  $prodcount = $row["count"];
-  $total = $row["total"];
-//di ok uid ok pid ok 
-  var_dump($did);
-  var_dump($uid);
-  var_dump($pid);
-  var_dump($prodname);
-  var_dump($prodcount);
-  var_dump($total);
-
-  $sql =<<<multi
-    insert into detail2  
-    (did,uid,pid,prodname,prodcount,total,date) 
-    values('$did','$uid','$pid','$prodname','$prodcount','$total',current_timestamp()) 
-    multi;
-  mysqli_query($link, $sql);
+  while($row = mysqli_fetch_assoc($result)){
+    $uid = $row["uid"];
+    $prodname = $row["prodname"];
+    $prodcount = $row["count"];
+    $cash = $row["cash"];
+    $total = $row["total"];
+  //di ok uid ok pid ok 
+    var_dump($did);
+    var_dump($uid);
+    var_dump($prodname);
+    var_dump($prodcount);
+    var_dump($total);
+  
+    $sql =<<<multi
+      insert into detail2  
+      (did,uid,prodname,prodcount,cash,total,date) 
+      values('$did','$uid',$prodname','$prodcount','$cash','$total',current_timestamp()) 
+      multi;
+    mysqli_query($link, $sql);
+  }
+  
+ 
 
 
     //刪除真實數量
