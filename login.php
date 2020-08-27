@@ -11,7 +11,7 @@ if (isset($_POST["btnHome"])) {
   header("Location: index.php");
   exit();
 }
-
+//按下登入
 if (isset($_POST["btnOK"])) {
   $sUserName = $_POST["txtUserName"];
   $passWord = $_POST['txtPassword'];

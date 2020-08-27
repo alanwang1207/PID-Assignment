@@ -8,8 +8,8 @@ if (isset($_POST["okButton"])) {
     
     if (trim(($prodname && $prodcount && $cash) != "")) {
         $sql = <<<sqlstate
-    insert into prod (prodname,prodcount,cash)
-    values('$prodname','$prodcount','$cash')
+    insert into prod (prodname,prodcount,tempcount,cash)
+    values('$prodname','$prodcount','$prodcount',$cash')
   sqlstate;
         require_once("../config.php");
         mysqli_query($link, $sql);   

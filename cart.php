@@ -4,6 +4,7 @@ require_once("config.php");
 // $sUserName = "";
 $uid = $_SESSION["uid"];
 var_dump($_SESSION["uid"]);
+
 //修改數量
 if (isset($_POST["btnEdit"])) {
   $did = $_POST["btnSend"];
@@ -13,8 +14,40 @@ if (isset($_POST["btnEdit"])) {
   $sql =
     "update detail set count = '$count' where did = '$did' ";
     // echo "<script> alert('修改成功');location.replace('./cart.php');</script>";  
-}
-$result = mysqli_query($link, $sql);
+
+
+    $sql = <<<multi
+    select u.uid,prodname,cash,count,did
+    
+    from user u join detail d on d.uid =u.uid
+                     join prod p on p.pid =d.pid
+    where u.uid=$uid
+    ORDER BY did ASC
+    multi;
+    $result = mysqli_query($link, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $pid = $row["pid"];
+
+
+    //修改產品表暫存數量欄位
+    $sql =
+        "update prod set tempcount ='$count' where pid = '$pid' ";
+        // echo "<script> alert('修改成功');location.replace('./cart.php');</script>";  
+    
+    $result = mysqli_query($link, $sql);
+
+
+
+
+
+
+
+  }
+
+
+
+
+//顯示購物車清單
 $sql = <<<multi
 select u.uid,prodname,cash,count,did,cash*count as total
 
@@ -25,6 +58,7 @@ ORDER BY did ASC
 multi;
 $result = mysqli_query($link, $sql);
 
+//建立訂單
 if(isset($_POST["btnDetail"])){
   var_dump($uid);
   $sql =
@@ -33,7 +67,10 @@ if(isset($_POST["btnDetail"])){
     values('$did','$uid','$pid','$total',current_timestmp()) ";
     $result = mysqli_query($link, $sql);
 
+//修改產品表數量欄位
+
 }
+//身份驗證
 if (isset($_SESSION["userName"])) {
   $sUserName = $_SESSION["userName"];
 } else {

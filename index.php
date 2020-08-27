@@ -9,14 +9,16 @@ if (isset($_POST["btnAdd"]) && $_POST["count"] != "0") {
   $pid = $_POST["btnsend"];
   var_dump($pid);
   $sql = <<<multi
-  select prodcount from prod where pid = '$pid';
+  select tempcount from prod where pid = '$pid';
   multi;
   $result = mysqli_query($link, $sql);
   $row = mysqli_fetch_assoc($result);
-  $count = $row["prodcount"];
+  $count = $row["tempcount"];
+
   if ($count >= $_POST["count"]) {
+    
     $count = $_POST["count"];
-    // var_dump($count);
+    $_SESSION["count"] = $count;
     $sql = <<<multi
     INSERT INTO detail (pid,count,uid) VALUES
     ('$pid', '$count','$uid')
@@ -25,10 +27,10 @@ if (isset($_POST["btnAdd"]) && $_POST["count"] != "0") {
 
     //判斷數量
     $sql = <<<multi
-    update prod set prodcount = prodcount-'$count' where pid = '$pid';
+    update prod set tempcount = tempcount-'$count' where pid = '$pid';
     multi;
     $result = mysqli_query($link, $sql);
-    echo "<script> alert('加入成功');location.replace('index.php');</script>";
+    //echo "<script> alert('加入成功');location.replace('index.php');</script>";
     exit();
   } else {
     echo "<script> alert('數量不足，請重新輸入');location.replace('index.php');</script>";
@@ -104,7 +106,7 @@ if (isset($_POST["member"])) {
         <tbody>
           <tr>
             <td><?= $row["prodname"] ?></td>
-            <td><?= $row["prodcount"] ?></td>
+            <td><?= $row["tempcount"] ?></td>
             <td><?= $row["cash"] ?></td>
             <form method="post">
               <td>

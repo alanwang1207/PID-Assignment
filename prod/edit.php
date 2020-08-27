@@ -20,6 +20,7 @@ if (isset($_POST["okButton"])) {
     update prod set
     prodname = '$prodname',
     prodcount='$prodcount',
+    tempcount='$prodcount',
     cash = '$cash'
     where pid = $pid
   multi;
