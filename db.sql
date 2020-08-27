@@ -6,7 +6,7 @@ CREATE TABLE `user` (
   `uid` int NOT NULL auto_increment primary key,
   `username` varchar(20) NOT NULL,
   `password` varchar(30) NOT NULL,
-  `dis` boolean DEFAULT 0,
+  `dis` boolean DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `prod` (
@@ -27,15 +27,13 @@ CREATE TABLE `detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `detail2` (
-  `did` int NOT NULL auto_increment primary key,
+  `did` int NOT NULL ,
   `uid` int NOT NULL,
-  `pid` int not null,
   `prodname` varchar(20) NOT NULL,
   `prodcount` int NOT NULL,
+  `cash` int NOT NULL,
   `total` int NOT NULL,
   `date` varchar(20),
-  FOREIGN KEY (`uid`) REFERENCES user(`uid`),
-  FOREIGN KEY (`pid`) REFERENCES prod(`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `user` (`uid`,`username`,`password`) VALUES
