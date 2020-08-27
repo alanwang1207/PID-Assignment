@@ -108,6 +108,7 @@ $result = mysqli_query($link, $sql);
 //   }
 // }
 
+//刪除購物車訂單
 if (isset($_POST["btnDel"])) {
   $did = $_POST["btnSend"];
   var_dump($did);
@@ -136,16 +137,7 @@ if (isset($_POST["btnDel"])) {
   multi;
   require("./config.php");
   mysqli_query($link, $sql);
-  // echo "<script> alert('刪除成功');location.replace('./cart.php');</script>";
-
-
-
-
-
-  // echo "<script> alert('刪除成功，將跳回購物車');location.replace('./cart.php');</script>";    
-  // header("location: login.php");
-
-
+   echo "<script> alert('刪除成功');location.replace('./cart.php');</script>";
 }
 
 
@@ -168,7 +160,7 @@ if (isset($_POST["btnDetail"])) {
   $uid = $row["uid"];
   $pid = $row["pid"];
   $total = $row["total"];
-
+//di ok uid ok pid ok 
   var_dump($did);
   var_dump($uid);
   var_dump($tt);

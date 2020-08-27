@@ -8,32 +8,58 @@ var_dump($_SESSION["uid"]);
 if (isset($_POST["btnAdd"]) && $_POST["count"] != "0") {
   $pid = $_POST["btnsend"];
   var_dump($pid);
+
+
+  $sql = <<<multi
+  select pid from detail where pid = '$pid';
+  multi;
+  $result1 = mysqli_query($link, $sql);
+  $countnum = mysqli_num_rows($result1);
+
   $sql = <<<multi
   select tempcount from prod where pid = '$pid';
   multi;
-  
+
   $result = mysqli_query($link, $sql);
   $row = mysqli_fetch_assoc($result);
   $count = $row["tempcount"];
 
+
+
   if ($count >= $_POST["count"]) {
-    
-    $count = $_POST["count"];
-    $_SESSION["count"] = $count;
-    $sql = <<<multi
+    if ($countnum < 0) {
+      $count = $_POST["count"];
+      $_SESSION["count"] = $count;
+      $sql = <<<multi
     INSERT INTO detail (pid,count,uid) VALUES
     ('$pid', '$count','$uid')
     multi;
-    $result = mysqli_query($link, $sql);
+      $result = mysqli_query($link, $sql);
 
-    //判斷數量
-    $sql = <<<multi
+      //判斷數量
+      $sql = <<<multi
     update prod set tempcount = tempcount-'$count' where pid = '$pid';
     multi;
-    $result = mysqli_query($link, $sql);
-    //echo "<script> alert('加入成功');location.replace('index.php');</script>";
-    exit();
-  } else {
+      $result = mysqli_query($link, $sql);
+      //echo "<script> alert('加入成功');location.replace('index.php');</script>";
+      exit();
+    } else {
+      $count = $_POST["count"];
+      $_SESSION["count"] = $count;
+      $sql = <<<multi
+      update detail set count = count + $count where pid = $pid
+    multi;
+      $result = mysqli_query($link, $sql);
+
+      //判斷數量
+      $sql = <<<multi
+    update prod set tempcount = tempcount-'$count' where pid = '$pid';
+    multi;
+      $result = mysqli_query($link, $sql);
+      //echo "<script> alert('加入成功');location.replace('index.php');</script>";
+      exit();
+    }
+  }else{
     echo "<script> alert('數量不足，請重新輸入');location.replace('index.php');</script>";
   }
 } else {
