@@ -177,11 +177,25 @@ if (isset($_POST["btnDetail"])) {
     multi;
   mysqli_query($link, $sql);
 
+
+    //刪除真實數量
+  $sql =
+    "update prod set prodcount = tempcount  where pid = '$pid' ";
+  $result = mysqli_query($link, $sql);
+  $row = mysqli_fetch_assoc($result);
+
+
+
   $sql = <<<multi
   delete from detail where did = $did
   multi;
   mysqli_query($link, $sql);
-  echo "<script> alert('訂單已完成，感謝您的購買');location.replace('./customer_detail.php');</script>";
+
+
+  //使用者數量變更 要修改暫存量
+
+  
+  // echo "<script> alert('訂單已完成，感謝您的購買');location.replace('./customer_detail.php');</script>";
   //修改產品表數量欄位
 
 }

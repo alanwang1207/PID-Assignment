@@ -36,7 +36,6 @@ $result = mysqli_query($link, $commandText);
     <div class="container">
         <h2>購物網 - 訂單頁</h2>
         <a href="./index.php" class="btn btn-outline-primary">回首頁</a>
-
             <table class="table table-striped">
                 <thead>
                     <tr>

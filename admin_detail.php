@@ -34,18 +34,27 @@ $result = mysqli_query($link, $commandText);
     <div class="container">
         <h2>購物系統 - 訂單管理</h2>
         <a href="./admin.php" class="btn btn-outline-primary">回首頁</a>
-        <?php while ($row = mysqli_fetch_assoc($result)) { ?>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>訂單編號</th>
-                        <th>商品編號</th>
-                        <th>購買編號</th>
-                        <th>總價</th>
-                        <th>購買日期</th>
 
-                    </tr>
-                </thead>
+
+        <form class="form-inline" method="POST">
+            <label for="keyword">請輸入關鍵字 : </label>
+            <input type="keyword" class="form-control" pattern="^[\u4e00-\u9fa5a-zA-Z]+$" id="keyword">
+            <input type="submit" value="">
+        </form>
+
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>訂單編號</th>
+                    <th>商品編號</th>
+                    <th>購買編號</th>
+                    <th>總價</th>
+                    <th>購買日期</th>
+
+                </tr>
+            </thead>
+            <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                 <tbody>
                     <tr>
                         <td><?= $row["did"] ?></td>
@@ -57,8 +66,9 @@ $result = mysqli_query($link, $commandText);
                     </tr>
 
                 </tbody>
-            </table>
-        <?php } ?>
+            <?php } ?>
+        </table>
+
     </div>
 
 </body>
