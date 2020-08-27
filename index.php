@@ -115,6 +115,11 @@ if (isset($_POST["member"])) {
         <a href="login.php?logout=1" class="btn btn-outline-secondary btn-md">登出</a>
       <?php endif; ?>
       <a href="edit.php?uid=<?= $uid ?>" class="btn btn-outline-primary btn-md">修改會員資料</a>
+      <?php if ($sUserName == "Guest") : ?>
+        <a href="#" style="text-decoration:none;"></a>
+      <?php else : ?>
+        <a href="customer_detail.php" class="btn btn-outline-success btn-md">查看訂單</a>
+      <?php endif; ?>
     </span>
 
     <tr>

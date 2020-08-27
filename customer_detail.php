@@ -4,7 +4,7 @@ require_once("config.php");
 $uid = $_SESSION['uid'];
 echo $uid;
 $commandText = <<<SqlQuery
-    select * from detail2 ;
+    select * from detail2  ;
     SqlQuery;
 // $sql = <<<multi
 //     "select u.uid,prodname,cash,count,did,cash*count as total
@@ -34,33 +34,38 @@ $result = mysqli_query($link, $commandText);
 <body>
 
     <div class="container">
-        <h2>購物系統 - 訂單管理</h2>
-        <a href="./admin.php" class="btn btn-outline-primary">回首頁</a>
-        <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+        <h2>購物網 - 訂單頁</h2>
+        <a href="./index.php" class="btn btn-outline-primary">回首頁</a>
+
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>訂單編號</th>
                         <th>商品編號</th>
                         <th>購買編號</th>
+                        <th>商品名</th>                    
+                        <th>商品數</th>
                         <th>總價</th>
                         <th>購買日期</th>
 
                     </tr>
                 </thead>
                 <tbody>
+                <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                     <tr>
                         <td><?= $row["did"] ?></td>
                         <td><?= $row["pid"] ?></td>
                         <td><?= $row["uid"] ?></td>
+                        <td><?= $row["prodname"] ?></td>
+                        <td><?= $row["prodcount"] ?></td>
                         <td><?= $row["total"] ?></td>
                         <td><?= $row["date"] ?></td>
 
                     </tr>
-
+                    <?php } ?>
                 </tbody>
             </table>
-        <?php } ?>
+
     </div>
 
 </body>
