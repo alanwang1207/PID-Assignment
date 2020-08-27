@@ -28,7 +28,9 @@ $result = mysqli_query($link, $sql);
 if(isset($_POST["btnDetail"])){
   var_dump($uid);
   $sql =
-    "insert into detail2  (did,uid,pid,total,date) values('$did','$uid','$pid','$total',current_timestmp()) ";
+    "insert into detail2  
+    (did,uid,pid,total,date) 
+    values('$did','$uid','$pid','$total',current_timestmp()) ";
     $result = mysqli_query($link, $sql);
 
 }

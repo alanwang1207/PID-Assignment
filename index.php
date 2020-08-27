@@ -8,16 +8,25 @@ var_dump($_SESSION["uid"]);
 if (isset($_POST["btnAdd"]) && $_POST["count"] != "0") {
   $pid = $_POST["btnsend"];
   var_dump($pid);
-  $count = $_POST["count"];
-  var_dump($count);
   $sql = <<<multi
-INSERT INTO detail (pid,count,uid) VALUES
-('$pid', '$count','$uid')
-multi;
-
+  select prodcount from prod where pid = '$pid';
+  multi;
   $result = mysqli_query($link, $sql);
-  echo "<script> alert('加入成功');location.replace('index.php');</script>";
-  exit();
+  $row = mysqli_fetch_assoc($result);
+  $count = $row["prodcount"];
+  if ($count >= $_POST["count"]) {
+    $count = $_POST["count"];
+    // var_dump($count);
+    $sql = <<<multi
+    INSERT INTO detail (pid,count,uid) VALUES
+    ('$pid', '$count','$uid')
+    multi;
+    $result = mysqli_query($link, $sql);
+    echo "<script> alert('加入成功');location.replace('index.php');</script>";
+    exit();
+  } else {
+    echo "<script> alert('數量不足，請重新輸入');location.replace('index.php');</script>";
+  }
 } else {
 
   $sql = <<<multi
@@ -26,6 +35,8 @@ multi;
   $result = mysqli_query($link, $sql);
 
   echo $_SESSION['uid'];
+
+  echo $_SESSION['prodcount'];
 }
 //登入驗證
 if (isset($_SESSION["userName"])) {
