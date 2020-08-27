@@ -41,7 +41,7 @@ if (isset($_POST["btnAdd"]) && $_POST["count"] != "0") {
     update prod set tempcount = tempcount - '$count' where pid = '$pid';
     multi;
       $result = mysqli_query($link, $sql);
-      //echo "<script> alert('加入成功');location.replace('index.php');</script>";
+      echo "<script> alert('加入成功');location.replace('index.php');</script>";
       exit();
     } else {
       $count = $_POST["count"];
@@ -56,7 +56,7 @@ if (isset($_POST["btnAdd"]) && $_POST["count"] != "0") {
     update prod set tempcount = tempcount - '$count' where pid = '$pid';
     multi;
       $result = mysqli_query($link, $sql);
-      //echo "<script> alert('加入成功');location.replace('index.php');</script>";
+      echo "<script> alert('加入成功');location.replace('index.php');</script>";
       exit();
     }
   }else{

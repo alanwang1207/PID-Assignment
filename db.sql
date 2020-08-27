@@ -30,6 +30,8 @@ CREATE TABLE `detail2` (
   `did` int NOT NULL auto_increment primary key,
   `uid` int NOT NULL,
   `pid` int not null,
+  `prodname` varchar(20) NOT NULL,
+  `prodcount` int NOT NULL,
   `total` int NOT NULL,
   `date` varchar(20),
   FOREIGN KEY (`uid`) REFERENCES user(`uid`),

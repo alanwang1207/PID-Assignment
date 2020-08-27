@@ -1,6 +1,8 @@
 <?php
 session_start();
 require_once("config.php");
+$uid = $_SESSION['uid'];
+echo $uid;
 $commandText = <<<SqlQuery
     select * from detail2 ;
     SqlQuery;

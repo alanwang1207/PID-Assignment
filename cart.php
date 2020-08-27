@@ -159,20 +159,29 @@ if (isset($_POST["btnDetail"])) {
   $did = $row["did"];
   $uid = $row["uid"];
   $pid = $row["pid"];
+  $prodname = $row["prodname"];
+  $prodcount = $row["count"];
   $total = $row["total"];
 //di ok uid ok pid ok 
   var_dump($did);
   var_dump($uid);
   var_dump($pid);
+  var_dump($prodname);
+  var_dump($prodcount);
   var_dump($total);
 
   $sql =<<<multi
     insert into detail2  
-    (did,uid,pid,total,date) 
-    values('$did','$uid','$pid','$total',current_timestamp()) 
+    (did,uid,pid,prodname,prodcount,total,date) 
+    values('$did','$uid','$pid','$prodname','$prodcount','$total',current_timestamp()) 
     multi;
   mysqli_query($link, $sql);
-  echo "ok";
+
+  $sql = <<<multi
+  delete from detail where did = $did
+  multi;
+  mysqli_query($link, $sql);
+  echo "<script> alert('訂單已完成，感謝您的購買');location.replace('./customer_detail.php');</script>";
   //修改產品表數量欄位
 
 }
