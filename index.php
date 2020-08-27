@@ -27,7 +27,7 @@ if (isset($_POST["btnAdd"]) && $_POST["count"] != "0") {
 
 
   if ($count >= $_POST["count"]) {
-    if ($countnum < 0) {
+    if ($countnum == 0) {
       $count = $_POST["count"];
       $_SESSION["count"] = $count;
       $sql = <<<multi
@@ -38,7 +38,7 @@ if (isset($_POST["btnAdd"]) && $_POST["count"] != "0") {
 
       //判斷數量
       $sql = <<<multi
-    update prod set tempcount = tempcount-'$count' where pid = '$pid';
+    update prod set tempcount = tempcount - '$count' where pid = '$pid';
     multi;
       $result = mysqli_query($link, $sql);
       //echo "<script> alert('加入成功');location.replace('index.php');</script>";
@@ -47,13 +47,13 @@ if (isset($_POST["btnAdd"]) && $_POST["count"] != "0") {
       $count = $_POST["count"];
       $_SESSION["count"] = $count;
       $sql = <<<multi
-      update detail set count = count + $count where pid = $pid
+      update detail set count = count + '$count' where pid = '$pid'
     multi;
       $result = mysqli_query($link, $sql);
 
       //判斷數量
       $sql = <<<multi
-    update prod set tempcount = tempcount-'$count' where pid = '$pid';
+    update prod set tempcount = tempcount - '$count' where pid = '$pid';
     multi;
       $result = mysqli_query($link, $sql);
       //echo "<script> alert('加入成功');location.replace('index.php');</script>";
@@ -73,6 +73,10 @@ multi;
 
   echo $_SESSION['prodcount'];
 }
+
+
+
+
 //登入驗證
 if (isset($_SESSION["userName"])) {
   $sUserName = $_SESSION["userName"];
