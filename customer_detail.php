@@ -4,7 +4,7 @@ require_once("config.php");
 $uid = $_SESSION['uid'];
 echo $uid;
 $commandText = <<<SqlQuery
-    select * from detail2  ;
+    select * from detail2 where uid = $uid ;
     SqlQuery;
 // $sql = <<<multi
 //     "select u.uid,prodname,cash,count,did,cash*count as total
@@ -13,6 +13,13 @@ $commandText = <<<SqlQuery
 //                  ORDER BY did ASC";
 // multi;
 $result = mysqli_query($link, $commandText);
+$sql = <<<multi
+    select * from `detail2`  
+    where uid =$uid
+    ORDER BY `detail2`.`did` ASC
+  multi;
+$result = mysqli_query($link, $sql);
+
 // var_dump($result);
 
 ?>
