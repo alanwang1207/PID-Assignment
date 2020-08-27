@@ -11,6 +11,7 @@ if (isset($_POST["btnAdd"]) && $_POST["count"] != "0") {
   $sql = <<<multi
   select tempcount from prod where pid = '$pid';
   multi;
+  
   $result = mysqli_query($link, $sql);
   $row = mysqli_fetch_assoc($result);
   $count = $row["tempcount"];
