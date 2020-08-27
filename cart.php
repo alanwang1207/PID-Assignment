@@ -144,15 +144,15 @@ if (isset($_POST["btnDel"])) {
 
 // 建立訂單
 if (isset($_POST["btnDetail"])) {
-  // echo "ok";
+  // 
   $did = $_POST["btnSend"];
   $sql = <<<multi
-  select u.uid,prodname,cash,count,did,cash*count as total
+  select u.uid,d.pid,prodname,cash,count,did,cash*count as total
   
   from user u join detail d on d.uid =u.uid
                    join prod p on p.pid =d.pid
   where u.uid=$uid
-  ORDER BY did ASC
+  order by did asc
   multi;
   $result = mysqli_query($link, $sql);
   $row = mysqli_fetch_assoc($result);
@@ -163,14 +163,16 @@ if (isset($_POST["btnDetail"])) {
 //di ok uid ok pid ok 
   var_dump($did);
   var_dump($uid);
-  var_dump($tt);
+  var_dump($pid);
+  var_dump($total);
 
-  $sql =
-    "insert into detail2  
+  $sql =<<<multi
+    insert into detail2  
     (did,uid,pid,total,date) 
-    values('$did','$uid','$pid','$total',current_timestmp()) ";
-  $result = mysqli_query($link, $sql);
-
+    values('$did','$uid','$pid','$total',current_timestamp()) 
+    multi;
+  mysqli_query($link, $sql);
+  echo "ok";
   //修改產品表數量欄位
 
 }
