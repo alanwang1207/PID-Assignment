@@ -4,100 +4,8 @@ require_once("config.php");
 
 $uid = $_SESSION["uid"];
 //數量驗證,儲存首頁輸入的數量
-$indexcount = $_SESSION["count"];
-var_dump($indexcount);
-
-
-//修改數量
-if (isset($_POST["btnEdit"])) {
-  $did = $_POST["btnSend"];
-  //  var_dump($did);
-  //更改量
-  $count = $_POST["count"];
-  var_dump($count);
-
-
-
-  $sql = <<<multi
-  select tempcount,p.pid
-  from user u join detail d on d.uid =u.uid
-                   join prod p on p.pid =d.pid
-  where u.uid=$uid
-  ORDER BY did ASC
-  multi;
-  $result = mysqli_query($link, $sql);
-  $row = mysqli_fetch_assoc($result);
-  //暫存量
-  $tempcount = $row["tempcount"];
-  $pid = $row["pid"];
-  var_dump($tempcount);
-  var_dump($pid);
-
-
-
-  //庫存夠
-  if ($count < $tempcount) {
-    //修改量變大
-    if ($indexcount < $count) {
-      (int)$diffcount = $count - $indexcount;
-      // echo $diffcount;
-
-      //找出產品id
-      $sql = <<<multi
-      select p.pid
-      from user u join detail d on d.uid =u.uid
-                       join prod p on p.pid =d.pid
-      where u.uid=$uid
-      ORDER BY did ASC
-      multi;
-      $result = mysqli_query($link, $sql);
-      $row = mysqli_fetch_assoc($result);
-      $pid = $row["pid"];
-      // var_dump($pid);
-
-
-      //修改產品表暫存數量欄位
-      $sql =
-        "update prod set tempcount = tempcount - $diffcount where pid = '$pid' ";
-        $result = mysqli_query($link, $sql);
-       echo "<script> alert('修改成功');location.replace('./cart.php');</script>";  
-
-    } else {
-      //修改量變小
-      (int)$diffcount = $indexcount - $count;
-
-      $sql = <<<multi
-      select p.pid
-      from user u join detail d on d.uid =u.uid
-                       join prod p on p.pid =d.pid
-      where u.uid=$uid
-      ORDER BY did ASC
-      multi;
-      $result = mysqli_query($link, $sql);
-      $row = mysqli_fetch_assoc($result);
-      $pid = $row["pid"];
-      // var_dump($pid);
-
-      //修改產品表暫存數量欄位
-      $sql =
-        "update prod set tempcount =tempcount + $diffcount where pid = '$pid' ";
-       echo "<script> alert('修改成功');location.replace('./cart.php');</script>";  
-
-      $result = mysqli_query($link, $sql);
-      // mysqli_fetch_assoc($result);
-    }
-    $sql =
-      "update detail set count = '$count' where did = '$did' ";
-    mysqli_query($link, $sql);
-    // mysqli_fetch_assoc($result);
-    echo "<script> alert('修改成功');location.replace('./cart.php');</script>";  
-  }else{
-    echo "<script> alert('庫存不足');location.replace('./cart.php');</script>"; 
-  }
-}
-
-
-
+// $indexcount = $_SESSION["count"];
+// var_dump($indexcount);
 
 //顯示購物車清單
 $sql = <<<multi
@@ -110,18 +18,170 @@ ORDER BY did ASC
 multi;
 $result = mysqli_query($link, $sql);
 
-//建立訂單
-// if (isset($_POST["btnDetail"])) {
-//   var_dump($uid);
-//   $sql =
-//     "insert into detail2  
-//     (did,uid,pid,total,date) 
-//     values('$did','$uid','$pid','$total',current_timestmp()) ";
+
+
+//修改數量
+// if (isset($_POST["btnEdit"])) {
+//   $did = $_POST["btnSend"];
+//   //  var_dump($did);
+//   //更改量
+//   $count = $_POST["count"];
+//   var_dump($count);
+
+
+
+//   $sql = <<<multi
+//   select tempcount,p.pid
+//   from user u join detail d on d.uid =u.uid
+//                    join prod p on p.pid =d.pid
+//   where u.uid=$uid
+//   ORDER BY did ASC
+//   multi;
 //   $result = mysqli_query($link, $sql);
+//   $row = mysqli_fetch_assoc($result);
+//   //暫存量
+//   $tempcount = $row["tempcount"];
+//   $pid = $row["pid"];
+//   var_dump($tempcount);
+//   var_dump($pid);
 
-//   //修改產品表數量欄位
 
+
+//   //庫存夠
+//   if ($count < $tempcount) {
+//     //修改量變大
+//     if ($indexcount < $count) {
+//       (int)$diffcount = $count - $indexcount;
+//       // echo $diffcount;
+
+//       //找出產品id
+//       $sql = <<<multi
+//       select p.pid
+//       from user u join detail d on d.uid =u.uid
+//                        join prod p on p.pid =d.pid
+//       where u.uid=$uid
+//       ORDER BY did ASC
+//       multi;
+//       $result = mysqli_query($link, $sql);
+//       $row = mysqli_fetch_assoc($result);
+//       $pid = $row["pid"];
+//       // var_dump($pid);
+
+
+//       //修改產品表暫存數量欄位
+//       $sql =
+//         "update prod set tempcount = tempcount - $diffcount where pid = '$pid' ";
+//         $result = mysqli_query($link, $sql);
+//        echo "<script> alert('修改成功');location.replace('./cart.php');</script>";  
+
+//     } else {
+//       //修改量變小
+//       (int)$diffcount = $indexcount - $count;
+
+//       $sql = <<<multi
+//       select p.pid
+//       from user u join detail d on d.uid =u.uid
+//                        join prod p on p.pid =d.pid
+//       where u.uid=$uid
+//       ORDER BY did ASC
+//       multi;
+//       $result = mysqli_query($link, $sql);
+//       $row = mysqli_fetch_assoc($result);
+//       $pid = $row["pid"];
+//       // var_dump($pid);
+
+//       //修改產品表暫存數量欄位
+//       $sql =
+//         "update prod set tempcount =tempcount + $diffcount where pid = '$pid' ";
+//        echo "<script> alert('修改成功');location.replace('./cart.php');</script>";  
+
+//       $result = mysqli_query($link, $sql);
+//       // mysqli_fetch_assoc($result);
+//     }
+//     $sql =
+//       "update detail set count = '$count' where did = '$did' ";
+//     mysqli_query($link, $sql);
+//     // mysqli_fetch_assoc($result);
+//     echo "<script> alert('修改成功');location.replace('./cart.php');</script>";  
+//   }else{
+//     echo "<script> alert('庫存不足');location.replace('./cart.php');</script>"; 
+//   }
 // }
+
+if (isset($_POST["btnDel"])) {
+  $did = $_POST["btnSend"];
+  var_dump($did);
+// var_dump($uid);
+  // 找出產品id
+  $sql = <<<multi
+      select pid,count
+      from detail
+      where did = '$did';
+      multi;
+  $result = mysqli_query($link, $sql);
+  $row = mysqli_fetch_assoc($result);
+  $pid = $row["pid"];
+  $cartcount = $row["count"];
+  // var_dump($pid);
+  // var_dump($cartcount);
+
+
+  //修改產品表暫存數量欄位
+  $sql =
+    "update prod set tempcount = tempcount + $cartcount where pid = '$pid' ";
+  $result = mysqli_query($link, $sql);
+
+  $sql = <<<multi
+  delete from detail where did = $did
+  multi;
+  require("./config.php");
+  mysqli_query($link, $sql);
+  // echo "<script> alert('刪除成功');location.replace('./cart.php');</script>";
+
+
+
+
+
+  // echo "<script> alert('刪除成功，將跳回購物車');location.replace('./cart.php');</script>";    
+  // header("location: login.php");
+
+
+}
+
+
+
+// 建立訂單
+if (isset($_POST["btnDetail"])) {
+  // echo "ok";
+  $did = $_POST["btnSend"];
+  $sql = <<<multi
+  select u.uid,prodname,cash,count,did,cash*count as total
+  
+  from user u join detail d on d.uid =u.uid
+                   join prod p on p.pid =d.pid
+  where u.uid=$uid
+  ORDER BY did ASC
+  multi;
+  $result = mysqli_query($link, $sql);
+  $row = mysqli_fetch_assoc($result);
+  $did = $row["did"];
+  $uid = $row["uid"];
+  $pid = $row["pid"];
+  $total = $row["total"];
+
+  var_dump($did);
+  var_dump($uid);
+  var_dump($tt);
+
+  $sql =
+    "insert into detail2  
+    (did,uid,pid,total,date) 
+    values('$did','$uid','$pid','$total',current_timestmp()) ";
+  $result = mysqli_query($link, $sql);
+
+  //修改產品表數量欄位
+
+}
 
 //身份驗證
 if (isset($_SESSION["userName"])) {
@@ -184,34 +244,40 @@ if (isset($_POST["member"])) {
           <tr>
             <td><?= $row["prodname"] ?></td>
             <td><?= $row["cash"] ?></td>
+            <td><?= $row["count"] ?></td>
             <form method="post">
-              <td>
+              <!-- <td>
                 <div class="form-group row">
                   <div class="col-3">
                     <input id="count" name="count" type="text" class="form-control" value="<?= $row["count"]; ?>">
                   </div>
                 </div>
-              </td>
+              </td> -->
               <td>
-                <input type="submit" class="btn btn-outline-secondary btn-md" name="btnEdit" id="btnEdit" value="修改" />
-                <a href="./del_cart.php?did=<?= $row["did"] ?>" class="btn btn-outline-danger">刪除</a>
+                <!-- <input type="submit" class="btn btn-outline-secondary btn-md" name="btnEdit" id="btnEdit" value="修改" /> -->
+                <input type="submit" class="btn btn-outline-danger btn-md" name="btnDel" id="btnDel" value="刪除" />
+                <!-- <a href="./del_cart.php?did=<?= $row["did"] ?>" class="btn btn-outline-">刪除</a> -->
                 <input type="hidden" name="btnSend" id="btnSend" value="<?= $row["did"] ?>" />
               </td>
               <td><?= $row["total"] ?></td>
           </tr>
-          </form>
+
           <?php
           $rowt = (int)$row["total"];
           $total += $rowt;
+          $tt = $total;
           ?>
         </tbody>
       <?php } ?>
+      <?php
+      $tt = $total;
+      ?>
     </table>
 
     <td>Total:<?= $total ?></td>
     <a href="index.php" class="btn btn-outline-success btn-md">回首頁</a>
     <input type="submit" class="btn btn-outline-primary btn-md" name="btnDetail" id="btnDetail" value="送出訂單" />
-
+    </form>
 
 </body>
 

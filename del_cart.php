@@ -11,5 +11,10 @@ $sql = <<<multi
 multi;
 require("./config.php");
 mysqli_query($link, $sql);
+
+$sql = <<<multi
+  update 
+multi;
+
 echo "<script> alert('刪除成功，將跳回購物車');location.replace('./cart.php');</script>";    
 // header("location: login.php");
