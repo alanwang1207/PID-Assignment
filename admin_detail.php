@@ -23,6 +23,18 @@ $result = mysqli_query($link, $sql);
 
 // var_dump($result);
 
+if(isset($_POST["btnSearch"])){
+    $keyword = $_POST["keyword"];
+    var_dump($keyword);
+    $sql = <<<multi
+    select did,username,prodname,prodcount,cash,total,date
+    from user u join detail2 d on d.uid =u.uid
+    where prodname like '%apple%'
+    ORDER BY did ASC
+    multi;
+    $result = mysqli_query($link, $sql);
+    var_dump($keyword);
+}
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -47,9 +59,9 @@ $result = mysqli_query($link, $sql);
 
 
         <form class="form-inline" method="POST">
-            <label for="keyword">請輸入關鍵字 : </label>
-            <input type="keyword" class="form-control" pattern="^[\u4e00-\u9fa5a-zA-Z]+$" id="keyword">
-            <input type="submit" value="">
+            <label for="keyword">請輸入商品名 : </label>
+            <input type="keyword" class="form-control" pattern="^[\u4e00-\u9fa5a-zA-Z]+$" name = "keyword" id="keyword">
+            <input name = "btnSearch" id= "btnSearch" type="submit" class="btn btn-primary btn-sm">
         </form>
 
 
