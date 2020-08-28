@@ -23,17 +23,27 @@ $result = mysqli_query($link, $sql);
 
 // var_dump($result);
 
-if(isset($_POST["btnSearch"])){
+//搜尋商品
+if(isset($_POST["btnSearchp"])){
     $keyword = $_POST["keyword"];
-    var_dump($keyword);
     $sql = <<<multi
     select did,username,prodname,prodcount,cash,total,date
     from user u join detail2 d on d.uid =u.uid
-    where prodname like '%apple%'
+    where prodname like '%$keyword%'
     ORDER BY did ASC
     multi;
     $result = mysqli_query($link, $sql);
-    var_dump($keyword);
+}
+//搜尋買家
+if(isset($_POST["btnSearchb"])){
+    $buyer = $_POST["buyer"];
+    $sql = <<<multi
+    select did,username,prodname,prodcount,cash,total,date
+    from user u join detail2 d on d.uid =u.uid
+    where username like '%$buyer%'
+    ORDER BY did ASC
+    multi;
+    $result = mysqli_query($link, $sql);
 }
 ?>
 
@@ -61,7 +71,13 @@ if(isset($_POST["btnSearch"])){
         <form class="form-inline" method="POST">
             <label for="keyword">請輸入商品名 : </label>
             <input type="keyword" class="form-control" pattern="^[\u4e00-\u9fa5a-zA-Z]+$" name = "keyword" id="keyword">
-            <input name = "btnSearch" id= "btnSearch" type="submit" class="btn btn-primary btn-sm">
+            <input name = "btnSearchp" id= "btnSearchp" type="submit" class="btn btn-primary btn-sm">
+        </form>
+
+        <form class="form-inline" method="POST">
+            <label for="buyer">請輸入購買人 : </label>
+            <input type="keyword" class="form-control" pattern="^[\u4e00-\u9fa5a-zA-Z]+$" name = "buyer" id="buyer">
+            <input name = "btnSearchb" id= "btnSearchb" type="submit" class="btn btn-primary btn-sm">
         </form>
 
 

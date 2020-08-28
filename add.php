@@ -1,16 +1,16 @@
 <?php
 
 if (isset($_POST["okButton"])) {
-    $userName = $_POST["userName"];
+    $username = $_POST["userName"];
     echo $firstName;
-    $passWord = $_POST["passWord"];
+    $password = $_POST["passWord"];
     
-    if (trim(($userName && $passWord) != "")) {
+    if (trim(($username && $password) != "")) {
         $sql = <<<sqlstate
-    insert into customer (username,password)
-    values('$userName','$passWord')
+    insert into user (username,password,dis)
+    values('$username','$password','0')
   sqlstate;
-        require_once("../config.php");
+        require_once("config.php");
         mysqli_query($link, $sql);   
         echo "<script> alert('加入成功，請重新登入');location.replace('login.php');</script>";    
     } else {

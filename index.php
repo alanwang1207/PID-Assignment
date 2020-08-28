@@ -11,7 +11,7 @@ if (isset($_POST["btnAdd"]) && $_POST["count"] != "0") {
 
 
   $sql = <<<multi
-  select pid from detail where pid = '$pid';
+  select pid from detail where pid = '$pid' and uid = '$uid';
   multi;
   $result1 = mysqli_query($link, $sql);
   $countnum = mysqli_num_rows($result1);
@@ -25,7 +25,7 @@ if (isset($_POST["btnAdd"]) && $_POST["count"] != "0") {
   $count = $row["tempcount"];
 
 
-
+//檢查數量是否足夠
   if ($count >= $_POST["count"]) {
     if ($countnum == 0) {
       $count = $_POST["count"];
