@@ -12,12 +12,23 @@ $commandText = <<<SqlQuery
 //                  join prod p on p.pid =d.pid 
 //                  ORDER BY did ASC";
 // multi;
+
 $result = mysqli_query($link, $commandText);
-$sql = <<<multi
-    select * from `detail2`  
-    where uid =$uid
-    ORDER BY `detail2`.`did` ASC
-  multi;
+// $sql = <<<multi
+//     select * from `detail2`  
+//     where uid =$uid
+//     ORDER BY `detail2`.`did` ASC
+//   multi;
+
+
+
+  $sql = <<<multi
+select did,username,prodname,prodcount,cash,total,date
+
+from user u join detail2 d on d.uid =u.uid
+where d.uid=$uid
+ORDER BY d.did ASC
+multi;
 $result = mysqli_query($link, $sql);
 
 // var_dump($result);
@@ -47,10 +58,10 @@ $result = mysqli_query($link, $sql);
                 <thead>
                     <tr>
                         <th>訂單編號</th>
-                        <th>商品編號</th>
-                        <th>購買編號</th>
+                        <th>購買人</th>
                         <th>商品名</th>                    
                         <th>商品數</th>
+                        <th>商品單價</th>
                         <th>總價</th>
                         <th>購買日期</th>
 
@@ -60,10 +71,10 @@ $result = mysqli_query($link, $sql);
                 <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                     <tr>
                         <td><?= $row["did"] ?></td>
-                        <td><?= $row["pid"] ?></td>
-                        <td><?= $row["uid"] ?></td>
+                        <td><?= $row["username"] ?></td>
                         <td><?= $row["prodname"] ?></td>
                         <td><?= $row["prodcount"] ?></td>
+                        <td><?= $row["cash"] ?></td>
                         <td><?= $row["total"] ?></td>
                         <td><?= $row["date"] ?></td>
 
