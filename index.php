@@ -14,7 +14,7 @@ if (isset($_POST["btnAdd"]) && $uid == 0) {
 
 
     $sql = <<<multi
-    select pid from detail where pid = '$pid' and uid = '$uid';
+    select pid from cart where pid = '$pid' and uid = '$uid';
     multi;
     $result1 = mysqli_query($link, $sql);
     $countnum = mysqli_num_rows($result1);
@@ -34,7 +34,7 @@ if (isset($_POST["btnAdd"]) && $uid == 0) {
         $count = $_POST["count"];
         $_SESSION["count"] = $count;
         $sql = <<<multi
-      INSERT INTO detail (pid,count,uid) VALUES
+      INSERT INTO cart (pid,count,uid) VALUES
       ('$pid', '$count','$uid')
       multi;
         $result = mysqli_query($link, $sql);
@@ -50,7 +50,7 @@ if (isset($_POST["btnAdd"]) && $uid == 0) {
         $count = $_POST["count"];
         $_SESSION["count"] = $count;
         $sql = <<<multi
-        update detail set count = count + '$count' where pid = '$pid'
+        update cart set count = count + '$count' where pid = '$pid'
       multi;
         $result = mysqli_query($link, $sql);
 

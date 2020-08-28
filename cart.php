@@ -11,7 +11,7 @@ $uid = $_SESSION["uid"];
 $sql = <<<multi
 select u.uid,prodname,cash,count,did,cash*count as total
 
-from user u join detail d on d.uid =u.uid
+from user u join cart d on d.uid =u.uid
                  join prod p on p.pid =d.pid
 where u.uid=$uid
 ORDER BY did ASC
@@ -116,7 +116,7 @@ if (isset($_POST["btnDel"])) {
   // 找出產品id
   $sql = <<<multi
       select pid,count
-      from detail
+      from cart
       where did = '$did';
       multi;
   $result = mysqli_query($link, $sql);
@@ -133,7 +133,7 @@ if (isset($_POST["btnDel"])) {
   $result = mysqli_query($link, $sql);
 
   $sql = <<<multi
-  delete from detail where did = $did
+  delete from cart where did = $did
   multi;
   require("./config.php");
   mysqli_query($link, $sql);
@@ -147,7 +147,7 @@ if (isset($_POST["btnDetail"])) {
   // 
   $did = $_POST["btnSend"];
   var_dump($did);
-  $sql = "select * from `detail` ORDER BY `detail`.`did` DESC";
+  $sql = "select * from `cart` ORDER BY `cart`.`did` DESC";
   $result = mysqli_query($link, $sql);
   $row = mysqli_fetch_assoc($result);
   $newdid=$row['did']+1;
@@ -155,7 +155,7 @@ if (isset($_POST["btnDetail"])) {
   $sql = <<<multi
   select u.uid,d.pid,prodname,cash,count,did,cash*count as total
   
-  from user u join detail d on d.uid =u.uid
+  from user u join cart d on d.uid =u.uid
                    join prod p on p.pid =d.pid
   where u.uid=$uid
   multi;
@@ -175,7 +175,7 @@ if (isset($_POST["btnDetail"])) {
     var_dump($total);
   
     $sql =<<<multi
-      insert into detail2  
+      insert into detail
       (did,uid,prodname,prodcount,cash,total,date) 
       values('$did','$uid','$prodname','$prodcount','$cash','$total',current_timestamp()) 
       multi;
@@ -195,7 +195,7 @@ if (isset($_POST["btnDetail"])) {
 
 var_dump($did);
   $sql = <<<multi
-  delete from detail where did = '$did';
+  delete from cart where did = '$did';
   multi;
   mysqli_query($link, $sql);
 

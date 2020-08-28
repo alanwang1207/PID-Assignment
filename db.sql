@@ -17,7 +17,7 @@ CREATE TABLE `prod` (
   `cash` int DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `detail` (
+CREATE TABLE `cart` (
   `did` int NOT NULL auto_increment primary key,
   `uid` int NOT NULL,
   `pid` int not null,
@@ -26,7 +26,7 @@ CREATE TABLE `detail` (
   FOREIGN KEY (`pid`) REFERENCES prod(`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `detail2` (
+CREATE TABLE `detail` (
   `did` int NOT NULL ,
   `uid` int NOT NULL,
   `prodname` varchar(20) NOT NULL,

@@ -8,7 +8,7 @@ if (!is_numeric($did))
   die("did not a number.");
 $sql = <<<multi
     insert into 
-  delete from detail where did = $did
+  delete from cart where did = $did
 multi;
 require("./config.php");
 mysqli_query($link, $sql);

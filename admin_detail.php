@@ -2,7 +2,7 @@
 session_start();
 require_once("config.php");
 $commandText = <<<SqlQuery
-    select * from detail2 ;
+    select * from detail ;
     SqlQuery;
 
 $result = mysqli_query($link, $commandText);
@@ -10,7 +10,7 @@ $result = mysqli_query($link, $commandText);
 $sql = <<<multi
     select did,username,prodname,prodcount,cash,total,date
     
-    from user u join detail2 d on d.uid =u.uid
+    from user u join detail d on d.uid =u.uid
     ORDER BY d.did ASC
     multi;
 $result = mysqli_query($link, $sql);
@@ -28,7 +28,7 @@ if(isset($_POST["btnSearchp"])){
     $keyword = $_POST["keyword"];
     $sql = <<<multi
     select did,username,prodname,prodcount,cash,total,date
-    from user u join detail2 d on d.uid =u.uid
+    from user u join detail d on d.uid =u.uid
     where prodname like '%$keyword%'
     ORDER BY did ASC
     multi;
@@ -39,7 +39,7 @@ if(isset($_POST["btnSearchb"])){
     $buyer = $_POST["buyer"];
     $sql = <<<multi
     select did,username,prodname,prodcount,cash,total,date
-    from user u join detail2 d on d.uid =u.uid
+    from user u join detail d on d.uid =u.uid
     where username like '%$buyer%'
     ORDER BY did ASC
     multi;
