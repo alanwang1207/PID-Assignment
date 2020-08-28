@@ -5,74 +5,81 @@ require_once("config.php");
 $uid = $_SESSION["uid"];
 var_dump($_SESSION["uid"]);
 
-if (isset($_POST["btnAdd"]) && $_POST["count"] != "0") {
-  $pid = $_POST["btnsend"];
-  var_dump($pid);
-
-
-  $sql = <<<multi
-  select pid from detail where pid = '$pid' and uid = '$uid';
-  multi;
-  $result1 = mysqli_query($link, $sql);
-  $countnum = mysqli_num_rows($result1);
-
-  $sql = <<<multi
-  select tempcount from prod where pid = '$pid';
-  multi;
-
-  $result = mysqli_query($link, $sql);
-  $row = mysqli_fetch_assoc($result);
-  $count = $row["tempcount"];
-
-
-//檢查數量是否足夠
-  if ($count >= $_POST["count"]) {
-    if ($countnum == 0) {
-      $count = $_POST["count"];
-      $_SESSION["count"] = $count;
-      $sql = <<<multi
-    INSERT INTO detail (pid,count,uid) VALUES
-    ('$pid', '$count','$uid')
-    multi;
-      $result = mysqli_query($link, $sql);
-
-      //判斷數量
-      $sql = <<<multi
-    update prod set tempcount = tempcount - '$count' where pid = '$pid';
-    multi;
-      $result = mysqli_query($link, $sql);
-      echo "<script> alert('加入成功');location.replace('index.php');</script>";
-      exit();
-    } else {
-      $count = $_POST["count"];
-      $_SESSION["count"] = $count;
-      $sql = <<<multi
-      update detail set count = count + '$count' where pid = '$pid'
-    multi;
-      $result = mysqli_query($link, $sql);
-
-      //判斷數量
-      $sql = <<<multi
-    update prod set tempcount = tempcount - '$count' where pid = '$pid';
-    multi;
-      $result = mysqli_query($link, $sql);
-      echo "<script> alert('加入成功');location.replace('index.php');</script>";
-      exit();
-    }
-  }else{
-    echo "<script> alert('數量不足，請重新輸入');location.replace('index.php');</script>";
-  }
+if (isset($_POST["btnAdd"]) && $uid == 0) {
+  echo "<script> alert('請先加入會員');location.replace('login.php');</script>";
 } else {
+  if (isset($_POST["btnAdd"]) && $_POST["count"] != "0") {
+    $pid = $_POST["btnsend"];
+    var_dump($pid);
 
-  $sql = <<<multi
-select * from prod
-multi;
-  $result = mysqli_query($link, $sql);
 
-  echo $_SESSION['uid'];
+    $sql = <<<multi
+    select pid from detail where pid = '$pid' and uid = '$uid';
+    multi;
+    $result1 = mysqli_query($link, $sql);
+    $countnum = mysqli_num_rows($result1);
 
-  echo $_SESSION['prodcount'];
+    $sql = <<<multi
+    select tempcount from prod where pid = '$pid';
+    multi;
+
+    $result = mysqli_query($link, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $count = $row["tempcount"];
+
+
+    //檢查數量是否足夠
+    if ($count >= $_POST["count"]) {
+      if ($countnum == 0) {
+        $count = $_POST["count"];
+        $_SESSION["count"] = $count;
+        $sql = <<<multi
+      INSERT INTO detail (pid,count,uid) VALUES
+      ('$pid', '$count','$uid')
+      multi;
+        $result = mysqli_query($link, $sql);
+
+        //判斷數量
+        $sql = <<<multi
+      update prod set tempcount = tempcount - '$count' where pid = '$pid';
+      multi;
+        $result = mysqli_query($link, $sql);
+        echo "<script> alert('加入成功');location.replace('index.php');</script>";
+        exit();
+      } else {
+        $count = $_POST["count"];
+        $_SESSION["count"] = $count;
+        $sql = <<<multi
+        update detail set count = count + '$count' where pid = '$pid'
+      multi;
+        $result = mysqli_query($link, $sql);
+
+        //判斷數量
+        $sql = <<<multi
+      update prod set tempcount = tempcount - '$count' where pid = '$pid';
+      multi;
+        $result = mysqli_query($link, $sql);
+        echo "<script> alert('加入成功');location.replace('index.php');</script>";
+        exit();
+      }
+    } else {
+      echo "<script> alert('數量不足，請重新輸入');location.replace('index.php');</script>";
+    }
+  } else {
+
+    $sql = <<<multi
+  select * from prod
+  multi;
+    $result = mysqli_query($link, $sql);
+
+    echo $_SESSION['uid'];
+
+    echo $_SESSION['prodcount'];
+  }
 }
+
+
+
 
 
 
@@ -114,10 +121,11 @@ if (isset($_POST["member"])) {
       <?php else : ?>
         <a href="login.php?logout=1" class="btn btn-outline-secondary btn-md">登出</a>
       <?php endif; ?>
-      <a href="edit.php?uid=<?= $uid ?>" class="btn btn-outline-primary btn-md">修改會員資料</a>
+
       <?php if ($sUserName == "Guest") : ?>
         <a href="#" style="text-decoration:none;"></a>
       <?php else : ?>
+        <a href="edit.php?uid=<?= $uid ?>" class="btn btn-outline-primary btn-md">修改會員資料</a>
         <a href="customer_detail.php" class="btn btn-outline-success btn-md">查看訂單</a>
       <?php endif; ?>
     </span>
@@ -160,7 +168,12 @@ if (isset($_POST["member"])) {
         </tbody>
       <?php } ?>
     </table>
-    <a href="cart.php" class="btn btn-outline-success btn-md">前往購物車</a>
+    <?php if ($sUserName == "Guest") : ?>
+        <a href="#" style="text-decoration:none;"></a>
+      <?php else : ?>
+        <a href="cart.php" class="btn btn-outline-success btn-md">前往購物車</a>
+      <?php endif; ?>
+
     <input type="reset" class="btn btn-outline-secondary btn-md" name="btnReset" id="btnReset" value="重設" />
 
 </body>
