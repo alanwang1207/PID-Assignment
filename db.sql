@@ -36,34 +36,18 @@ CREATE TABLE `detail` (
   `date` varchar(20)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `user` (`uid`,`username`,`password`) VALUES
-(1,'aaa','111'),
-(2,'bbb','222');
+INSERT INTO `user` (`uid`,`username`,`password`,'dis') VALUES
+(1,'admin','111'),
+(2,'jason','111'),
+(3,'hamber','111'),
+(4,'riven','111');
 
-INSERT INTO `prod` (`pid`,`prodname`,`prodcount`,`cash`) VALUES
-(1,'apple',2,20),
-(2,'orange',4,30);
+INSERT INTO `prod` (`pid`,`prodname`,`prodcount`,`tempcount`,`cash`) VALUES
+(1,'apple',100,100,20),
+(2,'orange',100,100,30),
+(3,'guava',100,100,40),
+(4,'lemon',100,100,50);
 
-INSERT INTO `customer` (`cid`,`username`,`password`) VALUES
-(1,'cusaaa','111'),
-(2,'cusbbb','222');
-
-INSERT INTO `black_list` (`bid`,`dis`) VALUES
-(1,0),
-(2,0);
-
-
-購物清單 detail
-購買人 購買商品 數量 總金額
-
-select customer, prodname,prodcount,total
-from  
-
-可建立購物車表
-把值都記得
-接著丟到購物車介面 然後要計算總金額
-
-確認購買跳到訂單詳情頁
 
 
 
