@@ -150,7 +150,7 @@ if (isset($_POST["btnDetail"])) {
   $sql = "select * from `detail` ORDER BY `detail`.`did` DESC";
   $result = mysqli_query($link, $sql);
   $row = mysqli_fetch_assoc($result);
-  $newdid=$row['didD']+1;
+  $newdid=$row['did']+1;
 
   $sql = <<<multi
   select u.uid,d.pid,prodname,cash,count,did,cash*count as total
@@ -171,13 +171,15 @@ if (isset($_POST["btnDetail"])) {
     var_dump($uid);
     var_dump($prodname);
     var_dump($prodcount);
+    var_dump($cash);
     var_dump($total);
   
     $sql =<<<multi
       insert into detail2  
       (did,uid,prodname,prodcount,cash,total,date) 
-      values('$did','$uid',$prodname','$prodcount','$cash','$total',current_timestamp()) 
+      values('$did','$uid','$prodname','$prodcount','$cash','$total',current_timestamp()) 
       multi;
+
     mysqli_query($link, $sql);
   }
   
@@ -186,14 +188,14 @@ if (isset($_POST["btnDetail"])) {
 
     //刪除真實數量
   $sql =
-    "update prod set prodcount = tempcount  where pid = '$pid' ";
-  $result = mysqli_query($link, $sql);
-  $row = mysqli_fetch_assoc($result);
+    "update prod set prodcount = tempcount ";
+  mysqli_query($link, $sql);
 
 
 
+var_dump($did);
   $sql = <<<multi
-  delete from detail where did = $did
+  delete from detail where did = '$did';
   multi;
   mysqli_query($link, $sql);
 
@@ -201,7 +203,7 @@ if (isset($_POST["btnDetail"])) {
   //使用者數量變更 要修改暫存量
 
   
-  // echo "<script> alert('訂單已完成，感謝您的購買');location.replace('./customer_detail.php');</script>";
+  echo "<script> alert('訂單已完成，感謝您的購買');location.replace('./customer_detail.php');</script>";
   //修改產品表數量欄位
 
 }

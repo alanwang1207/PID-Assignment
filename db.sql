@@ -33,7 +33,7 @@ CREATE TABLE `detail2` (
   `prodcount` int NOT NULL,
   `cash` int NOT NULL,
   `total` int NOT NULL,
-  `date` varchar(20),
+  `date` varchar(20)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `user` (`uid`,`username`,`password`) VALUES
