@@ -156,7 +156,7 @@ if (isset($_POST["member"])) {
               <td>
                 <div class="form-group row">
                   <div class="col-3">
-                    <input id="count" name="count" type="text" class="form-control" value="<?= $row["count"]; ?>">
+                    <input id="count" name="count" type="number" class="form-control" value="<?= $row["count"]; ?>">
                   </div>
                 </div>
               </td>
