@@ -5,15 +5,15 @@ if (isset($_POST["okButton"])) {
     //echo $firstName;
     $prodcount = $_POST["prodcount"];
     $cash = $_POST["cash"];
-    
+
     if (trim(($prodname && $prodcount && $cash) != "")) {
         $sql = <<<sqlstate
     insert into prod (prodname,prodcount,tempcount,cash)
     values('$prodname','$prodcount','$prodcount','$cash')
   sqlstate;
         require_once("../config.php");
-        mysqli_query($link, $sql);   
-        echo "<script> alert('添加成功，將跳回商品管理頁');location.replace('./product.php');</script>";    
+        mysqli_query($link, $sql);
+        echo "<script> alert('添加成功，將跳回商品管理頁');location.replace('./product.php');</script>";
     } else {
         // 使用js語法
         echo '<script language="javascript">';
@@ -38,8 +38,24 @@ if (isset($_POST["okButton"])) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <form  method="post">
-    <div class="form-group row">
+    <form method="post">
+
+        <div class="form-group row">
+            <form method="post" enctype="multipart/form-data" action="upload.php">
+
+
+                <label for="prodname" class="col-4 col-form-label">圖片</label>
+                <div class="col-2">
+                    <input type="submit" value="上傳">
+                    <input type="file" name="my_file" class="form-control">
+                </div>
+            </form>
+        </div>
+
+
+
+
+        <div class="form-group row">
             <label for="prodname" class="col-4 col-form-label">商品名</label>
             <div class="col-8">
                 <input id="prodname" name="prodname" type="text" class="form-control">
