@@ -16,21 +16,33 @@ if (!is_numeric($uid))
     die("uid not a number.");
 
 //echo $sql;
-require("config.php");
+require_once("config.php");
+
+
 if (isset($_POST["okButton"])) {
     $username = $_POST["username"];
     $password = $_POST["password"];
-    $sql = <<<multi
+    //驗證帳號唯一
+    $sql = <<<sqlstate
+    select username from user where username = '$username';
+  sqlstate;
+    $result = mysqli_query($link, $sql);
+    $count = mysqli_num_rows($result);
+    if ($count > 0) {
+        echo "<script> alert('帳號名稱已被使用，請重新輸入');location.replace('add.php');</script>";
+    } else {
+        $sql = <<<multi
     update user set
        username = '$username',
        password='$password'
     where uid = $uid
   multi;
-    $result = mysqli_query($link, $sql);
-    echo "<script> alert('修改完成，請重新登入');location.replace('login.php');</script>";
-    //header("location: login.php");
-    
-    exit();
+        $result = mysqli_query($link, $sql);
+        echo "<script> alert('修改完成，請重新登入');location.replace('login.php');</script>";
+        //header("location: login.php");
+
+        exit();
+    }
 } else {
     $sql = <<<multi
     select * from user where uid = $uid
