@@ -29,7 +29,7 @@ if (isset($_POST["okButton"])) {
     $result = mysqli_query($link, $sql);
     $count = mysqli_num_rows($result);
     if ($count > 0) {
-        echo "<script> alert('帳號名稱已被使用，請重新輸入');location.replace('add.php');</script>";
+        echo "<script> alert('帳號名稱已被使用，請重新輸入');location.replace('index.php');</script>";
     } else {
         $sql = <<<multi
     update user set
