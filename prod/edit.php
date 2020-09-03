@@ -1,21 +1,31 @@
 <?php
+
+//按下取消返回商品管理頁
 if (isset($_POST["cancelButton"])) {
-    header("location: ../secret.php");
+    header("location: ./product.php");
     exit();
 }
+
+//檢查pid是否存在
 if (!isset($_GET["pid"])) {
     die("id not found.");
 }
 $pid = $_GET["pid"];
+
+//檢查pid是否為數字或數字的字串
 if (!is_numeric($pid))
     die("pid not a number.");
 
-//echo $sql;
-require_once("config.php");
+//引入資料庫配置
+require_once("../config.php");
+
+//按下送出按鈕
 if (isset($_POST["okButton"])) {
     $prodname = $_POST["prodname"];
     $prodcount = $_POST["prodcount"];
     $cash = $_POST["cash"];
+
+    //更新商品資訊
     $sql = <<<multi
     update prod set
     prodname = '$prodname',
@@ -26,8 +36,6 @@ if (isset($_POST["okButton"])) {
   multi;
     $result = mysqli_query($link, $sql);
     echo "<script> alert('修改完成，將跳回商品管理頁');location.replace('./product.php');</script>";    
-    //header("location: login.php");
-
     exit();
 } else {
     $sql = <<<multi
@@ -36,9 +44,6 @@ if (isset($_POST["okButton"])) {
     $result = mysqli_query($link, $sql);
     $row = mysqli_fetch_assoc($result);
 }
-
-//var_dump($row);
-// header("location: index.php");
 ?>
 
 

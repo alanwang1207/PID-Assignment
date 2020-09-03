@@ -1,16 +1,21 @@
 <?php
 
+//按下ok送資料
 if (isset($_POST["okButton"])) {
     $prodname = $_POST["prodname"];
-    //echo $firstName;
     $prodcount = $_POST["prodcount"];
     $cash = $_POST["cash"];
 
+    //判斷是否有空值
     if (trim(($prodname && $prodcount && $cash) != "")) {
+
+        //新增商品
         $sql = <<<sqlstate
     insert into prod (prodname,prodcount,tempcount,cash)
     values('$prodname','$prodcount','$prodcount','$cash')
   sqlstate;
+
+        //引入資料庫配置
         require_once("../config.php");
         mysqli_query($link, $sql);
         echo "<script> alert('添加成功，將跳回商品管理頁');location.replace('./product.php');</script>";

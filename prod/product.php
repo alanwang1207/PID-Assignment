@@ -1,11 +1,12 @@
 <?php
-require_once("config.php");
+
+//引入資料庫配置
+require_once("../config.php");
 $commandText = <<<SqlQuery
 select * from prod ;
 SqlQuery;
 
 $result = mysqli_query($link, $commandText);
-// var_dump($result);
 
 ?>
 
