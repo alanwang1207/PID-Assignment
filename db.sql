@@ -1,6 +1,6 @@
-create database test1;
+create database pid;
 
-use test1;
+use pid;
 
 CREATE TABLE `user` (
   `uid` int NOT NULL auto_increment primary key,
