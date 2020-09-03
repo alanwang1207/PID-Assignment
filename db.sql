@@ -36,11 +36,11 @@ CREATE TABLE `detail` (
   `date` varchar(20)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `user` (`uid`,`username`,`password`,'dis') VALUES
-(1,'admin','111'),
-(2,'jason','111'),
-(3,'hamber','111'),
-(4,'riven','111');
+INSERT INTO `user` (`uid`,`username`,`password`,`dis`) VALUES
+(1,'admin','111','0'),
+(2,'jason','111','0'),
+(3,'hamber','111','0'),
+(4,'riven','111','0');
 
 INSERT INTO `prod` (`pid`,`prodname`,`prodcount`,`tempcount`,`cash`) VALUES
 (1,'apple',100,100,20),
