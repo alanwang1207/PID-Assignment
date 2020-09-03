@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once("config.php");
+require_once("../config.php");
 $commandText = <<<SqlQuery
     select * from detail ;
     SqlQuery;
@@ -14,14 +14,6 @@ $sql = <<<multi
     ORDER BY d.did ASC
     multi;
 $result = mysqli_query($link, $sql);
-// $sql = <<<multi
-//     "select u.uid,prodname,cash,count,did,cash*count as total
-//     from user u join detail d on d.uid =u.uid
-//                  join prod p on p.pid =d.pid 
-//                  ORDER BY did ASC";
-// multi;
-
-// var_dump($result);
 
 //搜尋商品
 if(isset($_POST["btnSearchp"])){
@@ -65,7 +57,7 @@ if(isset($_POST["btnSearchb"])){
 
     <div class="container">
         <h2>購物系統 - 訂單管理</h2>
-        <a href="./admin.php" class="btn btn-outline-primary">回首頁</a>
+        <a href="../admin.php" class="btn btn-outline-primary">回首頁</a>
 
 
         <form class="form-inline" method="POST">
