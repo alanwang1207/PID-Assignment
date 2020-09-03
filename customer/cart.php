@@ -64,7 +64,6 @@ if (isset($_POST["btnDetail"])) {
 
   //新訂單id等於舊訂單+1
   $newdid = $row['did'] + 1;
-  echo $newdid;
   $sql = <<<multi
   select u.uid,d.pid,prodname,cash,count,did,cash*count as total
   
@@ -84,7 +83,7 @@ if (isset($_POST["btnDetail"])) {
     $sql = <<<multi
       insert into detail
       (did,uid,prodname,prodcount,cash,total,date) 
-      values('$did','$uid','$prodname','$prodcount','$cash','$total',current_timestamp()) 
+      values('$newdid','$uid','$prodname','$prodcount','$cash','$total',current_timestamp()) 
       multi;
     mysqli_query($link, $sql);
   }
