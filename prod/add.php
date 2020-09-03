@@ -45,20 +45,6 @@ if (isset($_POST["okButton"])) {
 
     <form method="post">
 
-        <div class="form-group row">
-            <form method="post" enctype="multipart/form-data" action="upload.php">
-
-
-                <label for="prodname" class="col-4 col-form-label">圖片</label>
-                <div class="col-2">
-                    <input type="submit" value="上傳">
-                    <input type="file" name="my_file" class="form-control">
-                </div>
-            </form>
-        </div>
-
-
-
 
         <div class="form-group row">
             <label for="prodname" class="col-4 col-form-label">商品名</label>
