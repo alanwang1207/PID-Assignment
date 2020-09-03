@@ -1,16 +1,14 @@
 <?php
 session_start();
 require_once("config.php");
-// $sUserName = "";
+
 $uid = $_SESSION["uid"];
-var_dump($_SESSION["uid"]);
 
 if (isset($_POST["btnAdd"]) && $uid == 0) {
   echo "<script> alert('請先加入會員');location.replace('login.php');</script>";
 } else {
   if (isset($_POST["btnAdd"]) && $_POST["count"] != "0") {
     $pid = $_POST["btnsend"];
-    var_dump($pid);
 
 
     $sql = <<<multi
@@ -125,8 +123,8 @@ if (isset($_POST["member"])) {
       <?php if ($sUserName == "Guest") : ?>
         <a href="#" style="text-decoration:none;"></a>
       <?php else : ?>
-        <a href="edit.php?uid=<?= $uid ?>" class="btn btn-outline-primary btn-md">修改會員資料</a>
-        <a href="customer_detail.php" class="btn btn-outline-success btn-md">查看訂單</a>
+        <a href="./customer/edit.php?uid=<?= $uid ?>" class="btn btn-outline-primary btn-md">修改會員資料</a>
+        <a href="./customer/customer_detail.php" class="btn btn-outline-success btn-md">查看訂單</a>
       <?php endif; ?>
     </span>
 
@@ -171,7 +169,7 @@ if (isset($_POST["member"])) {
     <?php if ($sUserName == "Guest") : ?>
         <a href="#" style="text-decoration:none;"></a>
       <?php else : ?>
-        <a href="cart.php" class="btn btn-outline-success btn-md">前往購物車</a>
+        <a href="./customer/cart.php" class="btn btn-outline-success btn-md">前往購物車</a>
       <?php endif; ?>
 
     <input type="reset" class="btn btn-outline-secondary btn-md" name="btnReset" id="btnReset" value="重設" />

@@ -1,27 +1,12 @@
 <?php
 session_start();
-require_once("config.php");
+
+//載入資料庫配置
+require_once("../config.php");
+
 $uid = $_SESSION['uid'];
-echo $uid;
-$commandText = <<<SqlQuery
-    select * from detail where uid = $uid ;
-    SqlQuery;
-// $sql = <<<multi
-//     "select u.uid,prodname,cash,count,did,cash*count as total
-//     from user u join detail d on d.uid =u.uid
-//                  join prod p on p.pid =d.pid 
-//                  ORDER BY did ASC";
-// multi;
 
-$result = mysqli_query($link, $commandText);
-// $sql = <<<multi
-//     select * from `detail2`  
-//     where uid =$uid
-//     ORDER BY `detail2`.`did` ASC
-//   multi;
-
-
-
+//顯示明細
   $sql = <<<multi
 select did,username,prodname,prodcount,cash,total,date
 
@@ -31,7 +16,6 @@ ORDER BY d.did ASC
 multi;
 $result = mysqli_query($link, $sql);
 
-// var_dump($result);
 
 ?>
 
@@ -53,7 +37,7 @@ $result = mysqli_query($link, $sql);
 
     <div class="container">
         <h2>購物網 - 訂單頁</h2>
-        <a href="./index.php" class="btn btn-outline-primary">回首頁</a>
+        <a href="../index.php" class="btn btn-outline-primary">回首頁</a>
             <table class="table table-striped">
                 <thead>
                     <tr>

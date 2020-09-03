@@ -1,11 +1,13 @@
 <?php
 session_start();
-require_once("config.php");
+
+//載入資料庫配置
+require_once("../config.php");
 $uid = $_SESSION["uid"];
 
-var_dump($uid);
+//按下取消回首頁
 if (isset($_POST["cancelButton"])) {
-    header("location: index.php");
+    header("location: ../index.php");
     exit();
 }
 if (!isset($_GET["uid"])) {
@@ -15,10 +17,7 @@ $uid = $_GET["uid"];
 if (!is_numeric($uid))
     die("uid not a number.");
 
-//echo $sql;
-require_once("config.php");
-
-
+//按下送出
 if (isset($_POST["okButton"])) {
     $username = $_POST["username"];
     $password = $_POST["password"];
@@ -28,20 +27,44 @@ if (isset($_POST["okButton"])) {
   sqlstate;
     $result = mysqli_query($link, $sql);
     $count = mysqli_num_rows($result);
-    if ($count > 0) {
-        echo "<script> alert('帳號名稱已被使用，請重新輸入');location.replace('index.php');</script>";
-    } else {
-        $sql = <<<multi
-    update user set
-       username = '$username',
-       password='$password'
-    where uid = $uid
-  multi;
-        $result = mysqli_query($link, $sql);
-        echo "<script> alert('修改完成，請重新登入');location.replace('login.php');</script>";
-        //header("location: login.php");
 
+
+    //驗證是否改帳號
+    $sql = <<<sqlstate
+    select username from user where uid = $uid;
+  sqlstate;
+    $result = mysqli_query($link, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $ousername = $row["username"];
+    if ($username == $ousername) {
+        $sql = <<<multi
+        update user set
+           password='$password'
+        where uid = '$uid';
+      multi;
+        mysqli_query($link, $sql);
+        echo "<script> alert('修改完成，請重新登入');location.replace('../login.php');</script>";
         exit();
+    } else {
+        //驗證帳號名稱是否使用
+        $sql = <<<sqlstate
+            select username from user where username = '$username';
+            sqlstate;
+        $result = mysqli_query($link, $sql);
+        $count = mysqli_num_rows($result);
+        if ($count > 0) {
+            echo "<script> alert('帳號名稱已被使用，請重新輸入');location.replace('../index.php');</script>";
+        } else {
+            $sql = <<<multi
+            update user set
+               username = '$username',
+               password='$password'
+            where uid = $uid
+          multi;
+            $result = mysqli_query($link, $sql);
+            echo "<script> alert('修改完成，請重新登入');location.replace('../login.php');</script>";
+            exit();
+        }
     }
 } else {
     $sql = <<<multi
@@ -51,8 +74,6 @@ if (isset($_POST["okButton"])) {
     $row = mysqli_fetch_assoc($result);
 }
 
-//var_dump($row);
-// header("location: index.php");
 ?>
 
 

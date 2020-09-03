@@ -1,23 +1,38 @@
 <?php
 
+//按下送出
 if (isset($_POST["okButton"])) {
-    $userName = $_POST["userName"];
+    $username = $_POST["userName"];
     echo $firstName;
-    $passWord = $_POST["passWord"];
-    
-    if (trim(($userName && $passWord) != "")) {
-        $sql = <<<sqlstate
-    insert into customer (username,password)
-    values('$userName','$passWord')
+    $password = $_POST["passWord"];
+
+    //驗證帳號唯一
+    $sql = <<<sqlstate
+    select username from user where username = '$username';
   sqlstate;
-        require_once("../config.php");
-        mysqli_query($link, $sql);   
-        echo "<script> alert('加入成功，請重新登入');location.replace('login.php');</script>";    
+    require_once("../config.php");
+    $result = mysqli_query($link, $sql);
+    $count = mysqli_num_rows($result);
+
+    //看是否至少一筆資料
+    if ($count > 0) {
+        echo "<script> alert('帳號名稱已被使用，請重新輸入');location.replace('add.php');</script>";
     } else {
-        // 使用js語法
-        echo '<script language="javascript">';
-        echo 'alert("帳號或密碼請輸入完整")';
-        echo '</script>';
+
+        //檢查欄位是否為空
+        if (trim(($username && $password) != "")) {
+            $sql = <<<sqlstate
+        insert into user (username,password,dis)
+        values('$username','$password','0')
+      sqlstate;
+            mysqli_query($link, $sql);
+            echo "<script> alert('加入成功，請重新登入');location.replace('login.php');</script>";
+        } else {
+            // 使用js語法
+            echo '<script language="javascript">';
+            echo 'alert("帳號或密碼請輸入完整")';
+            echo '</script>';
+        }
     }
 }
 ?>
@@ -37,7 +52,7 @@ if (isset($_POST["okButton"])) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <form  method="post">
+    <form method="post">
         <div class="form-group row">
             <label for="userName" class="col-4 col-form-label">帳號</label>
             <div class="col-8">
