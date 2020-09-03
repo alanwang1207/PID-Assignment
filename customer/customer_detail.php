@@ -7,7 +7,7 @@ require_once("../config.php");
 $uid = $_SESSION['uid'];
 
 //顯示明細
-  $sql = <<<multi
+$sql = <<<multi
 select did,username,prodname,prodcount,cash,total,date
 
 from user u join detail d on d.uid =u.uid
@@ -38,20 +38,20 @@ $result = mysqli_query($link, $sql);
     <div class="container">
         <h2>購物網 - 訂單頁</h2>
         <a href="../index.php" class="btn btn-outline-primary">回首頁</a>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>訂單編號</th>
-                        <th>購買人</th>
-                        <th>商品名</th>                    
-                        <th>商品數</th>
-                        <th>商品單價</th>
-                        <th>總價</th>
-                        <th>購買日期</th>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>訂單編號</th>
+                    <th>購買人</th>
+                    <th>商品名</th>
+                    <th>商品數</th>
+                    <th>商品單價</th>
+                    <th>金額</th>
+                    <th>購買日期</th>
 
-                    </tr>
-                </thead>
-                <tbody>
+                </tr>
+            </thead>
+            <tbody>
                 <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                     <tr>
                         <td><?= $row["did"] ?></td>
@@ -63,10 +63,23 @@ $result = mysqli_query($link, $sql);
                         <td><?= $row["date"] ?></td>
 
                     </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
 
+                    <?php
+                    $rowt = (int)$row["total"];
+                    $total += $rowt;
+                    $tt = $total;
+                    ?>
+                <?php } ?>
+                <?php
+                $tt = $total;
+                ?>
+            </tbody>
+        </table>
+        <td>
+            <h2>
+                總共 <?= $total ?> 元
+            </h2>
+        </td>
     </div>
 
 </body>
