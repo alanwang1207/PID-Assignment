@@ -1,22 +1,28 @@
 <?php
 session_start();
+
+//載入資料庫配置
 require_once("config.php");
 
 $uid = $_SESSION["uid"];
 
+//添加時驗證是否為會員
 if (isset($_POST["btnAdd"]) && $uid == 0) {
   echo "<script> alert('請先加入會員');location.replace('login.php');</script>";
 } else {
-  if (isset($_POST["btnAdd"]) && $_POST["count"] != "0") {
+  //驗證數量是否正確
+  if (isset($_POST["btnAdd"]) && $_POST["count"] >0 ) {
+
     $pid = $_POST["btnsend"];
 
-
+    //添加的商品
     $sql = <<<multi
     select pid from cart where pid = '$pid' and uid = '$uid';
     multi;
     $result1 = mysqli_query($link, $sql);
     $countnum = mysqli_num_rows($result1);
 
+    //暫存數
     $sql = <<<multi
     select tempcount from prod where pid = '$pid';
     multi;
@@ -69,10 +75,6 @@ if (isset($_POST["btnAdd"]) && $uid == 0) {
   select * from prod
   multi;
     $result = mysqli_query($link, $sql);
-
-    echo $_SESSION['uid'];
-
-    echo $_SESSION['prodcount'];
   }
 }
 
