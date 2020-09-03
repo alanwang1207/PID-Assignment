@@ -1,17 +1,25 @@
 <?php
 
+//檢查是否有id
 if (!isset($_GET["uid"])) {
   die("uid not found");
 }
 $uid = $_GET["uid"];
+
+//檢查id是否為數字或數字的字串
 if (!is_numeric($uid))
   die("uid not a number.");
+
+//引入資料庫配置
+require("../config.php");
+
+  //將dis欄位設為0
   $sql = <<<multi
   update user set
   dis = '0'
   where uid = $uid
 multi;
-require("../config.php");
 mysqli_query($link, $sql);
+
 echo "<script> alert('修改完成，將跳回會員列表');location.replace('../member.php');</script>";  
-// header("location: login.php");
+
