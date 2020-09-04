@@ -10,17 +10,20 @@ $uid = $_SESSION["uid"];
 if (isset($_POST["btnAdd"]) && $uid == 0) {
   echo "<script> alert('請先加入會員');location.replace('login.php');</script>";
 } else {
-  //驗證數量是否正確
-  if (isset($_POST["btnAdd"]) && $_POST["count"] >0 ) {
+  //驗證數量是否正確 count為輸入的數量
+  if (isset($_POST["btnAdd"]) && $_POST["count"] > 0) {
 
+    //抓取添加數量的商品id
     $pid = $_POST["btnsend"];
 
-    //添加的商品
+
+    //目前購物車添加的商品
     $sql = <<<multi
     select pid from cart where pid = '$pid' and uid = '$uid';
     multi;
-    $result1 = mysqli_query($link, $sql);
-    $countnum = mysqli_num_rows($result1);
+    $result = mysqli_query($link, $sql);
+    //判斷是否有至少一筆資料
+    $countnum = mysqli_num_rows($result);
 
     //暫存數
     $sql = <<<multi
@@ -29,14 +32,17 @@ if (isset($_POST["btnAdd"]) && $uid == 0) {
 
     $result = mysqli_query($link, $sql);
     $row = mysqli_fetch_assoc($result);
+
+    //將暫存數存到count
     $count = $row["tempcount"];
 
 
     //檢查數量是否足夠
     if ($count >= $_POST["count"]) {
+      //檢查是否購物車有這項產品
       if ($countnum == 0) {
         $count = $_POST["count"];
-        $_SESSION["count"] = $count;
+
         $sql = <<<multi
       INSERT INTO cart (pid,count,uid) VALUES
       ('$pid', '$count','$uid')
@@ -52,7 +58,7 @@ if (isset($_POST["btnAdd"]) && $uid == 0) {
         exit();
       } else {
         $count = $_POST["count"];
-        $_SESSION["count"] = $count;
+
         $sql = <<<multi
         update cart set count = count + '$count' where pid = '$pid'
       multi;
@@ -169,10 +175,10 @@ if (isset($_POST["member"])) {
       <?php } ?>
     </table>
     <?php if ($sUserName == "Guest") : ?>
-        <a href="#" style="text-decoration:none;"></a>
-      <?php else : ?>
-        <a href="./customer/cart.php" class="btn btn-outline-success btn-md">前往購物車</a>
-      <?php endif; ?>
+      <a href="#" style="text-decoration:none;"></a>
+    <?php else : ?>
+      <a href="./customer/cart.php" class="btn btn-outline-success btn-md">前往購物車</a>
+    <?php endif; ?>
 
     <input type="reset" class="btn btn-outline-secondary btn-md" name="btnReset" id="btnReset" value="重設" />
 

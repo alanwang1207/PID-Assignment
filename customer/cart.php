@@ -25,7 +25,7 @@ $result = mysqli_query($link, $sql);
 if (isset($_POST["btnDel"])) {
   $did = $_POST["btnSend"];
 
-  // 找出產品id
+  // 找出目前購物車產品id
   $sql = <<<multi
       select pid,count
       from cart
@@ -41,14 +41,14 @@ if (isset($_POST["btnDel"])) {
   //修改產品表暫存數量欄位
   $sql =
     "update prod set tempcount = tempcount + $cartcount where pid = '$pid' ";
-  $result = mysqli_query($link, $sql);
+  mysqli_query($link, $sql);
 
   //刪除購物車商品
   $sql = <<<multi
   delete from cart where did = $did
   multi;
   mysqli_query($link, $sql);
-  //echo "<script> alert('刪除成功');location.replace('./cart.php');</script>";
+  echo "<script> alert('刪除成功');location.replace('./cart.php');</script>";
 }
 
 
@@ -99,7 +99,7 @@ if (isset($_POST["btnDetail"])) {
 
   //刪除購物車商品
   $sql = <<<multi
-  delete from cart where did = '$did';
+  delete from cart where uid = '$uid';
   multi;
   mysqli_query($link, $sql);
 
