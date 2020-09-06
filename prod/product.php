@@ -29,7 +29,7 @@ $result = mysqli_query($link, $commandText);
     <div class="container">
         <h2>購物系統 - 商品管理</h2>
         <a href="../admin.php" class="btn btn-outline-primary">回首頁</a>
-        <a href="./add.php?pid=<?= $row["pid"] ?>" class="btn btn-outline-success">新增</a>
+        <a href="./add.php" class="btn btn-outline-success">新增</a>
         <?php while ($row = mysqli_fetch_assoc($result)) { ?>
             <span>
                 <a href="./edit.php?pid=<?= $row["pid"] ?>" class="btn btn-outline-info">修改</a>
