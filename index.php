@@ -145,6 +145,7 @@ if (isset($_POST["member"])) {
       <thead>
         <tr>
           <th>商品名</th>
+          <th>圖片</th>
           <th>數量</th>
           <th>金額</th>
           <th>購買量</th>
@@ -156,6 +157,7 @@ if (isset($_POST["member"])) {
         <tbody>
           <tr>
             <td><?= $row["prodname"] ?></td>
+            <td><img src="prod/upload/<?= $row["prodname"] ?>.png" alt="商品圖" width="100" height="100" >  </td>
             <td><?= $row["tempcount"] ?></td>
             <td><?= $row["cash"] ?></td>
             <form method="post">

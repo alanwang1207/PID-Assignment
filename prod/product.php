@@ -40,6 +40,7 @@ $result = mysqli_query($link, $commandText);
                     <tr>
                         <th>商品編號</th>
                         <th>商品名</th>
+                        <th>商品圖</th>
                         <th>數量</th>
                         <th>金額</th>
                     </tr>
@@ -48,6 +49,7 @@ $result = mysqli_query($link, $commandText);
                     <tr>
                         <td><?= $row["pid"] ?></td>
                         <td><?= $row["prodname"] ?></td>
+                        <td><img src="./upload/<?= $row["prodname"] ?>.png" width="100" height="100"  alt=""></td>
                         <td><?= $row["prodcount"] ?></td>
                         <td><?= $row["cash"] ?></td>
                     </tr>

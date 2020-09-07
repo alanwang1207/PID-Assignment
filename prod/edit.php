@@ -25,6 +25,16 @@ if (isset($_POST["okButton"])) {
     $prodcount = $_POST["prodcount"];
     $cash = $_POST["cash"];
 
+    //修改檔名
+    $sql = "select prodname from prod where pid = '$pid'";
+    $result = mysqli_query($link, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $oldprodname = $row["prodname"];
+    $file ="./upload/$oldprodname.png";
+    $rename = "./upload/$prodname.png";
+    rename($file,$rename);
+
+
     //更新商品資訊
     $sql = <<<multi
     update prod set
@@ -35,6 +45,8 @@ if (isset($_POST["okButton"])) {
     where pid = $pid
   multi;
     $result = mysqli_query($link, $sql);
+
+
     echo "<script> alert('修改完成，將跳回商品管理頁');location.replace('./product.php');</script>";    
     exit();
 } else {
