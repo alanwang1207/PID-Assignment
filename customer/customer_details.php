@@ -6,33 +6,40 @@ require_once("../config.php");
 
 $uid = $_SESSION['uid'];
 
+//抓取添加數量的商品id
+$did = $_POST["detail"];
+
 //顯示明細
 
 if (isset($_POST["more"])) {
     $_SESSION['num'] = $_SESSION['num'] + 5;
     $num = $_SESSION['num'];
     $sql = <<<multi
-select did,username,prodname,prodcount,cash,total,date
-
-from user u join detail d on d.uid =u.uid
-where d.uid=$uid
-ORDER BY d.did ASC
+select distinct(did) from detail where uid = $uid
+ORDER BY did ASC
 limit $num
 multi;
     $result = mysqli_query($link, $sql);
 } else {
     $num = $_SESSION['num'];
     $sql = <<<multi
-select did,username,prodname,prodcount,cash,total,date
-
-from user u join detail d on d.uid =u.uid
-where d.uid=$uid
-ORDER BY d.did ASC
-limit $num
+    select distinct(did) from detail where uid = $uid
+    ORDER BY did ASC
+    limit $num
 multi;
     $result = mysqli_query($link, $sql);
 }
 
+if(isset($_POST["detail"])){
+    header("location:customer_detail.php?did=$did");
+}
+
+// select did,username,prodname,prodcount,cash,total,date
+
+// from user u join detail d on d.uid =u.uid
+// where d.uid=$uid
+// ORDER BY d.did ASC
+// limit $num
 
 // $sql = <<<multi
 // select did,username,prodname,prodcount,cash,total,date
@@ -65,48 +72,28 @@ multi;
         <div class="container">
             <h2>購物網 - 訂單頁</h2>
             <a href="../index.php" class="btn btn-outline-primary">回首頁</a>
-            <table class="table table-striped">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>訂單編號</th>
-                        <th>購買人</th>
-                        <th>商品名</th>
-                        <th>商品數</th>
-                        <th>商品單價</th>
-                        <th>金額</th>
-                        <th>購買日期</th>
-
+                        <th>訂單詳情</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                         <tr>
                             <td><?= $row["did"] ?></td>
-                            <td><?= $row["username"] ?></td>
-                            <td><?= $row["prodname"] ?></td>
-                            <td><?= $row["prodcount"] ?></td>
-                            <td><?= $row["cash"] ?></td>
-                            <td><?= $row["total"] ?></td>
-                            <td><?= $row["date"] ?></td>
-
-                        </tr>
-
-                        <?php
-                        $rowt = (int)$row["total"];
-                        $total += $rowt;
-                        $tt = $total;
-                        ?>
+                            <td>
+                            <input type="hidden" name="btnsend" id="btnsend" value="<?= $row["did"] ?>" />
+                            <a href="./customer_detail.php?did=<?= $row["did"] ?>" class="btn btn-info">點我查看</a>
+                            </td>
+                        </tr>             
                     <?php } ?>
-                    <?php
-                    $tt = $total;
-                    ?>
                 </tbody>
             </table>
             <td>
-                <h2>
-                    總共 <?= $total ?> 元
-                </h2>
                 <input type="submit" class="btn btn-primary" id="more" name="more" value="更多">
+                
             </td>
         </div>
     </form>

@@ -4,7 +4,7 @@ session_start();
 //載入資料庫配置
 require_once("../config.php");
 
-$did = $_SESSION["did"];
+$did = $_GET["did"];
 //顯示明細
 
     $sql = <<<multi
@@ -34,8 +34,9 @@ multi;
 <body>
     <form method="post">
         <div class="container">
-            <h2>購物網 - 訂單頁</h2>
-            <a href="../index.php" class="btn btn-outline-primary">回首頁</a>
+        <a href="../index.php" ><h2>購物網 - 訂單頁</h2></a>
+            
+            <a href="./customer_details.php" class="btn btn-outline-primary">回上一頁</a>
             <table class="table table-striped">
                 <thead>
                     <tr>
