@@ -108,8 +108,6 @@ if (isset($_POST["btnDetail"])) {
 
 
   echo "<script> alert('訂單已完成，感謝您的購買');location.replace('./customer_detail.php');</script>";
-
-
 }
 
 //身份驗證
@@ -142,20 +140,24 @@ if (isset($_POST["member"])) {
 <body>
 
   <div class="container">
-    <h2>購物網 - 購物車</h2>
-    <span>
-      <?php if ($sUserName == "Guest") : ?>
-        <a href="../login.php" class="btn btn-outline-success btn-md">登入</a>
-      <?php else : ?>
-        <a href="../login.php?logout=1" class="btn btn-outline-warning btn-md">登出</a>
-      <?php endif; ?>
-      <a href="./edit.php?uid=<?= $uid ?>" class="btn btn-outline-primary btn-md">修改會員資料</a>
-    </span>
+    <div class="p-3 mb-2 bg-secondary text-white">
 
-    <tr>
-      <td align="center" bgcolor="#CCCCCC"><?php echo "Hello~ " . $sUserName ?> </td>
-    </tr>
 
+      <h2>購物網 - 購物車</h2>
+      <span>
+        <?php if ($sUserName == "Guest") : ?>
+          <a href="../login.php" class="btn btn-success btn-md">登入</a>
+        <?php else : ?>
+          <a href="../login.php?logout=1" class="btn btn-warning btn-md">登出</a>
+        <?php endif; ?>
+        <a href="../index.php" class="btn btn-success btn-md">回首頁</a>
+        <a href="./edit.php?uid=<?= $uid ?>" class="btn btn-primary btn-md">修改會員資料</a>
+      </span>
+
+      <tr>
+        <td align="center" bgcolor="#CCCCCC"><?php echo "Hello~ " . $sUserName ?> </td>
+      </tr>
+    </div>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -193,9 +195,16 @@ if (isset($_POST["member"])) {
       ?>
     </table>
 
-    <td>Total:<?= $total ?></td>
-    <a href="../index.php" class="btn btn-outline-success btn-md">回首頁</a>
-    <input type="submit" class="btn btn-outline-primary btn-md" name="btnDetail" id="btnDetail" value="送出訂單" />
+    <div class="p-3 mb-2 bg-success text-white">
+      <td>
+        <h3>
+          Total:<?= $total ?>
+        </h3>
+      </td>
+    </div>
+
+    
+    <input type="submit" class="btn btn-outline-danger btn-md" name="btnDetail" id="btnDetail" value="送出訂單" />
     </form>
 
 </body>

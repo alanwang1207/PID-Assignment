@@ -119,23 +119,26 @@ if (isset($_POST["member"])) {
 
 <body>
 
-  <div class="container">
+  <div class="container " >
+    <div class = "p-3 mb-2 bg-info text-white">
+
+    
     <h2>購物網 - 首頁</h2>
     <span>
       <?php if ($sUserName == "Guest") : ?>
-        <a href="login.php" class="btn btn-outline-success btn-md">登入</a>
+        <a href="login.php" class="btn btn-success btn-md">登入</a>
       <?php else : ?>
-        <a href="login.php?logout=1" class="btn btn-outline-secondary btn-md">登出</a>
+        <a href="login.php?logout=1" class="btn btn-secondary btn-md">登出</a>
       <?php endif; ?>
 
       <?php if ($sUserName == "Guest") : ?>
         <a href="#" style="text-decoration:none;"></a>
       <?php else : ?>
-        <a href="./customer/edit.php?uid=<?= $uid ?>" class="btn btn-outline-primary btn-md">修改會員資料</a>
-        <a href="./customer/customer_detail.php" class="btn btn-outline-success btn-md">查看訂單</a>
+        <a href="./customer/edit.php?uid=<?= $uid ?>" class="btn btn-primary btn-md">修改會員資料</a>
+        <a href="./customer/customer_detail.php" class="btn btn-success btn-md">查看訂單</a>
       <?php endif; ?>
     </span>
-
+    </div>
     <tr>
       <td align="center" bgcolor="#CCCCCC"><?php echo "Hello~ " . $sUserName ?> </td>
     </tr>
@@ -181,9 +184,6 @@ if (isset($_POST["member"])) {
     <?php else : ?>
       <a href="./customer/cart.php" class="btn btn-outline-success btn-md">前往購物車</a>
     <?php endif; ?>
-
-    <input type="reset" class="btn btn-outline-secondary btn-md" name="btnReset" id="btnReset" value="重設" />
-
 </body>
 
 </html>
