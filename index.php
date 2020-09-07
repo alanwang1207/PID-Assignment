@@ -84,7 +84,15 @@ if (isset($_POST["btnAdd"]) && $uid == 0) {
   }
 }
 
-
+//搜尋商品
+if(isset($_POST["btnSearchp"])){
+  $keyword = $_POST["keyword"];
+  $sql = <<<multi
+  select * from prod
+  where prodname like '%$keyword%'
+  multi;
+  $result = mysqli_query($link, $sql);
+}
 
 
 
@@ -122,8 +130,10 @@ if (isset($_POST["member"])) {
   <div class="container " >
     <div class = "p-3 mb-2 bg-info text-white">
 
-    
+    <a href="index.php">
     <h2>購物網 - 首頁</h2>
+    </a>
+    
     <span>
       <?php if ($sUserName == "Guest") : ?>
         <a href="login.php" class="btn btn-success btn-md">登入</a>
@@ -143,7 +153,12 @@ if (isset($_POST["member"])) {
       <td align="center" bgcolor="#CCCCCC"><?php echo "Hello~ " . $sUserName ?> </td>
     </tr>
     <!-- <img src="hello.jpg" class="rounded-circle img-thumbnail mx-auto d-block" alt="Cinque Terre" style="width:50%"> -->
-
+    <form method="post">
+    <form class="form-inline" method="POST">
+            <label for="keyword">請輸入商品名 : </label>
+            <input type="keyword" class="form-control " pattern="^[\u4e00-\u9fa5a-zA-Z]+$" name = "keyword" id="keyword" style="width: 100px;">
+            <input name = "btnSearchp" id= "btnSearchp" type="submit" class="btn btn-primary btn-sm">
+        </form>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -171,7 +186,8 @@ if (isset($_POST["member"])) {
               ?>
             </td>
             <td><?= $row["cash"] ?></td>
-            <form method="post">
+            
+
               <td>
                 <div class="form-group row">
                   <div class="col-3">
