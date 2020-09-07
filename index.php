@@ -161,7 +161,15 @@ if (isset($_POST["member"])) {
           <tr>
             <td><?= $row["prodname"] ?></td>
             <td><img src="prod/upload/<?= $row["prodname"] ?>.png" alt="商品圖" width="100" height="100" >  </td>
-            <td><?= $row["tempcount"] ?></td>
+            <td>
+              <?php 
+              if($row["tempcount"]==0){
+                echo "補貨中";
+              }else{
+                echo $row["tempcount"];
+                }
+              ?>
+            </td>
             <td><?= $row["cash"] ?></td>
             <form method="post">
               <td>
