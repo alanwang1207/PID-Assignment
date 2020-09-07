@@ -27,9 +27,11 @@ $result = mysqli_query($link, $commandText);
 <body>
 
     <div class="container">
-        <h2>購物系統 - 商品管理</h2>
-        <a href="../admin.php" class="btn btn-outline-primary">回首頁</a>
-        <a href="./add.php" class="btn btn-outline-success">新增</a>
+        <div>
+            <h2>購物系統 - 商品管理</h2>
+            <a href="../admin.php" class="btn btn-outline-primary">回首頁</a>
+            <a href="./add.php" class="btn btn-outline-success">新增</a>
+        </div>
         <?php while ($row = mysqli_fetch_assoc($result)) { ?>
             <span>
                 <a href="./edit.php?pid=<?= $row["pid"] ?>" class="btn btn-outline-info">修改</a>
@@ -49,7 +51,7 @@ $result = mysqli_query($link, $commandText);
                     <tr>
                         <td><?= $row["pid"] ?></td>
                         <td><?= $row["prodname"] ?></td>
-                        <td><img src="./upload/<?= $row["prodname"] ?>.png" width="100" height="100"  alt=""></td>
+                        <td><img src="./upload/<?= $row["prodname"] ?>.png" width="100" height="100" alt=""></td>
                         <td><?= $row["prodcount"] ?></td>
                         <td><?= $row["cash"] ?></td>
                     </tr>
