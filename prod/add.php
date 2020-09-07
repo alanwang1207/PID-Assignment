@@ -8,17 +8,24 @@ if (isset($_POST["okButton"])) {
 
     //判斷是否有空值
     if (trim(($prodname && $prodcount && $cash) != "")) {
-
-        //新增商品
-        $sql = <<<sqlstate
-    insert into prod (prodname,prodcount,tempcount,cash)
-    values('$prodname','$prodcount','$prodcount','$cash')
-  sqlstate;
-
         //引入資料庫配置
         require_once("../config.php");
-        mysqli_query($link, $sql);
-        echo "<script> alert('添加成功，將跳回商品管理頁');location.replace('./product.php');</script>";
+
+        //判斷是否重複名稱
+        $sql = "select * from prod where prodname = '$prodname'";
+        $result = mysqli_query($link, $sql);
+        $count = mysqli_num_rows($result);
+        if ($count > 0) {
+            echo "<script> alert('商品名稱重複');location.replace('./add.php');</script>";
+        } else {
+            //新增商品
+            $sql = <<<sqlstate
+        insert into prod (prodname,prodcount,tempcount,cash)
+        values('$prodname','$prodcount','$prodcount','$cash')
+      sqlstate;
+            mysqli_query($link, $sql);
+            echo "<script> alert('添加成功，將跳回商品管理頁');location.replace('./product.php');</script>";
+        }
     } else {
         // 使用js語法
         echo '<script language="javascript">';
@@ -44,20 +51,24 @@ if (isset($_POST["okButton"])) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <form method="post">
-
-
         <div class="form-group row">
             <label for="prodname" class="col-4 col-form-label">商品名</label>
             <div class="col-8">
                 <input id="prodname" name="prodname" type="text" class="form-control">
             </div>
         </div>
+
+        <!-- <form  method="post" enctype="multipart/form-data">
+            檔案名稱:<input type="file" name="myfile" id="myfile" /><br />
+            <input type="submit" name="submit" value="上傳檔案" />
+        </form> -->
         <div class="form-group row">
             <label for="prodcount" class="col-4 col-form-label">數量</label>
             <div class="col-8">
                 <input id="prodcount" name="prodcount" type="text" class="form-control">
             </div>
         </div>
+
         <div class="form-group row">
             <label for="cash" class="col-4 col-form-label">金額</label>
             <div class="col-8 ">
