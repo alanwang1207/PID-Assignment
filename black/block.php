@@ -21,5 +21,5 @@ require("../config.php");
 multi;
 mysqli_query($link, $sql);
 
-echo "<script> alert('修改完成，將跳回會員列表');location.replace('../member.php');</script>";  
+echo "<script> alert('修改完成，將跳回會員列表');location.replace('../member/member_list.php');</script>";  
 

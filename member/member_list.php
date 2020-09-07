@@ -37,8 +37,13 @@ $row = mysqli_fetch_assoc($result)
         </div>
         <?php while ($row = mysqli_fetch_assoc($result)) { ?>
             <span>
+
+            <?php if ($row["dis"] == 0) { ?>
                 <a href="../black/block.php?uid=<?= $row["uid"] ?>" class="btn btn-outline-danger">加入黑名單</a>
+              <?php } else { ?>
                 <a href="../black/cancel.php?uid=<?= $row["uid"] ?>" class="btn btn-outline-success">移除黑名單</a>
+              <?php } ?>
+                
                 <a href="./member_detail.php?uid=<?= $row["uid"] ?>" class="btn btn-outline-info">查看購買品項</a>
             </span>
             <table class="table table-striped">
