@@ -23,11 +23,11 @@ if (isset($_POST["okButton"])) {
                 echo "Error:" . $_FILES["file"]["error"];
             } else {
                 // 檔案上傳並顯示基本資料
-                echo "檔案名稱: " . $_FILES['file']['name'] . "<br>";
-                echo "檔案大小: " . ($_FILES['file']['size'] / 1024) .  "Kb<br>";
-                echo "檔案格式: " . $_FILES['file']['type'] . "<br>";
-                echo "暫存名稱: " . $_FILES['file']['tmp_name'] . "<br>";
-                echo "錯誤代碼: " . $_FILES['file']['error'] . "<br>";
+                // echo "檔案名稱: " . $_FILES['file']['name'] . "<br>";
+                // echo "檔案大小: " . ($_FILES['file']['size'] / 1024) .  "Kb<br>";
+                // echo "檔案格式: " . $_FILES['file']['type'] . "<br>";
+                // echo "暫存名稱: " . $_FILES['file']['tmp_name'] . "<br>";
+                // echo "錯誤代碼: " . $_FILES['file']['error'] . "<br>";
             }
             //複製檔案
             if (is_uploaded_file($_FILES['file']['tmp_name'])) {
