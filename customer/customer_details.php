@@ -15,7 +15,7 @@ if (isset($_POST["more"])) {
     $_SESSION['num'] = $_SESSION['num'] + 5;
     $num = $_SESSION['num'];
     $sql = <<<multi
-select distinct(did) from detail where uid = $uid
+select distinct(did),date from detail where uid = $uid
 ORDER BY did ASC
 limit $num
 multi;
@@ -23,7 +23,7 @@ multi;
 } else {
     $num = $_SESSION['num'];
     $sql = <<<multi
-    select distinct(did) from detail where uid = $uid
+    select distinct(did),date from detail where uid = $uid
     ORDER BY did ASC
     limit $num
 multi;
@@ -76,6 +76,7 @@ if(isset($_POST["detail"])){
                 <thead>
                     <tr>
                         <th>訂單編號</th>
+                        <th>訂購日期</th>
                         <th>訂單詳情</th>
                     </tr>
                 </thead>
@@ -83,6 +84,7 @@ if(isset($_POST["detail"])){
                     <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                         <tr>
                             <td><?= $row["did"] ?></td>
+                            <td><?= $row["date"] ?></td>
                             <td>
                             <input type="hidden" name="btnsend" id="btnsend" value="<?= $row["did"] ?>" />
                             <a href="./customer_detail.php?did=<?= $row["did"] ?>" class="btn btn-info">點我查看</a>
