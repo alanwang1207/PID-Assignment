@@ -4,7 +4,6 @@ session_start();
 //載入資料庫配置
 require_once("../config.php");
 
-$uid = $_SESSION['uid'];
 $did = $_SESSION["did"];
 //顯示明細
 
@@ -78,7 +77,6 @@ multi;
                 <h2>
                     總共 <?= $total ?> 元
                 </h2>
-                <input type="submit" class="btn btn-primary" id="more" name="more" value="更多">
             </td>
         </div>
     </form>
