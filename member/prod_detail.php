@@ -100,11 +100,21 @@ if(isset($_POST["btnSearchb"])){
                     </tr>
 
                 </tbody>
+                <?php
+                    $rowt = (int)$row["total"];
+                    $total += $rowt;
+                    ?>
             <?php } ?>
         </table>
+<div>
 
+</div>
     </div>
-
+    <td>
+            <h2>
+                總共 <?= $total ?> 元
+            </h2>
+        </td>
 </body>
 
 </html>
