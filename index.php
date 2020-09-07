@@ -135,7 +135,7 @@ if (isset($_POST["member"])) {
         <a href="#" style="text-decoration:none;"></a>
       <?php else : ?>
         <a href="./customer/edit.php?uid=<?= $uid ?>" class="btn btn-primary btn-md">修改會員資料</a>
-        <a href="./customer/customer_detail.php" class="btn btn-success btn-md">查看訂單</a>
+        <a href="./customer/customer_details.php" class="btn btn-success btn-md">查看訂單</a>
       <?php endif; ?>
     </span>
     </div>
@@ -144,7 +144,7 @@ if (isset($_POST["member"])) {
     </tr>
     <!-- <img src="hello.jpg" class="rounded-circle img-thumbnail mx-auto d-block" alt="Cinque Terre" style="width:50%"> -->
 
-    <table class="table table-striped">
+    <table class="table table-hover">
       <thead>
         <tr>
           <th>商品名</th>

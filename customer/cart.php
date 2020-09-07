@@ -64,6 +64,7 @@ if (isset($_POST["btnDetail"])) {
 
   //新訂單id等於舊訂單+1
   $newdid = $row['did'] + 1;
+  $_SESSION["did"] =   $newdid;
   $sql = <<<multi
   select u.uid,d.pid,prodname,cash,count,did,cash*count as total
   
@@ -158,7 +159,7 @@ if (isset($_POST["member"])) {
         <td align="center" bgcolor="#CCCCCC"><?php echo "Hello~ " . $sUserName ?> </td>
       </tr>
     </div>
-    <table class="table table-striped">
+    <table class="table table-hover">
       <thead>
         <tr>
           <th>商品名</th>

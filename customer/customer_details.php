@@ -5,16 +5,44 @@ session_start();
 require_once("../config.php");
 
 $uid = $_SESSION['uid'];
-$did = $_SESSION["did"];
+
 //顯示明細
 
+if (isset($_POST["more"])) {
+    $_SESSION['num'] = $_SESSION['num'] + 5;
+    $num = $_SESSION['num'];
     $sql = <<<multi
 select did,username,prodname,prodcount,cash,total,date
 
 from user u join detail d on d.uid =u.uid
-where d.did = $did
+where d.uid=$uid
+ORDER BY d.did ASC
+limit $num
 multi;
     $result = mysqli_query($link, $sql);
+} else {
+    $num = $_SESSION['num'];
+    $sql = <<<multi
+select did,username,prodname,prodcount,cash,total,date
+
+from user u join detail d on d.uid =u.uid
+where d.uid=$uid
+ORDER BY d.did ASC
+limit $num
+multi;
+    $result = mysqli_query($link, $sql);
+}
+
+
+// $sql = <<<multi
+// select did,username,prodname,prodcount,cash,total,date
+
+// from user u join detail d on d.uid =u.uid
+// where d.uid=$uid
+// ORDER BY d.did ASC
+// multi;
+// $result = mysqli_query($link, $sql);
+
 
 ?>
 
