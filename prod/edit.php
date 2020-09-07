@@ -30,9 +30,9 @@ if (isset($_POST["okButton"])) {
     $result = mysqli_query($link, $sql);
     $row = mysqli_fetch_assoc($result);
     $oldprodname = $row["prodname"];
-    $file ="./upload/$oldprodname.png";
+    $file = "./upload/$oldprodname.png";
     $rename = "./upload/$prodname.png";
-    rename($file,$rename);
+    rename($file, $rename);
 
 
     //更新商品資訊
@@ -47,7 +47,7 @@ if (isset($_POST["okButton"])) {
     $result = mysqli_query($link, $sql);
 
 
-    echo "<script> alert('修改完成，將跳回商品管理頁');location.replace('./product.php');</script>";    
+    echo "<script> alert('修改完成，將跳回商品管理頁');location.replace('./product.php');</script>";
     exit();
 } else {
     $sql = <<<multi
@@ -76,24 +76,26 @@ if (isset($_POST["okButton"])) {
 
     <div class="container">
 
-        <form method="post">
-            <div class="form-group row">
-                <label for="prodname" class="col-4 col-form-label">商品名:</label>
-                <div class="col-8">
-                    <input id="prodname" name="prodname" value="<?= $row["prodname"] ?>" type="text" class="form-control">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="prodcount" class="col-4 col-form-label">數量:</label>
-                <div class="col-8">
-                    <input id="prodcount" name="prodcount" value="<?= $row["prodcount"] ?>" type="text" class="form-control">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="cash" class="col-4 col-form-label">金額:</label>
-                <div class="col-8">
-                    <input id="cash" name="cash" value="<?= $row["cash"] ?>" type="text" class="form-control">
-                </div>
+
+
+
+
+        <form class="form-horizontal" method="post">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-highlight">
+                    <thead>
+                        <th>商品名:</th>
+                        <th>數量:</th>
+                        <th>金額:</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input id="prodname" name="prodname" value="<?= $row["prodname"] ?>" type="text" class="form-control"></td>
+                            <td><input id="prodcount" name="prodcount" value="<?= $row["prodcount"] ?>" type="text" class="form-control"></td>
+                            <td><input id="cash" name="cash" value="<?= $row["cash"] ?>" type="text" class="form-control"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="form-group row">
                 <div class="offset-4 col-8">

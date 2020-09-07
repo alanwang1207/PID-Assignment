@@ -1,5 +1,10 @@
 <?php
 
+//按下取消返回商品管理頁
+if (isset($_POST["cancelButton"])) {
+    header("location: ./product.php");
+    exit();
+}
 //按下ok送資料
 if (isset($_POST["okButton"])) {
     $prodname = $_POST["prodname"];
@@ -69,7 +74,7 @@ if (isset($_POST["okButton"])) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <form method="post" enctype="multipart/form-data">
+    <!-- <form method="post" enctype="multipart/form-data">
         <div class="form-group row">
             <label for="prodname" class="col-4 col-form-label">商品名</label>
             <div class="col-8">
@@ -96,10 +101,39 @@ if (isset($_POST["okButton"])) {
                 <button name="okButton" type="submit" class="btn btn-primary">確認送出</button>
             </div>
         </div>
-    </form>
-    <!-- <form method="post" enctype="multipart/form-data" action="uploadfile.php">
-       
     </form> -->
+    
+    
+    <form class="form-horizontal" method="post" enctype="multipart/form-data">
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-highlight">
+            <thead>
+                <th>商品名</th>
+                <th>圖片</th>
+                <th>數量</th>
+                <th>金額</th>
+                
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input id="prodname" name="prodname" type="text" class="form-control"></td>
+                    <td><input name="file" type="file"></td>
+                    <td><input id="prodcount" name="prodcount" type="text" class="form-control"></td>
+                    <td><input id="cash" name="cash" type="text" class="form-control"></td>
+                </tr>
+               
+            </tbody>
+            
+        </table>
+    </div>
+    <div class="form-group row">
+                <div class="offset-4 col-8">
+                <button name="okButton" type="submit" class="btn btn-primary">確認送出</button>
+                <button name="cancelButton" value="Cancel" type="submit" class="btn btn-secondary">取消修改</button>
+                </div>
+            </div>
+    
+</form>
 </body>
 
 </html>
