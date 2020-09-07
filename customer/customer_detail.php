@@ -7,14 +7,41 @@ require_once("../config.php");
 $uid = $_SESSION['uid'];
 
 //顯示明細
-$sql = <<<multi
+
+if (isset($_POST["more"])) {
+    $_SESSION['num'] = $_SESSION['num'] + 5;
+    $num = $_SESSION['num'];
+    $sql = <<<multi
 select did,username,prodname,prodcount,cash,total,date
 
 from user u join detail d on d.uid =u.uid
 where d.uid=$uid
 ORDER BY d.did ASC
+limit $num
 multi;
-$result = mysqli_query($link, $sql);
+    $result = mysqli_query($link, $sql);
+} else {
+    $num = $_SESSION['num'];
+    $sql = <<<multi
+select did,username,prodname,prodcount,cash,total,date
+
+from user u join detail d on d.uid =u.uid
+where d.uid=$uid
+ORDER BY d.did ASC
+limit $num
+multi;
+    $result = mysqli_query($link, $sql);
+}
+
+
+// $sql = <<<multi
+// select did,username,prodname,prodcount,cash,total,date
+
+// from user u join detail d on d.uid =u.uid
+// where d.uid=$uid
+// ORDER BY d.did ASC
+// multi;
+// $result = mysqli_query($link, $sql);
 
 
 ?>
@@ -34,54 +61,55 @@ $result = mysqli_query($link, $sql);
 </head>
 
 <body>
-
-    <div class="container">
-        <h2>購物網 - 訂單頁</h2>
-        <a href="../index.php" class="btn btn-outline-primary">回首頁</a>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>訂單編號</th>
-                    <th>購買人</th>
-                    <th>商品名</th>
-                    <th>商品數</th>
-                    <th>商品單價</th>
-                    <th>金額</th>
-                    <th>購買日期</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+    <form method="post">
+        <div class="container">
+            <h2>購物網 - 訂單頁</h2>
+            <a href="../index.php" class="btn btn-outline-primary">回首頁</a>
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td><?= $row["did"] ?></td>
-                        <td><?= $row["username"] ?></td>
-                        <td><?= $row["prodname"] ?></td>
-                        <td><?= $row["prodcount"] ?></td>
-                        <td><?= $row["cash"] ?></td>
-                        <td><?= $row["total"] ?></td>
-                        <td><?= $row["date"] ?></td>
+                        <th>訂單編號</th>
+                        <th>購買人</th>
+                        <th>商品名</th>
+                        <th>商品數</th>
+                        <th>商品單價</th>
+                        <th>金額</th>
+                        <th>購買日期</th>
 
                     </tr>
+                </thead>
+                <tbody>
+                    <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+                        <tr>
+                            <td><?= $row["did"] ?></td>
+                            <td><?= $row["username"] ?></td>
+                            <td><?= $row["prodname"] ?></td>
+                            <td><?= $row["prodcount"] ?></td>
+                            <td><?= $row["cash"] ?></td>
+                            <td><?= $row["total"] ?></td>
+                            <td><?= $row["date"] ?></td>
 
+                        </tr>
+
+                        <?php
+                        $rowt = (int)$row["total"];
+                        $total += $rowt;
+                        $tt = $total;
+                        ?>
+                    <?php } ?>
                     <?php
-                    $rowt = (int)$row["total"];
-                    $total += $rowt;
                     $tt = $total;
                     ?>
-                <?php } ?>
-                <?php
-                $tt = $total;
-                ?>
-            </tbody>
-        </table>
-        <td>
-            <h2>
-                總共 <?= $total ?> 元
-            </h2>
-        </td>
-    </div>
-
+                </tbody>
+            </table>
+            <td>
+                <h2>
+                    總共 <?= $total ?> 元
+                </h2>
+                <input type="submit" class="btn btn-primary" id="more" name="more" value="更多">
+            </td>
+        </div>
+    </form>
 </body>
 
 </html>

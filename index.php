@@ -5,7 +5,7 @@ session_start();
 require_once("config.php");
 
 $uid = $_SESSION["uid"];
-
+$_SESSION['num'] = 5;
 //添加時驗證是否為會員
 if (isset($_POST["btnAdd"]) && $uid == 0) {
   echo "<script> alert('請先加入會員');location.replace('login.php');</script>";
