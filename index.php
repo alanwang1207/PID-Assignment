@@ -141,7 +141,27 @@ if (isset($_POST["member"])) {
         <h2>購物網 - 首頁</h2>
       </a>
 
-      <span>
+
+      <div class="dropdown">
+        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          會員中心
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <?php if ($sUserName == "Guest") : ?>
+            <a href="login.php" class="btn btn-success btn-md">登入</a>
+          <?php else : ?>
+            <a href="login.php?logout=1" class="btn btn-secondary btn-md">登出</a>
+          <?php endif; ?>
+          <?php if ($sUserName == "Guest") : ?>
+            <a href="#" style="text-decoration:none;"></a>
+          <?php else : ?>
+            <a href="./customer/edit.php?uid=<?= $uid ?>" class="btn btn-primary btn-md">修改會員資料</a>
+            <a href="./customer/customer_details.php" class="btn btn-success btn-md">查看訂單</a>
+          <?php endif; ?>
+        </div>
+      </div>
+
+      <!-- <span>
         <?php if ($sUserName == "Guest") : ?>
           <a href="login.php" class="btn btn-success btn-md">登入</a>
         <?php else : ?>
@@ -154,7 +174,7 @@ if (isset($_POST["member"])) {
           <a href="./customer/edit.php?uid=<?= $uid ?>" class="btn btn-primary btn-md">修改會員資料</a>
           <a href="./customer/customer_details.php" class="btn btn-success btn-md">查看訂單</a>
         <?php endif; ?>
-      </span>
+      </span> -->
     </div>
     <tr>
       <h1><?php echo "Hello~ " . $sUserName ?> </h1>
@@ -165,49 +185,59 @@ if (isset($_POST["member"])) {
 
     <!-- 輪播圖 -->
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="images/1.jpg" class="d-block w-100"  height="500" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-          <h1 style="color:black;">beauty fruit</h1>
-          <h1 style="font-size: 35px; color:black">蘋果 鳳梨 美味的水果</h1>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="images/1.jpg" class="d-block w-100" height="500" alt="...">
+          <div class="carousel-caption d-none d-md-block">
+            <h1 style="color:black;">beauty fruit</h1>
+            <h1 style="font-size: 35px; color:black">蘋果 鳳梨 美味的水果</h1>
+          </div>
         </div>
-    </div>
-    <div class="carousel-item">
-      <img src="images/2.jpg" class="d-block w-100"  height="500" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-          <h1 style="color:black;">蘋果特寫</h1>
-          <h1 style="font-size: 35px; color:black">青蘋果與紅蘋果</h1>
+        <div class="carousel-item">
+          <img src="images/2.jpg" class="d-block w-100" height="500" alt="...">
+          <div class="carousel-caption d-none d-md-block">
+            <h1 style="color:black;">蘋果特寫</h1>
+            <h1 style="font-size: 35px; color:black">青蘋果與紅蘋果</h1>
+          </div>
         </div>
-    </div>
-    <div class="carousel-item">
-      <img src="images/3.jpg" class="d-block w-100"  height="500" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-          <h1 style="color:black;">水果拼盤</h1>
-          <h1 style="font-size: 35px; color:black">宛如披薩般的饗宴</h1>
+        <div class="carousel-item">
+          <img src="images/3.jpg" class="d-block w-100" height="500" alt="...">
+          <div class="carousel-caption d-none d-md-block">
+            <h1 style="color:black;">水果拼盤</h1>
+            <h1 style="font-size: 35px; color:black">宛如披薩般的饗宴</h1>
+          </div>
         </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
     </div>
-  </div>
-  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
     <form method="post">
 
-      <label for="keyword">請輸入商品名 : </label>
+      <!-- <label for="keyword">請輸入商品名 : </label>
       <input type="keyword" class="form-control " pattern="^[\u4e00-\u9fa5a-zA-Z]+$" name="keyword" id="keyword" style="width: 100px;">
+      <input name="btnSearchp" id="btnSearchp" type="submit" class="btn btn-primary btn-sm"> -->
+
+
+      <div class="input-group mb-3 mt-3" style="width: 300px;">
+        <div class="input-group-prepend" >
+          <span class="input-group-text" id="inputGroup-sizing-default">請輸入商品名</span>
+        </div>
+        <input type="keyword" class="form-control " pattern="^[\u4e00-\u9fa5a-zA-Z]+$" name="keyword" id="keyword" >
       <input name="btnSearchp" id="btnSearchp" type="submit" class="btn btn-primary btn-sm">
+      </div>
 
 
-      <div class="card-deck text-center hover" >
+
+      <div class="card-deck text-center hover">
         <?php while ($row = mysqli_fetch_assoc($result)) { ?>
           <div class="col-3">
-            <div class="card mb-3 shadow-sm" >
+            <div class="card mb-3 shadow-sm">
               <img src="prod/upload/<?= $row["prodname"] ?>.png" width="90%" height="150" data-toggle="tooltip" title="<?= $row["prodname"] ?>">
               <div class="card-body" style="text-align:left;">
                 <p style="color: brown;"><?php
@@ -222,39 +252,39 @@ if (isset($_POST["member"])) {
                   <p><?= $row["total"] ?></p>
 
                   <div class="form-group row">
-                    <div class="col-6" >
-                      <input id="count" name="count" type="number" class="form-control card12" value="<?= $row["count"]; ?>">
+                    <div class="col-6">
+                      <input id="count" name="count" type="number" class="form-control " value="<?= $row["count"]; ?>">
                     </div>
                   </div>
-                  <td><input  type="submit" class="btn btn-outline-primary btn-md" name="btnAdd" id="btnAdd" value="添加" /></td>
-                  
+                  <td><input type="submit" class="btn btn-outline-primary btn-md" name="btnAdd" id="btnAdd" value="添加" /></td>
+
               </div>
               <input type="hidden" name="btnsend" id="btnsend" value="<?= $row["pid"] ?>" />
-              </form>
-            </div>
-          </div>
-
-        <?php } ?>
-
-      </div>
-
-
-
-
     </form>
-
-
-
-    <?php if ($sUserName == "Guest") : ?>
-      <a href="#" style="text-decoration:none;"></a>
-    <?php else : ?>
-      <div class="col-4 mb-2 ml-3">
-      <a href="./customer/cart.php" class="btn btn-outline-success btn-md">前往購物車</a>
-      </div>
-      
-    <?php endif; ?>
-
   </div>
+  </div>
+
+<?php } ?>
+
+</div>
+
+
+
+
+</form>
+
+
+
+<?php if ($sUserName == "Guest") : ?>
+  <a href="#" style="text-decoration:none;"></a>
+<?php else : ?>
+  <div class="col-4 mb-2 ml-3">
+    <a href="./customer/cart.php" class="btn btn-outline-success btn-md">前往購物車</a>
+  </div>
+
+<?php endif; ?>
+
+</div>
 </body>
 
 </html>
