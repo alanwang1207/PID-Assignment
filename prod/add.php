@@ -122,7 +122,7 @@ if (isset($_POST["okButton"])) {
     <div class="form-group row">
                 <div class="offset-4 col-8">
                 <button name="okButton" type="submit" class="btn btn-primary">確認送出</button>
-                <button name="cancelButton" value="Cancel" type="submit" class="btn btn-secondary">取消修改</button>
+                <button name="cancelButton" value="Cancel" type="submit" class="btn btn-secondary">取消新增</button>
                 </div>
             </div>
     
