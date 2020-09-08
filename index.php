@@ -157,9 +157,46 @@ if (isset($_POST["member"])) {
       </span>
     </div>
     <tr>
-      <td align="center" bgcolor="#CCCCCC"><?php echo "Hello~ " . $sUserName ?> </td>
+      <h1><?php echo "Hello~ " . $sUserName ?> </h1>
     </tr>
     <!-- <img src="hello.jpg" class="rounded-circle img-thumbnail mx-auto d-block" alt="Cinque Terre" style="width:50%"> -->
+
+
+
+    <!-- 輪播圖 -->
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="images/1.jpg" class="d-block w-100"  height="500" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+          <h1 style="color:black;">beauty fruit</h1>
+          <h1 style="font-size: 35px; color:black">蘋果 鳳梨 美味的水果</h1>
+        </div>
+    </div>
+    <div class="carousel-item">
+      <img src="images/2.jpg" class="d-block w-100"  height="500" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+          <h1 style="color:black;">蘋果特寫</h1>
+          <h1 style="font-size: 35px; color:black">青蘋果與紅蘋果</h1>
+        </div>
+    </div>
+    <div class="carousel-item">
+      <img src="images/3.jpg" class="d-block w-100"  height="500" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+          <h1 style="color:black;">水果拼盤</h1>
+          <h1 style="font-size: 35px; color:black">宛如披薩般的饗宴</h1>
+        </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
     <form method="post">
 
       <label for="keyword">請輸入商品名 : </label>
