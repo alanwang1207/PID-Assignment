@@ -238,7 +238,6 @@ if (isset($_POST["member"])) {
                     </div>
                   </div>
                   <td><input type="submit" class="btn btn-outline-primary btn-md" name="btnAdd" id="btnAdd" value="添加" /></td>
-
               </div>
               <input type="hidden" name="btnsend" id="btnsend" value="<?= $row["pid"] ?>" />
     </form>
