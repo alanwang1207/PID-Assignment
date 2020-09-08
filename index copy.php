@@ -85,7 +85,7 @@ if (isset($_POST["btnAdd"]) && $uid == 0) {
 }
 
 //搜尋商品
-if (isset($_POST["btnSearchp"])) {
+if(isset($_POST["btnSearchp"])){
   $keyword = $_POST["keyword"];
   $sql = <<<multi
   select * from prod
@@ -125,99 +125,91 @@ if (isset($_POST["member"])) {
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<!-- 顯示提示字特效 -->
-<script>
-  $(document).ready(function() {
-    $('[data-toggle="tooltip"]').tooltip();
-  });
-</script>
 
 <body>
 
-  <div class="container ">
-    <div class="p-3 mb-2 bg-info text-white">
+  <div class="container " >
+    <div class = "p-3 mb-2 bg-info text-white">
 
-      <a href="index.php">
-        <h2>購物網 - 首頁</h2>
-      </a>
+    <a href="index.php">
+    <h2>購物網 - 首頁</h2>
+    </a>
+    
+    <span>
+      <?php if ($sUserName == "Guest") : ?>
+        <a href="login.php" class="btn btn-success btn-md">登入</a>
+      <?php else : ?>
+        <a href="login.php?logout=1" class="btn btn-secondary btn-md">登出</a>
+      <?php endif; ?>
 
-      <span>
-        <?php if ($sUserName == "Guest") : ?>
-          <a href="login.php" class="btn btn-success btn-md">登入</a>
-        <?php else : ?>
-          <a href="login.php?logout=1" class="btn btn-secondary btn-md">登出</a>
-        <?php endif; ?>
-
-        <?php if ($sUserName == "Guest") : ?>
-          <a href="#" style="text-decoration:none;"></a>
-        <?php else : ?>
-          <a href="./customer/edit.php?uid=<?= $uid ?>" class="btn btn-primary btn-md">修改會員資料</a>
-          <a href="./customer/customer_details.php" class="btn btn-success btn-md">查看訂單</a>
-        <?php endif; ?>
-      </span>
+      <?php if ($sUserName == "Guest") : ?>
+        <a href="#" style="text-decoration:none;"></a>
+      <?php else : ?>
+        <a href="./customer/edit.php?uid=<?= $uid ?>" class="btn btn-primary btn-md">修改會員資料</a>
+        <a href="./customer/customer_details.php" class="btn btn-success btn-md">查看訂單</a>
+      <?php endif; ?>
+    </span>
     </div>
     <tr>
       <td align="center" bgcolor="#CCCCCC"><?php echo "Hello~ " . $sUserName ?> </td>
     </tr>
     <!-- <img src="hello.jpg" class="rounded-circle img-thumbnail mx-auto d-block" alt="Cinque Terre" style="width:50%"> -->
     <form method="post">
+    <form class="form-inline" method="POST">
+            <label for="keyword">請輸入商品名 : </label>
+            <input type="keyword" class="form-control " pattern="^[\u4e00-\u9fa5a-zA-Z]+$" name = "keyword" id="keyword" style="width: 100px;">
+            <input name = "btnSearchp" id= "btnSearchp" type="submit" class="btn btn-primary btn-sm">
+        </form>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>商品名</th>
+          <th>圖片</th>
+          <th>數量</th>
+          <th>金額</th>
+          <th>購買量</th>
+          <th></th>
+        </tr>
+      </thead>
+      <?php while ($row = mysqli_fetch_assoc($result)) { ?>
 
-      <label for="keyword">請輸入商品名 : </label>
-      <input type="keyword" class="form-control " pattern="^[\u4e00-\u9fa5a-zA-Z]+$" name="keyword" id="keyword" style="width: 100px;">
-      <input name="btnSearchp" id="btnSearchp" type="submit" class="btn btn-primary btn-sm">
+        <tbody>
+          <tr>
+            <td><?= $row["prodname"] ?></td>
+            <td><img src="prod/upload/<?= $row["prodname"] ?>.png" alt="商品圖" width="100" height="100" >  </td>
+            <td>
+              <?php 
+              if($row["tempcount"]==0){
+                echo "補貨中";
+              }else{
+                echo $row["tempcount"];
+                }
+              ?>
+            </td>
+            <td><?= $row["cash"] ?></td>
+            <form method="post">
 
-
-      <div class="card-deck text-center" >
-        <?php while ($row = mysqli_fetch_assoc($result)) { ?>
-          <div class="col-3">
-            <div class="card mb-3 shadow-sm" >
-              <img src="prod/upload/<?= $row["prodname"] ?>.png" width="90%" height="150" data-toggle="tooltip" title="<?= $row["prodname"] ?>">
-              <div class="card-body" style="text-align:left;">
-                <p style="color: brown;"><?php
-                                          if ($row["tempcount"] == 0) {
-                                            echo "補貨中";
-                                          } else {
-                                            echo $row["tempcount"];
-                                          }
-                                          ?></p>
-                <p style="color:cornflowerblue;"><strong><?= $row["cash"] . "元" ?></strong></p>
-                <form method="post">
-                  <p><?= $row["total"] ?></p>
-
-                  <div class="form-group row">
-                    <div class="col-6" >
-                      <input id="count" name="count" type="number" class="form-control card12" value="<?= $row["count"]; ?>">
-                    </div>
+            <td>
+                <div class="form-group row">
+                  <div class="col-3">
+                    <input id="count" name="count" type="number" class="form-control" value="<?= $row["count"]; ?>">
                   </div>
-                  <td><input  type="submit" class="btn btn-outline-primary btn-md" name="btnAdd" id="btnAdd" value="添加" /></td>
-                  
-              </div>
-              <input type="hidden" name="btnsend" id="btnsend" value="<?= $row["pid"] ?>" />
-              </form>
-            </div>
-          </div>
-
-        <?php } ?>
-
-      </div>
-
-
-
-
-    </form>
-
-
-
+                </div>
+              </td>
+              <td><input type="submit" class="btn btn-outline-primary btn-md" name="btnAdd" id="btnAdd" value="添加" /></td>
+              <td><?= $row["total"] ?></td>
+          </tr>
+          <input type="hidden" name="btnsend" id="btnsend" value="<?= $row["pid"] ?>" />
+          </form>
+        </tbody>
+      <?php } ?>
+    </table>
     <?php if ($sUserName == "Guest") : ?>
       <a href="#" style="text-decoration:none;"></a>
     <?php else : ?>
-      <div class="col-4 mb-2 ml-3">
       <a href="./customer/cart.php" class="btn btn-outline-success btn-md">前往購物車</a>
-      </div>
-      
     <?php endif; ?>
-
-  </div>
+      </form>
+    </div>
 </body>
-
 </html>

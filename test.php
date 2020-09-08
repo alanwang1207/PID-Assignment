@@ -182,38 +182,39 @@ if (isset($_POST["member"])) {
                                           ?></p>
                 <p><?= $row["cash"] . "元" ?></p>
                 <form method="post">
-                <p><?= $row["total"] ?></p>
+                  <p><?= $row["total"] ?></p>
 
-                <div class="form-group row">
-                  <div class="col-6">
-                    <input id="count" name="count" type="number" class="form-control" value="<?= $row["count"]; ?>">
+                  <div class="form-group row">
+                    <div class="col-6">
+                      <input id="count" name="count" type="number" class="form-control" value="<?= $row["count"]; ?>">
+                    </div>
                   </div>
-                </div>
-                <td><input type="submit" class="btn btn-outline-primary btn-md" name="btnAdd" id="btnAdd" value="添加" /></td>
-                <input type="hidden" name="btnsend" id="btnsend" value="<?= $row["pid"] ?>" />
+                  <td><input type="submit" class="btn btn-outline-primary btn-md" name="btnAdd" id="btnAdd" value="添加" /></td>
+                  
               </div>
-              
+              <input type="hidden" name="btnsend" id="btnsend" value="<?= $row["pid"] ?>" />
+              </form>
             </div>
           </div>
 
         <?php } ?>
+
+      </div>
+
+
+
+
     </form>
+
+
+
+    <?php if ($sUserName == "Guest") : ?>
+      <a href="#" style="text-decoration:none;"></a>
+    <?php else : ?>
+      <a href="./customer/cart.php" class="btn btn-outline-success btn-md">前往購物車</a>
+    <?php endif; ?>
+
   </div>
-
-
-
-
-
-
-  </div>
-
-  <?php if ($sUserName == "Guest") : ?>
-    <a href="#" style="text-decoration:none;"></a>
-  <?php else : ?>
-    <a href="./customer/cart.php" class="btn btn-outline-success btn-md">前往購物車</a>
-  <?php endif; ?>
 </body>
-
-</html>
 
 </html>
