@@ -220,12 +220,12 @@ if (isset($_POST["member"])) {
           <div class="col-3">
             <div class="card mb-3 shadow p-3">
               <img src="prod/upload/<?= $row["prodname"] ?>.png" width="90%" height="150" data-toggle="tooltip" title="<?= $row["prodname"] ?>">
-              <div class="card-body" style="text-align:left;">
-                <p style="color: brown;"><?php
+              <div class="card-body" style="text-align:left;"  >
+                <p style="color: brown;" ><?php
                                           if ($row["tempcount"] == 0) {
                                             echo "補貨中";
                                           } else {
-                                            echo $row["tempcount"];
+                                            echo "庫存：".$row["tempcount"];
                                           }
                                           ?></p>
                 <p style="color:cornflowerblue;"><strong><?= $row["cash"] . "元" ?></strong></p>
