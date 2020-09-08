@@ -85,34 +85,36 @@ if (isset($_POST["btnAdd"]) && $uid == 0) {
 
 
 
-    if (isset($_POST["btnUP"])) {
-      $_SESSION['count'] = $_SESSION['count'] + 4;
-      $num = $_SESSION['count'];
+    // if (isset($_POST["btnUP"])) {
+    //   if ($_SESSION["count"] >= 0) {
+    //     $_SESSION['count'] = $_SESSION['count'] + 4;
+    //     $num = $_SESSION['count'];
+    //     $sql = <<<multi
+    //     select * from prod  limit $num,4
+    //     multi;
+    //     $result = mysqli_query($link, $sql);
+    //   }
+    // } else if (isset($_POST["btnDown"])) {
+    //   $_SESSION['count'] = $_SESSION['count'] - 4;
+    //   $num = $_SESSION['count'];
+    //   $sql = <<<multi
+    //   select * from prod  limit $num,4
+    //   multi;
+    //   $result = mysqli_query($link, $sql);
+    // } else {
+    //     $sql = <<<multi
+    //   select * from prod  limit 0,4
+    // multi;
+    //     $result = mysqli_query($link, $sql);
+    //   }
+    
+
+
       $sql = <<<multi
-      select * from prod  limit $num,4
-      multi;
-      $result = mysqli_query($link, $sql);
-    } else if (isset($_POST["btnDown"])) {
-      $_SESSION['count'] = $_SESSION['count'] - 4;
-      $num = $_SESSION['count'];
-      $sql = <<<multi
-      select * from prod  limit $num,4
-      multi;
-      $result = mysqli_query($link, $sql);
-    } else {
-      $num = $_SESSION['count'];
-      $sql = <<<multi
-      select * from prod  limit 0,4
+    select * from prod 
     multi;
       $result = mysqli_query($link, $sql);
-    }
 
-
-  //   $sql = <<<multi
-  // select * from prod limit 0,8
-  // multi;
-  //   $result = mysqli_query($link, $sql);
-    echo $_SESSION["count"];
   }
 }
 
@@ -305,12 +307,12 @@ if (isset($_POST["member"])) {
   </div>
 
 <?php } ?>
-<table id="page" >
+<!-- <table id="page">
   <div>
-  <input type="submit" name="btnDown" id="btnDown" value="上一頁" />
-  <input type="submit" name="btnUP" id="btnUP" value="下一頁" />
+    <input type="submit" name="btnDown" id="btnDown" value="上一頁" />
+    <input type="submit" name="btnUP" id="btnUP" value="下一頁" />
   </div>
-</table>
+</table> -->
 
 
 
