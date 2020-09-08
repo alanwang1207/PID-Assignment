@@ -36,7 +36,7 @@ multi;
         <div class="container">
         <a href="../index.php" ><h2>購物網 - 訂單頁</h2></a>
             
-            <a href="./customer_details.php" class="btn btn-outline-primary">回上一頁</a>
+            <a href="./customer_details.php" class="btn btn-info">我的訂單</a>
             <table class="table table-striped">
                 <thead>
                     <tr>

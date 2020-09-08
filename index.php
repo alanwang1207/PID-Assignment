@@ -167,7 +167,7 @@ if (isset($_POST["member"])) {
       <input name="btnSearchp" id="btnSearchp" type="submit" class="btn btn-primary btn-sm">
 
 
-      <div class="card-deck text-center" >
+      <div class="card-deck text-center hover" >
         <?php while ($row = mysqli_fetch_assoc($result)) { ?>
           <div class="col-3">
             <div class="card mb-3 shadow-sm" >

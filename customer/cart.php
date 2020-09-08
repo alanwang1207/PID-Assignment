@@ -108,7 +108,7 @@ if (isset($_POST["btnDetail"])) {
 
 
 
-  echo "<script> alert('訂單已完成，感謝您的購買');location.replace('./customer_detail.php');</script>";
+  echo "<script> alert('訂單已完成，感謝您的購買');location.replace('./customer_detail.php?did=$newdid');</script>";
 }
 
 //身份驗證
