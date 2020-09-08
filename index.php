@@ -39,7 +39,7 @@ if (isset($_POST["btnAdd"]) && $uid == 0) {
 
     //檢查數量是否足夠
     if ($count >= $_POST["count"]) {
-      //檢查是否購物車有這項產品
+      //檢查是否購物車有這項產品 沒有的話就先insert到cart 再update修改暫存數
       if ($countnum == 0) {
         $count = $_POST["count"];
 
@@ -77,10 +77,42 @@ if (isset($_POST["btnAdd"]) && $uid == 0) {
     }
   } else {
 
-    $sql = <<<multi
-  select * from prod
-  multi;
-    $result = mysqli_query($link, $sql);
+
+
+
+
+
+
+
+
+    if (isset($_POST["btnUP"])) {
+      $_SESSION['count'] = $_SESSION['count'] + 4;
+      $num = $_SESSION['count'];
+      $sql = <<<multi
+      select * from prod  limit $num,4
+      multi;
+      $result = mysqli_query($link, $sql);
+    } else if (isset($_POST["btnDown"])) {
+      $_SESSION['count'] = $_SESSION['count'] - 4;
+      $num = $_SESSION['count'];
+      $sql = <<<multi
+      select * from prod  limit $num,4
+      multi;
+      $result = mysqli_query($link, $sql);
+    } else {
+      $num = $_SESSION['count'];
+      $sql = <<<multi
+      select * from prod  limit 0,4
+    multi;
+      $result = mysqli_query($link, $sql);
+    }
+
+
+  //   $sql = <<<multi
+  // select * from prod limit 0,8
+  // multi;
+  //   $result = mysqli_query($link, $sql);
+    echo $_SESSION["count"];
   }
 }
 
@@ -108,6 +140,14 @@ if (isset($_POST["member"])) {
   header("Location: ./index.php");
   exit();
 }
+
+
+
+
+
+
+
+
 
 ?>
 
@@ -225,11 +265,11 @@ if (isset($_POST["member"])) {
 
 
       <div class="input-group mb-3 mt-3" style="width: 300px;">
-        <div class="input-group-prepend" >
+        <div class="input-group-prepend">
           <span class="input-group-text" id="inputGroup-sizing-default">請輸入商品名</span>
         </div>
-        <input type="keyword" class="form-control " pattern="^[\u4e00-\u9fa5a-zA-Z]+$" name="keyword" id="keyword" >
-      <input name="btnSearchp" id="btnSearchp" type="submit" class="btn btn-primary btn-sm">
+        <input type="keyword" class="form-control " pattern="^[\u4e00-\u9fa5a-zA-Z]+$" name="keyword" id="keyword">
+        <input name="btnSearchp" id="btnSearchp" type="submit" class="btn btn-primary btn-sm">
       </div>
 
 
@@ -237,7 +277,7 @@ if (isset($_POST["member"])) {
       <div class="card-deck text-center hover">
         <?php while ($row = mysqli_fetch_assoc($result)) { ?>
           <div class="col-3">
-            <div class="card mb-3 shadow-sm">
+            <div class="card mb-3 shadow p-3">
               <img src="prod/upload/<?= $row["prodname"] ?>.png" width="90%" height="150" data-toggle="tooltip" title="<?= $row["prodname"] ?>">
               <div class="card-body" style="text-align:left;">
                 <p style="color: brown;"><?php
@@ -265,6 +305,14 @@ if (isset($_POST["member"])) {
   </div>
 
 <?php } ?>
+<table id="page" >
+  <div>
+  <input type="submit" name="btnDown" id="btnDown" value="上一頁" />
+  <input type="submit" name="btnUP" id="btnUP" value="下一頁" />
+  </div>
+</table>
+
+
 
 </div>
 

@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['count'] =0;
 //按下登出
 if (isset($_GET["logout"])) {
   session_destroy();
@@ -25,16 +26,16 @@ if (isset($_POST["btnOK"])) {
     $sql = "select * from `user` WHERE `username` = '$sUserName' and `password` = '$passWord'";
 
     $result = mysqli_query($link, $sql);
-
+    //驗證是否有這筆資料
     $row_count = mysqli_num_rows($result);
-
+    //存相關資料到session
     $row = mysqli_fetch_assoc($result);
     $_SESSION['uid'] =  $row["uid"];
     $_SESSION["userName"] = $row["username"];
     $_SESSION["dis"] = $row["dis"];
-    
-    if ($row_count != 0 ) {
-      if($_SESSION["dis"]!=1){
+
+    if ($row_count != 0) {
+      if ($_SESSION["dis"] != 1) {
         echo "welcome!{$sUserName}";
         if ($_SESSION["uid"] == 1) {
           header("Location: admin.php");
@@ -42,7 +43,7 @@ if (isset($_POST["btnOK"])) {
           header("Location: index.php");
         }
         exit();
-      }else{
+      } else {
         echo "您已被加入黑名單";
       }
     } else {
