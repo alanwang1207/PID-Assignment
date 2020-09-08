@@ -16,7 +16,7 @@ $sql = <<<multi
 $result = mysqli_query($link, $sql);
 
 //搜尋商品
-if(isset($_POST["btnSearchp"])){
+if (isset($_POST["btnSearchp"])) {
     $keyword = $_POST["keyword"];
     $sql = <<<multi
     select did,username,prodname,prodcount,cash,total,date
@@ -27,7 +27,7 @@ if(isset($_POST["btnSearchp"])){
     $result = mysqli_query($link, $sql);
 }
 //搜尋買家
-if(isset($_POST["btnSearchb"])){
+if (isset($_POST["btnSearchb"])) {
     $buyer = $_POST["buyer"];
     $sql = <<<multi
     select did,username,prodname,prodcount,cash,total,date
@@ -58,21 +58,16 @@ if(isset($_POST["btnSearchb"])){
     <div class="container">
         <h2>購物系統 - 訂單管理</h2>
         <a href="../admin.php" class="btn btn-outline-primary">回首頁</a>
-
-
         <form class="form-inline" method="POST">
             <label for="keyword">請輸入商品名 : </label>
-            <input type="keyword" class="form-control" pattern="^[\u4e00-\u9fa5a-zA-Z]+$" name = "keyword" id="keyword">
-            <input name = "btnSearchp" id= "btnSearchp" type="submit" class="btn btn-primary btn-sm">
+            <input type="keyword" class="form-control" pattern="^[\u4e00-\u9fa5a-zA-Z]+$" name="keyword" id="keyword">
+            <input name="btnSearchp" id="btnSearchp" type="submit" class="btn btn-primary btn-sm">
         </form>
-
         <form class="form-inline" method="POST">
             <label for="buyer">請輸入購買人 : </label>
-            <input type="keyword" class="form-control" pattern="^[\u4e00-\u9fa5a-zA-Z]+$" name = "buyer" id="buyer">
-            <input name = "btnSearchb" id= "btnSearchb" type="submit" class="btn btn-primary btn-sm">
+            <input type="keyword" class="form-control" pattern="^[\u4e00-\u9fa5a-zA-Z]+$" name="buyer" id="buyer">
+            <input name="btnSearchb" id="btnSearchb" type="submit" class="btn btn-primary btn-sm">
         </form>
-
-
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -83,38 +78,32 @@ if(isset($_POST["btnSearchb"])){
                     <th>商品單價</th>
                     <th>總價</th>
                     <th>購買日期</th>
-
                 </tr>
             </thead>
             <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                 <tbody>
                     <tr>
-                    <td><?= $row["did"] ?></td>
+                        <td><?= $row["did"] ?></td>
                         <td><?= $row["username"] ?></td>
                         <td><?= $row["prodname"] ?></td>
                         <td><?= $row["prodcount"] ?></td>
                         <td><?= $row["cash"] ?></td>
                         <td><?= $row["total"] ?></td>
                         <td><?= $row["date"] ?></td>
-
                     </tr>
-
                 </tbody>
                 <?php
-                    $rowt = (int)$row["total"];
-                    $total += $rowt;
-                    ?>
+                $rowt = (int)$row["total"];
+                $total += $rowt;
+                ?>
             <?php } ?>
         </table>
-<div>
-
-</div>
     </div>
     <td>
-            <h2>
-                總共 <?= $total ?> 元
-            </h2>
-        </td>
+        <h2>
+            總共 <?= $total ?> 元
+        </h2>
+    </td>
 </body>
 
 </html>

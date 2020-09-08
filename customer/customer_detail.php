@@ -7,13 +7,13 @@ require_once("../config.php");
 $did = $_GET["did"];
 //顯示明細
 
-    $sql = <<<multi
+$sql = <<<multi
 select did,username,prodname,prodcount,cash,total,date
 
 from user u join detail d on d.uid =u.uid
 where d.did = $did
 multi;
-    $result = mysqli_query($link, $sql);
+$result = mysqli_query($link, $sql);
 
 ?>
 
@@ -34,8 +34,9 @@ multi;
 <body>
     <form method="post">
         <div class="container">
-        <a href="../index.php" ><h2>購物網 - 訂單頁</h2></a>
-            
+            <a href="../index.php">
+                <h2>購物網 - 訂單頁</h2>
+            </a>
             <a href="./customer_details.php" class="btn btn-info">我的訂單</a>
             <table class="table table-striped">
                 <thead>
@@ -47,7 +48,6 @@ multi;
                         <th>商品單價</th>
                         <th>金額</th>
                         <th>購買日期</th>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -60,9 +60,7 @@ multi;
                             <td><?= $row["cash"] ?></td>
                             <td><?= $row["total"] ?></td>
                             <td><?= $row["date"] ?></td>
-
                         </tr>
-
                         <?php
                         $rowt = (int)$row["total"];
                         $total += $rowt;

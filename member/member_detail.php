@@ -4,11 +4,6 @@ require("../config.php");
 
 $uid = $_GET["uid"];
 
-// global $detail_total_price;
-// global $detailID;
-// $sql = "select * FROM detail where uid='$uid'";
-// $result = mysqli_query($link, $sql);
-
 //顯示清單內容
 $sql = <<<multi
     SELECT * FROM `detail`  
@@ -33,7 +28,6 @@ $result = mysqli_query($link, $sql);
 </head>
 
 <body>
-
     <div class="container">
         <h2>購物網 - 會員購買頁</h2>
         <a href="./member_list.php" class="btn btn-outline-primary">回上一頁</a>
@@ -46,7 +40,6 @@ $result = mysqli_query($link, $sql);
                     <th>商品單價</th>
                     <th>金額</th>
                     <th>購買日期</th>
-
                 </tr>
             </thead>
             <tbody>
@@ -58,9 +51,7 @@ $result = mysqli_query($link, $sql);
                         <td><?= $row["cash"] ?></td>
                         <td><?= $row["total"] ?></td>
                         <td><?= $row["date"] ?></td>
-
                     </tr>
-
                     <?php
                     $rowt = (int)$row["total"];
                     $total += $rowt;
@@ -78,7 +69,6 @@ $result = mysqli_query($link, $sql);
             </h2>
         </td>
     </div>
-
 </body>
 
 </html>

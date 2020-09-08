@@ -7,11 +7,6 @@ $result = mysqli_query($link, $commandText);
 //不顯示管理員帳號在黑名單
 $row = mysqli_fetch_assoc($result)
 
-
-
-
-
-
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -30,7 +25,6 @@ $row = mysqli_fetch_assoc($result)
 </head>
 
 <body>
-
     <div class="container">
         <h2>購物系統 - 會員列表</h2>
         <div>
@@ -38,13 +32,11 @@ $row = mysqli_fetch_assoc($result)
         </div>
         <?php while ($row = mysqli_fetch_assoc($result)) { ?>
             <span>
-
-            <?php if ($row["dis"] == 0) { ?>
-                <a href="../black/block.php?uid=<?= $row["uid"] ?>" class="btn btn-outline-danger">加入黑名單</a>
-              <?php } else { ?>
-                <a href="../black/cancel.php?uid=<?= $row["uid"] ?>" class="btn btn-outline-success">移除黑名單</a>
-              <?php } ?>
-                
+                <?php if ($row["dis"] == 0) { ?>
+                    <a href="../black/block.php?uid=<?= $row["uid"] ?>" class="btn btn-outline-danger">加入黑名單</a>
+                <?php } else { ?>
+                    <a href="../black/cancel.php?uid=<?= $row["uid"] ?>" class="btn btn-outline-success">移除黑名單</a>
+                <?php } ?>
                 <a href="./member_detail.php?uid=<?= $row["uid"] ?>" class="btn btn-outline-info">查看購買品項</a>
             </span>
             <table class="table table-striped">

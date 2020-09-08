@@ -26,13 +26,13 @@ if (isset($_POST["okButton"])) {
 
             if ($_FILES['file']['error'] > 0) {
                 echo "Error:" . $_FILES["file"]["error"];
-            } 
+            }
             //複製檔案
             if (is_uploaded_file($_FILES['file']['tmp_name'])) {
                 $tempDIR = "./upload";
                 if (!is_dir($tempDIR) || !is_writeable($tempDIR))
                     die("目錄不存在或無法寫入 ");
-                $localFilename = $_POST["prodname"] .  ".png";  
+                $localFilename = $_POST["prodname"] .  ".png";
                 move_uploaded_file($_FILES['file']['tmp_name'], iconv("UTF-8", "UTF-8", $tempDIR . "/" . $localFilename)); //將上傳的暫存檔移動到指定目錄
             }
             //新增商品
@@ -66,67 +66,32 @@ if (isset($_POST["okButton"])) {
 <body>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <!-- <form method="post" enctype="multipart/form-data">
-        <div class="form-group row">
-            <label for="prodname" class="col-4 col-form-label">商品名</label>
-            <div class="col-8">
-                <input id="prodname" name="prodname" type="text" class="form-control">
-            </div>
-        </div>
-
-        <input name="file" type="file">
-        <div class="form-group row">
-            <label for="prodcount" class="col-4 col-form-label">數量</label>
-            <div class="col-8">
-                <input id="prodcount" name="prodcount" type="text" class="form-control">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="cash" class="col-4 col-form-label">金額</label>
-            <div class="col-8 ">
-                <input id="cash" name="cash" type="text" class="form-control">
-            </div>
+    <form class="form-horizontal" method="post" enctype="multipart/form-data">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-highlight">
+                <thead>
+                    <th>商品名</th>
+                    <th>圖片</th>
+                    <th>數量</th>
+                    <th>金額</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input id="prodname" name="prodname" type="text" class="form-control"></td>
+                        <td><input name="file" type="file"></td>
+                        <td><input id="prodcount" name="prodcount" type="text" class="form-control"></td>
+                        <td><input id="cash" name="cash" type="text" class="form-control"></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div class="form-group row">
             <div class="offset-4 col-8">
                 <button name="okButton" type="submit" class="btn btn-primary">確認送出</button>
+                <button name="cancelButton" value="Cancel" type="submit" class="btn btn-secondary">取消新增</button>
             </div>
         </div>
-    </form> -->
-    
-    
-    <form class="form-horizontal" method="post" enctype="multipart/form-data">
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped table-highlight">
-            <thead>
-                <th>商品名</th>
-                <th>圖片</th>
-                <th>數量</th>
-                <th>金額</th>
-                
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input id="prodname" name="prodname" type="text" class="form-control"></td>
-                    <td><input name="file" type="file"></td>
-                    <td><input id="prodcount" name="prodcount" type="text" class="form-control"></td>
-                    <td><input id="cash" name="cash" type="text" class="form-control"></td>
-                </tr>
-               
-            </tbody>
-            
-        </table>
-    </div>
-    <div class="form-group row">
-                <div class="offset-4 col-8">
-                <button name="okButton" type="submit" class="btn btn-primary">確認送出</button>
-                <button name="cancelButton" value="Cancel" type="submit" class="btn btn-secondary">取消新增</button>
-                </div>
-            </div>
-    
-</form>
+    </form>
 </body>
 
 </html>

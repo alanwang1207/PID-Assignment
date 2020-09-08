@@ -28,7 +28,6 @@ if (isset($_POST["okButton"])) {
     $result = mysqli_query($link, $sql);
     $count = mysqli_num_rows($result);
 
-
     //驗證是否改帳號
     $sql = <<<sqlstate
     select username from user where uid = $uid;
@@ -73,9 +72,7 @@ if (isset($_POST["okButton"])) {
     $result = mysqli_query($link, $sql);
     $row = mysqli_fetch_assoc($result);
 }
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -91,9 +88,7 @@ if (isset($_POST["okButton"])) {
 </head>
 
 <body>
-
     <div class="container">
-
         <form method="post">
             <div class="form-group row">
                 <label for="username" class="col-4 col-form-label">帳號:</label>
@@ -114,9 +109,7 @@ if (isset($_POST["okButton"])) {
                 </div>
             </div>
         </form>
-
     </div>
-
 </body>
 
 </html>

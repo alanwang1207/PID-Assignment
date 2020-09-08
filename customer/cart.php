@@ -7,7 +7,6 @@ require_once("../config.php");
 //數量驗證,儲存首頁輸入的數量
 $uid = $_SESSION["uid"];
 
-
 //顯示購物車清單
 $sql = <<<multi
 select u.uid,prodname,cash,count,did,cash*count as total
@@ -18,8 +17,6 @@ where u.uid=$uid
 ORDER BY did ASC
 multi;
 $result = mysqli_query($link, $sql);
-
-
 
 //刪除購物車訂單
 if (isset($_POST["btnDel"])) {
@@ -36,8 +33,6 @@ if (isset($_POST["btnDel"])) {
   $pid = $row["pid"];
   $cartcount = $row["count"];
 
-
-
   //修改產品表暫存數量欄位
   $sql =
     "update prod set tempcount = tempcount + $cartcount where pid = '$pid' ";
@@ -50,8 +45,6 @@ if (isset($_POST["btnDel"])) {
   mysqli_query($link, $sql);
   echo "<script> alert('刪除成功');location.replace('./cart.php');</script>";
 }
-
-
 
 // 建立訂單
 if (isset($_POST["btnDetail"])) {
@@ -89,25 +82,16 @@ if (isset($_POST["btnDetail"])) {
     mysqli_query($link, $sql);
   }
 
-
-
-
   //刪除真實數量
   $sql =
     "update prod set prodcount = tempcount ";
   mysqli_query($link, $sql);
-
 
   //刪除購物車商品
   $sql = <<<multi
   delete from cart where uid = '$uid';
   multi;
   mysqli_query($link, $sql);
-
-
-
-
-
   echo "<script> alert('訂單已完成，感謝您的購買');location.replace('./customer_detail.php?did=$newdid');</script>";
 }
 
@@ -142,8 +126,6 @@ if (isset($_POST["member"])) {
 
   <div class="container">
     <div class="p-3 mb-2 bg-secondary text-white">
-
-
       <h2>購物網 - 購物車</h2>
       <span>
         <?php if ($sUserName == "Guest") : ?>
@@ -154,7 +136,6 @@ if (isset($_POST["member"])) {
         <a href="../index.php" class="btn btn-success btn-md">回首頁</a>
         <a href="./edit.php?uid=<?= $uid ?>" class="btn btn-primary btn-md">修改會員資料</a>
       </span>
-
       <tr>
         <td align="center" bgcolor="#CCCCCC"><?php echo "Hello~ " . $sUserName ?> </td>
       </tr>
@@ -170,7 +151,6 @@ if (isset($_POST["member"])) {
         </tr>
       </thead>
       <?php while ($row = mysqli_fetch_assoc($result)) { ?>
-
         <tbody>
           <tr>
             <td><?= $row["prodname"] ?></td>
@@ -183,7 +163,6 @@ if (isset($_POST["member"])) {
               </td>
               <td><?= $row["total"] ?></td>
           </tr>
-
           <?php
           $rowt = (int)$row["total"];
           $total += $rowt;
@@ -195,7 +174,6 @@ if (isset($_POST["member"])) {
       $tt = $total;
       ?>
     </table>
-
     <div class="p-3 mb-2 bg-success text-white">
       <td>
         <h3>
@@ -203,11 +181,8 @@ if (isset($_POST["member"])) {
         </h3>
       </td>
     </div>
-
-    
     <input type="submit" class="btn btn-outline-danger btn-md" name="btnDetail" id="btnDetail" value="送出訂單" />
     </form>
-
 </body>
 
 </html>

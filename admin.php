@@ -1,11 +1,10 @@
-<?php 
+<?php
 session_start();
-$sUserName = "" ;
+$sUserName = "";
 
-if(isset($_SESSION["userName"])){
+if (isset($_SESSION["userName"])) {
   $sUserName = $_SESSION["userName"];
-}
-else{
+} else {
   $sUserName = "Guest";
 }
 if (isset($_POST["member"])) {
@@ -31,27 +30,21 @@ if (isset($_POST["member"])) {
 </head>
 
 <body>
-
-<div class="container">
-      <h2>購物系統 - 首頁</h2>
-      <span>
+  <div class="container">
+    <h2>購物系統 - 首頁</h2>
+    <span>
       <?php if ($sUserName == "Guest") : ?>
         <a href="login.php" class="btn btn-outline-success btn-md">登入</a>
-        <?php else : ?>
+      <?php else : ?>
         <a href="login.php?logout=1" class="btn btn-outline-secondary btn-md">登出</a>
-        <?php endif; ?>
-
-        <a href="./member/member.php" id="member" type="submit" class="btn btn-outline-info">會員管理</a></td>
-        <a href="./prod/product.php" id="member" type="submit" class="btn btn-outline-info">商品管理</a></td>
-        </span>
-
+      <?php endif; ?>
+      <a href="./member/member.php" id="member" type="submit" class="btn btn-outline-info">會員管理</a></td>
+      <a href="./prod/product.php" id="member" type="submit" class="btn btn-outline-info">商品管理</a></td>
+    </span>
     <tr>
-      <td align="center" bgcolor="#CCCCCC"><?php echo "Hello~ " . $sUserName." 管理員" ?> </td>
+      <td align="center" bgcolor="#CCCCCC"><?php echo "Hello~ " . $sUserName . " 管理員" ?> </td>
     </tr>
-    <!-- <img src="hello.jpg" class="rounded-circle img-thumbnail mx-auto d-block" alt="Cinque Terre" style="width:50%"> -->
-  </table>
-
-
+    </table>
 </body>
 
 </html>

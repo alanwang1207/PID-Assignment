@@ -58,7 +58,6 @@ if (isset($_POST["okButton"])) {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -73,13 +72,7 @@ if (isset($_POST["okButton"])) {
 </head>
 
 <body>
-
     <div class="container">
-
-
-
-
-
         <form class="form-horizontal" method="post">
             <div class="table-responsive">
                 <table class="table table-bordered table-striped table-highlight">

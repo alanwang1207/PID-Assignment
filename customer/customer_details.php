@@ -30,27 +30,9 @@ multi;
     $result = mysqli_query($link, $sql);
 }
 
-if(isset($_POST["detail"])){
+if (isset($_POST["detail"])) {
     header("location:customer_detail.php?did=$did");
 }
-
-// select did,username,prodname,prodcount,cash,total,date
-
-// from user u join detail d on d.uid =u.uid
-// where d.uid=$uid
-// ORDER BY d.did ASC
-// limit $num
-
-// $sql = <<<multi
-// select did,username,prodname,prodcount,cash,total,date
-
-// from user u join detail d on d.uid =u.uid
-// where d.uid=$uid
-// ORDER BY d.did ASC
-// multi;
-// $result = mysqli_query($link, $sql);
-
-
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -86,16 +68,15 @@ if(isset($_POST["detail"])){
                             <td><?= $row["did"] ?></td>
                             <td><?= $row["date"] ?></td>
                             <td>
-                            <input type="hidden" name="btnsend" id="btnsend" value="<?= $row["did"] ?>" />
-                            <a href="./customer_detail.php?did=<?= $row["did"] ?>" class="btn btn-info">點我查看</a>
+                                <input type="hidden" name="btnsend" id="btnsend" value="<?= $row["did"] ?>" />
+                                <a href="./customer_detail.php?did=<?= $row["did"] ?>" class="btn btn-info">點我查看</a>
                             </td>
-                        </tr>             
+                        </tr>
                     <?php } ?>
                 </tbody>
             </table>
             <td>
                 <input type="submit" class="btn btn-primary" id="more" name="more" value="更多">
-                
             </td>
         </div>
     </form>

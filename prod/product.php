@@ -25,7 +25,6 @@ $result = mysqli_query($link, $commandText);
 </head>
 
 <body>
-
     <div class="container">
         <div>
             <h2>購物系統 - 商品管理</h2>
@@ -55,12 +54,10 @@ $result = mysqli_query($link, $commandText);
                         <td><?= $row["prodcount"] ?></td>
                         <td><?= $row["cash"] ?></td>
                     </tr>
-
                 </tbody>
             </table>
         <?php } ?>
     </div>
-
 </body>
 
 </html>

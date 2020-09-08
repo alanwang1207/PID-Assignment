@@ -76,45 +76,10 @@ if (isset($_POST["btnAdd"]) && $uid == 0) {
       echo "<script> alert('數量不足，請重新輸入');location.replace('index.php');</script>";
     }
   } else {
-
-
-
-
-
-
-
-
-
-    // if (isset($_POST["btnUP"])) {
-    //   if ($_SESSION["count"] >= 0) {
-    //     $_SESSION['count'] = $_SESSION['count'] + 4;
-    //     $num = $_SESSION['count'];
-    //     $sql = <<<multi
-    //     select * from prod  limit $num,4
-    //     multi;
-    //     $result = mysqli_query($link, $sql);
-    //   }
-    // } else if (isset($_POST["btnDown"])) {
-    //   $_SESSION['count'] = $_SESSION['count'] - 4;
-    //   $num = $_SESSION['count'];
-    //   $sql = <<<multi
-    //   select * from prod  limit $num,4
-    //   multi;
-    //   $result = mysqli_query($link, $sql);
-    // } else {
-    //     $sql = <<<multi
-    //   select * from prod  limit 0,4
-    // multi;
-    //     $result = mysqli_query($link, $sql);
-    //   }
-    
-
-
-      $sql = <<<multi
+    $sql = <<<multi
     select * from prod 
     multi;
-      $result = mysqli_query($link, $sql);
-
+    $result = mysqli_query($link, $sql);
   }
 }
 
@@ -182,8 +147,6 @@ if (isset($_POST["member"])) {
       <a href="index.php">
         <h2>購物網 - 首頁</h2>
       </a>
-
-
       <div class="dropdown">
         <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           會員中心
@@ -202,26 +165,11 @@ if (isset($_POST["member"])) {
           <?php endif; ?>
         </div>
       </div>
-
-      <!-- <span>
-        <?php if ($sUserName == "Guest") : ?>
-          <a href="login.php" class="btn btn-success btn-md">登入</a>
-        <?php else : ?>
-          <a href="login.php?logout=1" class="btn btn-secondary btn-md">登出</a>
-        <?php endif; ?>
-
-        <?php if ($sUserName == "Guest") : ?>
-          <a href="#" style="text-decoration:none;"></a>
-        <?php else : ?>
-          <a href="./customer/edit.php?uid=<?= $uid ?>" class="btn btn-primary btn-md">修改會員資料</a>
-          <a href="./customer/customer_details.php" class="btn btn-success btn-md">查看訂單</a>
-        <?php endif; ?>
-      </span> -->
     </div>
     <tr>
       <h1><?php echo "Hello~ " . $sUserName ?> </h1>
     </tr>
-    <!-- <img src="hello.jpg" class="rounded-circle img-thumbnail mx-auto d-block" alt="Cinque Terre" style="width:50%"> -->
+   
 
 
 
@@ -260,12 +208,6 @@ if (isset($_POST["member"])) {
       </a>
     </div>
     <form method="post">
-
-      <!-- <label for="keyword">請輸入商品名 : </label>
-      <input type="keyword" class="form-control " pattern="^[\u4e00-\u9fa5a-zA-Z]+$" name="keyword" id="keyword" style="width: 100px;">
-      <input name="btnSearchp" id="btnSearchp" type="submit" class="btn btn-primary btn-sm"> -->
-
-
       <div class="input-group mb-3 mt-3" style="width: 300px;">
         <div class="input-group-prepend">
           <span class="input-group-text" id="inputGroup-sizing-default">請輸入商品名</span>
@@ -273,9 +215,6 @@ if (isset($_POST["member"])) {
         <input type="keyword" class="form-control " pattern="^[\u4e00-\u9fa5a-zA-Z]+$" name="keyword" id="keyword">
         <input name="btnSearchp" id="btnSearchp" type="submit" class="btn btn-primary btn-sm">
       </div>
-
-
-
       <div class="card-deck text-center hover">
         <?php while ($row = mysqli_fetch_assoc($result)) { ?>
           <div class="col-3">
@@ -305,35 +244,16 @@ if (isset($_POST["member"])) {
     </form>
   </div>
   </div>
-
 <?php } ?>
-<!-- <table id="page">
-  <div>
-    <input type="submit" name="btnDown" id="btnDown" value="上一頁" />
-    <input type="submit" name="btnUP" id="btnUP" value="下一頁" />
-  </div>
-</table> -->
-
-
-
 </div>
-
-
-
-
 </form>
-
-
-
 <?php if ($sUserName == "Guest") : ?>
   <a href="#" style="text-decoration:none;"></a>
 <?php else : ?>
   <div class="col-4 mb-2 ml-3">
     <a href="./customer/cart.php" class="btn btn-outline-success btn-md">前往購物車</a>
   </div>
-
 <?php endif; ?>
-
 </div>
 </body>
 
