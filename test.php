@@ -125,19 +125,23 @@ if (isset($_POST["member"])) {
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="css/style.css">
 </head>
+<!-- 顯示提示字特效 -->
+<script>
+  $(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+</script>
 
 <body>
 
   <div class="container ">
     <div class="p-3 mb-2 bg-info text-white">
-      <div>
-        <a href="index.php">
-          <h2>購物網 - 首頁</h2>
-        </a>
-      </div>
 
-      <div>
+      <a href="index.php">
+        <h2>購物網 - 首頁</h2>
+      </a>
 
+      <span>
         <?php if ($sUserName == "Guest") : ?>
           <a href="login.php" class="btn btn-success btn-md">登入</a>
         <?php else : ?>
@@ -150,61 +154,50 @@ if (isset($_POST["member"])) {
           <a href="./customer/edit.php?uid=<?= $uid ?>" class="btn btn-primary btn-md">修改會員資料</a>
           <a href="./customer/customer_details.php" class="btn btn-success btn-md">查看訂單</a>
         <?php endif; ?>
-
-      </div>
-
+      </span>
     </div>
     <tr>
       <td align="center" bgcolor="#CCCCCC"><?php echo "Hello~ " . $sUserName ?> </td>
     </tr>
     <!-- <img src="hello.jpg" class="rounded-circle img-thumbnail mx-auto d-block" alt="Cinque Terre" style="width:50%"> -->
     <form method="post">
-      <form class="form-inline" method="POST">
-        <label for="keyword">請輸入商品名 : </label>
-        <input type="keyword" class="form-control " pattern="^[\u4e00-\u9fa5a-zA-Z]+$" name="keyword" id="keyword" style="width: 100px;">
-        <input name="btnSearchp" id="btnSearchp" type="submit" class="btn btn-primary btn-sm">
-      </form>
+
+      <label for="keyword">請輸入商品名 : </label>
+      <input type="keyword" class="form-control " pattern="^[\u4e00-\u9fa5a-zA-Z]+$" name="keyword" id="keyword" style="width: 100px;">
+      <input name="btnSearchp" id="btnSearchp" type="submit" class="btn btn-primary btn-sm">
 
 
-
-      <div class="row">
+      <div class="card-deck">
         <?php while ($row = mysqli_fetch_assoc($result)) { ?>
-          <div class="col-3 pl-2 pr-2">
+          <div class="col-3">
             <div class="card mb-3 shadow-sm">
-              <img src="prod/upload/<?= $row["prodname"] ?>.png" width="100%" height="150">
+              <img src="prod/upload/<?= $row["prodname"] ?>.png" width="90%" height="150" data-toggle="tooltip" title="<?= $row["prodname"] ?>">
               <div class="card-body">
-                <?= $row["prodname"] ?>
-                <p><?php
-                    if ($row["tempcount"] == 0) {
-                      echo "補貨中";
-                    } else {
-                      echo $row["tempcount"];
-                    }
-                    ?></p>
+                <p style="color: brown;"><?php
+                                          if ($row["tempcount"] == 0) {
+                                            echo "補貨中";
+                                          } else {
+                                            echo $row["tempcount"];
+                                          }
+                                          ?></p>
+                <p><?= $row["cash"] . "元" ?></p>
+                <form method="post">
+                <p><?= $row["total"] ?></p>
 
-
-
-                <font color="#AE0000">
-
-                  <p><?= $row["cash"] . "元" ?></p>
-                </font>
-
-                  <div class="form-group row">
-                    <div class="col-3">
-                      <input id="count" name="count" type="number" class="form-control" value="<?= $row["count"]; ?>">
-                    </div>
+                <div class="form-group row">
+                  <div class="col-6">
+                    <input id="count" name="count" type="number" class="form-control" value="<?= $row["count"]; ?>">
                   </div>
-                  </td>
-                  <td><input type="submit" class="btn btn-outline-primary btn-md" name="btnAdd" id="btnAdd" value="添加" /></td>
-
+                </div>
+                <td><input type="submit" class="btn btn-outline-primary btn-md" name="btnAdd" id="btnAdd" value="添加" /></td>
+                <input type="hidden" name="btnsend" id="btnsend" value="<?= $row["pid"] ?>" />
               </div>
+              
             </div>
           </div>
 
-
         <?php } ?>
-
-      </div>
+    </form>
   </div>
 
 
@@ -212,55 +205,15 @@ if (isset($_POST["member"])) {
 
 
 
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>商品名</th>
-        <th>圖片</th>
-        <th>數量</th>
-        <th>金額</th>
-        <th>購買量</th>
-        <th></th>
-      </tr>
-    </thead>
-    <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+  </div>
 
-      <tbody>
-        <tr>
-          <td><?= $row["prodname"] ?></td>
-          <td><img src="prod/upload/<?= $row["prodname"] ?>.png" alt="商品圖" width="100" height="100"> </td>
-          <td>
-            <?php
-            if ($row["tempcount"] == 0) {
-              echo "補貨中";
-            } else {
-              echo $row["tempcount"];
-            }
-            ?>
-          </td>
-          <td><?= $row["cash"] ?></td>
-
-
-          <td>
-            <div class="form-group row">
-              <div class="col-3">
-                <input id="count" name="count" type="number" class="form-control" value="<?= $row["count"]; ?>">
-              </div>
-            </div>
-          </td>
-          <td><input type="submit" class="btn btn-outline-primary btn-md" name="btnAdd" id="btnAdd" value="添加" /></td>
-          <td><?= $row["total"] ?></td>
-        </tr>
-        <input type="hidden" name="btnsend" id="btnsend" value="<?= $row["pid"] ?>" />
-        </form>
-      </tbody>
-    <?php } ?>
-  </table>
   <?php if ($sUserName == "Guest") : ?>
     <a href="#" style="text-decoration:none;"></a>
   <?php else : ?>
     <a href="./customer/cart.php" class="btn btn-outline-success btn-md">前往購物車</a>
   <?php endif; ?>
 </body>
+
+</html>
 
 </html>

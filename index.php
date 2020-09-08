@@ -187,9 +187,9 @@ if (isset($_POST["member"])) {
               ?>
             </td>
             <td><?= $row["cash"] ?></td>
-            
+            <form method="post">
 
-              <td>
+            <td>
                 <div class="form-group row">
                   <div class="col-3">
                     <input id="count" name="count" type="number" class="form-control" value="<?= $row["count"]; ?>">
@@ -210,5 +210,4 @@ if (isset($_POST["member"])) {
       <a href="./customer/cart.php" class="btn btn-outline-success btn-md">前往購物車</a>
     <?php endif; ?>
 </body>
-
 </html>
