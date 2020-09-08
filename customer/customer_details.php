@@ -10,7 +10,6 @@ $uid = $_SESSION['uid'];
 $did = $_POST["detail"];
 
 //顯示明細
-
 if (isset($_POST["more"])) {
     $_SESSION['num'] = $_SESSION['num'] + 5;
     $num = $_SESSION['num'];

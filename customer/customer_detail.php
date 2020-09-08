@@ -5,8 +5,8 @@ session_start();
 require_once("../config.php");
 
 $did = $_GET["did"];
-//顯示明細
 
+//顯示明細
 $sql = <<<multi
 select did,username,prodname,prodcount,cash,total,date
 
