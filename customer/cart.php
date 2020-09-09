@@ -50,7 +50,6 @@ if (isset($_POST["btnDel"])) {
 if (isset($_POST["btnDetail"])) {
 
   //儲存訂單id
-  $did = $_POST["btnSend"];
   $sql = "select did from `detail` ORDER BY `detail`.`did` DESC";
   $result = mysqli_query($link, $sql);
   $row = mysqli_fetch_assoc($result);
@@ -159,7 +158,7 @@ if (isset($_POST["member"])) {
             <form method="post">
               <td>
                 <input type="submit" class="btn btn-outline-danger btn-md" name="btnDel" id="btnDel" value="刪除" />
-                <input type="hidden" name="btnSend" id="btnSend" value="<?= $row["did"] ?>" />
+                
               </td>
               <td><?= $row["total"] ?></td>
           </tr>
